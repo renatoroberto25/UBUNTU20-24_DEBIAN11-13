@@ -4,7 +4,6 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 BASE_DIR="$SCRIPT_DIR"
 AUDIT_DIR="$BASE_DIR/AUDIT_SH"
-REMED_DIR="$BASE_DIR/REMED_SH"
 REMED_GROUP_DIR="$BASE_DIR/REMED_GROUPS"
 LOG_DIR="$BASE_DIR/logs"
 LOG_AUDIT="$LOG_DIR/audit"
@@ -130,6 +129,20 @@ remed_group_for_id() {
         echo "tls"
     elif (( num >= 109 && num <= 129 )); then
         echo "ssh"
+    elif (( num >= 130 && num <= 154 )); then
+        echo "accounts"
+    elif (( num >= 155 && num <= 160 )); then
+        echo "sudo"
+    elif (( num >= 161 && num <= 181 )); then
+        echo "audit_logs"
+    elif (( num >= 182 && num <= 184 )); then
+        echo "integrity"
+    elif (( num == 193 )); then
+        echo "system_accounts"
+    elif (( num >= 185 && num <= 198 )); then
+        echo "permissions"
+    elif (( num >= 199 && num <= 203 )); then
+        echo "home"
     else
         return 1
     fi
@@ -193,11 +206,13 @@ run_group_remed_script() {
     fi
 }
 
-run_remed_scripts() {
-    local DIR="$1"
-    local LOGFILE="$2"
-    local IDS_FILE="${3:-}"
-    local -a scripts=()
+remed_group_order() {
+    printf '%s\n' kernel filesystem boot system network tls ssh accounts sudo audit_logs integrity permissions system_accounts home
+}
+
+run_remed_groups() {
+    local LOGFILE="$1"
+    local IDS_FILE="$2"
     local -a groups=()
     local -A group_ids=()
     local group id shfile run_id rollback_file
@@ -210,59 +225,32 @@ run_remed_scripts() {
     export HITSS_ROLLBACK_FILE="$rollback_file"
     export HITSS_ROLLBACK_DIR="$LOG_ROLLBACK"
 
-    if [ -n "$IDS_FILE" ]; then
-        while IFS= read -r id; do
-            if group="$(remed_group_for_id "$id" 2>/dev/null)" && [ -f "$REMED_GROUP_DIR/$group.sh" ]; then
-                if [[ -z "${group_ids[$group]:-}" ]]; then
-                    groups+=("$group")
-                fi
-                group_ids[$group]="${group_ids[$group]:-} $id"
-            elif [ -f "$DIR/$id.sh" ]; then
-                scripts+=("$DIR/$id.sh")
-            else
-                printf "%-30s SEM_AUTO\n" "$id.sh" | tee -a "$LOGFILE"
-                TOTAL_REMED_SKIP=$((TOTAL_REMED_SKIP + 1))
+    while IFS= read -r id; do
+        if group="$(remed_group_for_id "$id" 2>/dev/null)" && [ -f "$REMED_GROUP_DIR/$group.sh" ]; then
+            if [[ -z "${group_ids[$group]:-}" ]]; then
+                groups+=("$group")
             fi
-            done < "$IDS_FILE"
-    else
-        if [ -d "$REMED_GROUP_DIR" ]; then
-            for group in kernel filesystem boot system network tls ssh; do
-                [ -f "$REMED_GROUP_DIR/$group.sh" ] && groups+=("$group")
-            done
+            group_ids[$group]="${group_ids[$group]:-} $id"
+        else
+            printf "%-30s SEM_AUTO\n" "$id" | tee -a "$LOGFILE"
+            TOTAL_REMED_SKIP=$((TOTAL_REMED_SKIP + 1))
         fi
-        mapfile -t scripts < <(collect_scripts "$DIR")
-    fi
-    if (( ${#groups[@]} == 0 && ${#scripts[@]} == 0 )); then
+    done < "$IDS_FILE"
+
+    if (( ${#groups[@]} == 0 )); then
         echo "Nenhum script de remediacao encontrado para executar."
         return 0
     fi
-    for group in "${groups[@]}"; do
+
+    while IFS= read -r group; do
+        [[ -n "${group_ids[$group]:-}" ]] || continue
         shfile="$REMED_GROUP_DIR/$group.sh"
         if [ -f "$shfile" ]; then
             # shellcheck disable=SC2086
             run_group_remed_script "$shfile" "$LOGFILE" ${group_ids[$group]:-}
         fi
-    done
-    for shfile in "${scripts[@]}"; do
-        local name output rc status
-        name="$(basename "$shfile")"
-        set +e
-        output="$(bash "$shfile" 2>&1)"
-        rc=$?
-        set -e
-        printf '>> %s\n%s\n' "$name" "$output" >> "$LOGFILE"
-        if grep -q '^MANUAL[[:space:]]*|' <<< "$output"; then
-            status="MANUAL"
-            TOTAL_REMED_MANUAL=$((TOTAL_REMED_MANUAL + 1))
-        elif (( rc != 0 )) || grep -q '^FAIL[[:space:]]*|' <<< "$output"; then
-            status="FAIL"
-            TOTAL_REMED_FAIL=$((TOTAL_REMED_FAIL + 1))
-        else
-            status="OK"
-            TOTAL_REMED_OK=$((TOTAL_REMED_OK + 1))
-        fi
-        printf "%-30s %s\n" "$name" "$status"
-    done
+    done < <(remed_group_order)
+
     echo "Rollback manifest: $rollback_file" >> "$LOGFILE"
 }
 
@@ -288,24 +276,38 @@ remed_summary() {
 }
 
 report_unfixed() {
-    local last_post
-    last_post=$(ls -1t "$LOG_AUDIT"/audit-post-* 2>/dev/null | head -n 1)
-    if [[ -z "$last_post" ]]; then
-        echo "Nenhum log audit-post encontrado."
+    local csv="$LOG_AUDIT/audit-post-current.csv"
+
+    [ -s "$csv" ] || csv="$LOG_AUDIT/audit-current.csv"
+    if [ ! -s "$csv" ]; then
+        echo "Nenhum audit encontrado."
         return 1
     fi
-    echo "Ultimo log: $last_post"
-    echo ""
-    echo "Itens sem remediacao:"
-    awk '
-        /^\[[0-9]+]/ { item=$0; next }
-        /^[[:space:]]*FAIL[[:space:]]*$/ && item != "" { print item }
-    ' "$last_post"
+
+    echo "Fonte: $csv"
+    awk -F, 'NR > 1 && $3 == "REPROVADO" { printf "[%03d] FAIL\n", $2 }' "$csv"
+}
+
+write_fixed_report() {
+    local ids_file="$1"
+    local post_csv="$2"
+    local out="$3"
+
+    printf "host,id,status\n" > "$out"
+    awk -F, -v host="$HOSTNAME" '
+        FNR == NR {
+            if (FNR > 1 && $3 == "APROVADO") {
+                ok[sprintf("%03d", $2)] = 1
+            }
+            next
+        }
+        ok[$1] { printf "%s,%s,CORRIGIDO\n", host, $1 }
+    ' "$post_csv" "$ids_file" >> "$out"
 }
 
 run_rollback() {
     local manifest="${1:-}"
-    local item action target value extra
+    local item action target value extra fixed_csv
 
     if [ -z "$manifest" ]; then
         manifest="$(ls -1t "$LOG_ROLLBACK"/rollback-*.manifest 2>/dev/null | head -n 1)"
@@ -321,6 +323,8 @@ run_rollback() {
 
     echo "=== ROLLBACK ==="
     echo "Manifesto: $manifest"
+    fixed_csv="$(ls -1t "$LOG_REMED"/fixed-*.csv 2>/dev/null | head -n 1)"
+    [ -n "$fixed_csv" ] && echo "Fixed: $fixed_csv"
     tac "$manifest" | while IFS='|' read -r item action target value extra; do
         case "$action" in
             restore_file)
@@ -383,7 +387,7 @@ run_audit() {
 }
 
 run_remed() {
-    local ids_file
+    local ids_file fixed_csv fixed_count pre_fail post_pass post_fail
     if [ ! -s "$LOG_AUDIT/audit-current.csv" ]; then
         echo "Nenhum audit-current.csv encontrado. Execute primeiro: $0 audit"
         return 1
@@ -397,109 +401,58 @@ run_remed() {
     TOTAL_REMED_OK=0; TOTAL_REMED_MANUAL=0; TOTAL_REMED_FAIL=0; TOTAL_REMED_SKIP=0
     LOG="$LOG_REMED/remed-${HOSTNAME}-${DATE}.log"
     hitss_stamp "REMEDIATION" "START" "$LOG"
-    echo "=== REMEDIACAO DOS ITENS REPROVADOS ==="
-    run_remed_scripts "$REMED_DIR" "$LOG" "$ids_file"
+    pre_fail="$(wc -l < "$ids_file")"
+    echo "=== REMEDIACAO ==="
+    run_remed_groups "$LOG" "$ids_file"
     remed_summary
     hitss_stamp "REMEDIATION" "END ok=$TOTAL_REMED_OK manual=$TOTAL_REMED_MANUAL fail=$TOTAL_REMED_FAIL sem_auto=$TOTAL_REMED_SKIP" "$LOG"
-    echo "Log: $LOG"
-}
 
-run_remed_all() {
-    TOTAL_REMED_OK=0; TOTAL_REMED_MANUAL=0; TOTAL_REMED_FAIL=0; TOTAL_REMED_SKIP=0
-    LOG="$LOG_REMED/remed-all-${HOSTNAME}-${DATE}.log"
-    hitss_stamp "REMEDIATION_ALL" "START" "$LOG"
-    echo "=== REMEDIACAO COMPLETA ==="
-    run_remed_scripts "$REMED_DIR" "$LOG"
-    remed_summary
-    hitss_stamp "REMEDIATION_ALL" "END ok=$TOTAL_REMED_OK manual=$TOTAL_REMED_MANUAL fail=$TOTAL_REMED_FAIL sem_auto=$TOTAL_REMED_SKIP" "$LOG"
-    echo "Log: $LOG"
-}
-
-run_full() {
-    LOG_PRE="$LOG_AUDIT/audit-pre-${HOSTNAME}-${DATE}.log"
-    LOG_R="$LOG_REMED/remed-${HOSTNAME}-${DATE}.log"
-    LOG_POST="$LOG_AUDIT/audit-post-${HOSTNAME}-${DATE}.log"
-    IDS_FILE="$LOG_REMED/failed-pre-${HOSTNAME}-${DATE}.ids"
-    hitss_stamp "FULL" "START" "$LOG_PRE"
-    echo "=== AUDIT PRE ==="
-    TOTAL_PASS=0; TOTAL_FAIL=0
-    AUDIT_RESULT_CSV="$LOG_AUDIT/audit-pre-current.csv"
-    printf "host,id,status\n" > "$AUDIT_RESULT_CSV"
-    run_audit_scripts "$AUDIT_DIR" "$LOG_PRE"
-    pre_pass=$TOTAL_PASS
-    pre_fail=$TOTAL_FAIL
-    failed_ids_from_csv "$AUDIT_RESULT_CSV" > "$IDS_FILE"
-    summary
-    hitss_stamp "AUDIT" "END pre_pass=$pre_pass pre_fail=$pre_fail" "$LOG_PRE"
-    echo ""
-    echo "=== REMEDIACAO DOS ITENS REPROVADOS ==="
-    TOTAL_REMED_OK=0; TOTAL_REMED_MANUAL=0; TOTAL_REMED_FAIL=0; TOTAL_REMED_SKIP=0
-    hitss_stamp "REMEDIATION" "START" "$LOG_R"
-    if [ -s "$IDS_FILE" ]; then
-        run_remed_scripts "$REMED_DIR" "$LOG_R" "$IDS_FILE"
-    else
-        : > "$LOG_R"
-        echo "Nenhum item REPROVADO no audit pre."
-    fi
-    remed_summary
-    hitss_stamp "REMEDIATION" "END ok=$TOTAL_REMED_OK manual=$TOTAL_REMED_MANUAL fail=$TOTAL_REMED_FAIL sem_auto=$TOTAL_REMED_SKIP" "$LOG_R"
     echo ""
     echo "=== AUDIT POS ==="
+    LOG_POST="$LOG_AUDIT/audit-post-${HOSTNAME}-${DATE}.log"
     TOTAL_PASS=0; TOTAL_FAIL=0
     AUDIT_RESULT_CSV="$LOG_AUDIT/audit-post-current.csv"
     printf "host,id,status\n" > "$AUDIT_RESULT_CSV"
     run_audit_scripts "$AUDIT_DIR" "$LOG_POST"
-    post_pass=$TOTAL_PASS
-    post_fail=$TOTAL_FAIL
+    post_pass="$TOTAL_PASS"
+    post_fail="$TOTAL_FAIL"
     summary
     hitss_stamp "AUDIT" "END post_pass=$post_pass post_fail=$post_fail" "$LOG_POST"
-    hitss_stamp "FULL" "END pre_fail=$pre_fail post_fail=$post_fail" "$LOG_POST"
-    echo ""
-    echo "Comparativo:"
-    echo "Antes : PASS $pre_pass | FAIL $pre_fail"
-    echo "Depois: PASS $post_pass | FAIL $post_fail"
-    improvement=$((pre_fail - post_fail))
-    if (( improvement > 0 )); then
-        echo "Melhoria em $improvement controles"
-    elif (( improvement == 0 )); then
-        echo "Sem alteracao"
-    else
-        echo "Regressao detectada"
-    fi
+
+    fixed_csv="$LOG_REMED/fixed-${HOSTNAME}-${DATE}.csv"
+    write_fixed_report "$ids_file" "$AUDIT_RESULT_CSV" "$fixed_csv"
+    fixed_count="$(awk 'NR > 1 { c++ } END { print c + 0 }' "$fixed_csv")"
+
     echo ""
     echo "Logs:"
-    echo "PRE  : $LOG_PRE"
-    echo "REMED: $LOG_R"
+    echo "REMED: $LOG"
     echo "POST : $LOG_POST"
+    echo "FIXED: $fixed_csv"
+    echo "ROLLB: ${HITSS_ROLLBACK_FILE:-}"
+    echo "Antes FAIL: $pre_fail | Depois FAIL: $post_fail | Corrigidos: $fixed_count"
 }
 
 case "${1:-menu}" in
     audit)   run_audit ;;
     remed)   run_remed ;;
-    remed-all) run_remed_all ;;
-    full)    run_full ;;
     report)  report_unfixed ;;
     rollback) run_rollback "${2:-}" ;;
     menu)
         echo "1) Audit"
-        echo "2) Remediacao dos itens reprovados"
-        echo "3) Full (Audit -> Remed -> Audit)"
-        echo "4) Itens nao remediados (ultimo audit-post)"
-        echo "5) Remediacao completa"
-        echo "6) Rollback da ultima remediacao"
+        echo "2) Remed"
+        echo "3) Report"
+        echo "4) Rollback"
         read -rp "Escolha: " opt
         case "$opt" in
             1) run_audit ;;
             2) run_remed ;;
-            3) run_full ;;
-            4) report_unfixed ;;
-            5) run_remed_all ;;
-            6) run_rollback ;;
+            3) report_unfixed ;;
+            4) run_rollback ;;
             *) exit 1 ;;
         esac
         ;;
     *)
-        echo "Uso: $0 {audit|remed|remed-all|full|report|rollback|menu}"
+        echo "Uso: $0 {audit|remed|report|rollback|menu}"
         exit 1
         ;;
 esac

@@ -212,6 +212,27 @@ write_file_item() {
     printf '%s\n' "$content" > "$path"
 }
 
+append_unique_line_item() {
+    local id="$1"
+    local path="$2"
+    local line="$3"
+
+    require_root "$id" || return 1
+    backup_file "$id" "$path"
+    touch "$path"
+    grep -Fxq "$line" "$path" 2>/dev/null || printf '%s\n' "$line" >> "$path"
+}
+
+write_file_mode_item() {
+    local id="$1"
+    local path="$2"
+    local mode="$3"
+    local content="$4"
+
+    write_file_item "$id" "$path" "$content" || return 1
+    chmod "$mode" "$path"
+}
+
 sticky_world_writable_item() {
     local id="$1"
     local path old_mode
