@@ -1,0 +1,1262 @@
+>> 001.sh
+[1] Bloqueio cramfs
+OK
+>> 002.sh
+[2] Bloqueio squashfs
+OK
+>> 003.sh
+[3] Bloqueio udf
+OK
+>> 004.sh
+[4] Bloqueio hfs
+OK
+>> 005.sh
+[5] Bloqueio hfsplus
+OK
+>> 006.sh
+[6] Bloqueio jffs2
+OK
+>> 007.sh
+[7] Bloqueio freevxfs
+OK
+>> 008.sh
+[8] Desabilitar overlayfs quando nao for requisito
+OK
+>> 009.sh
+[9] Bloqueio usb_storage
+OK
+>> 010.sh
+[10] Desabilitar modulo DCCP
+OK
+>> 011.sh
+[11] Desabilitar modulo SCTP quando nao requerido
+OK
+>> 012.sh
+[12] Desabilitar modulo RDS
+OK
+>> 013.sh
+[13] Desabilitar modulo TIPC
+OK
+>> 014.sh
+[14] Core dumps restritos
+OK
+>> 015.sh
+[15] SUID dump off
+OK
+>> 017.sh
+[17] ASLR habilitado
+OK
+>> 018.sh
+[18] ASLR completo
+MANUAL | Adicionar iommu=on no GRUB conforme hardware e janela de reboot aprovada.
+>> 019.sh
+[19] perf event restrito
+OK
+>> 020.sh
+[20] perf_event restrito
+OK
+>> 021.sh
+[21] dmesg restrito
+OK
+>> 024.sh
+[24] Hardlinks protegidos
+OK
+>> 025.sh
+[25] Particao dedicada para tmp
+MANUAL | Criar ou validar particao dedicada conforme desenho de filesystem aprovado.
+>> 027.sh
+[27] Particao dedicada para var
+MANUAL | Criar ou validar particao dedicada conforme desenho de filesystem aprovado.
+>> 028.sh
+[28] Particao dedicada para var tmp
+MANUAL | Criar ou validar particao dedicada conforme desenho de filesystem aprovado.
+>> 029.sh
+[29] Particao dedicada para var log
+MANUAL | Criar ou validar particao dedicada conforme desenho de filesystem aprovado.
+>> 030.sh
+[30] Particao dedicada para var log audit
+MANUAL | Criar ou validar particao dedicada conforme desenho de filesystem aprovado.
+>> 031.sh
+[31] Particao dedicada para home
+MANUAL | Criar ou validar particao dedicada conforme desenho de filesystem aprovado.
+>> 032.sh
+[32] Particao dedicada para historico
+MANUAL | Criar ou validar particao dedicada conforme desenho de filesystem aprovado.
+>> 033.sh
+[33] Particao dedicada para crash
+MANUAL | Criar ou validar particao dedicada conforme desenho de filesystem aprovado.
+>> 034.sh
+[34] Particao dedicada para UNIX
+MANUAL | Criar ou validar particao dedicada conforme desenho de filesystem aprovado.
+>> 035.sh
+[35] Nodev removíveis
+MANUAL | Ajustar /etc/fstab com nodev,nosuid,noexec conforme ponto de montagem e janela aprovada.
+>> 036.sh
+[36] Nodev partições críticas
+MANUAL | Ajustar /etc/fstab com nodev,nosuid,noexec conforme ponto de montagem e janela aprovada.
+>> 037.sh
+[37] Opcoes de montagem seguras em tmp
+MANUAL | Ajustar /etc/fstab com nodev,nosuid,noexec conforme ponto de montagem e janela aprovada.
+>> 039.sh
+[39] Opcoes de montagem seguras em var tmp
+MANUAL | Ajustar /etc/fstab com nodev,nosuid,noexec conforme ponto de montagem e janela aprovada.
+>> 040.sh
+[40] Segurança /var/log
+MANUAL | Ajustar /etc/fstab com nodev,nosuid,noexec conforme ponto de montagem e janela aprovada.
+>> 041.sh
+[41] Segurança audit log
+MANUAL | Ajustar /etc/fstab com nodev,nosuid,noexec conforme ponto de montagem e janela aprovada.
+>> 042.sh
+[42] Segurança /home
+MANUAL | Ajustar /etc/fstab com nodev,nosuid,noexec conforme ponto de montagem e janela aprovada.
+>> 043.sh
+[43] Opcoes de montagem seguras em midias removiveis
+MANUAL | Ajustar /etc/fstab com nodev,nosuid,noexec conforme ponto de montagem e janela aprovada.
+>> 044.sh
+[44] Sticky world-writable
+OK
+>> 049.sh
+[49] Senha de bootloader configurada
+MANUAL | Configurar senha do bootloader com grub-mkpasswd-pbkdf2 e atualizar GRUB.
+>> 058.sh
+[58] Time sync ativo
+OK
+>> 061.sh
+[61] X11 removido
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libglu1-mesa libopengl0 libxatracker2 libxcb-damage0 libxss1 libxvmc1
+  x11-apps x11-session-utils xbitmaps xcvt xfonts-scalable xinit xinput
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED:
+  ubuntu-desktop* ubuntu-desktop-minimal* xorg* xserver-xorg*
+  xserver-xorg-core* xserver-xorg-input-all* xserver-xorg-input-libinput*
+  xserver-xorg-input-wacom* xserver-xorg-video-all* xserver-xorg-video-amdgpu*
+  xserver-xorg-video-ati* xserver-xorg-video-fbdev* xserver-xorg-video-intel*
+  xserver-xorg-video-nouveau* xserver-xorg-video-qxl*
+  xserver-xorg-video-radeon* xserver-xorg-video-vesa*
+  xserver-xorg-video-vmware*
+0 upgraded, 0 newly installed, 18 to remove and 584 not upgraded.
+After this operation, 9,583 kB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 183220 files and directories currently installed.)
+Removing ubuntu-desktop (1.539.2) ...
+Removing ubuntu-desktop-minimal (1.539.2) ...
+Removing xorg (1:7.7+23ubuntu3) ...
+Removing xserver-xorg (1:7.7+23ubuntu3) ...
+Removing xserver-xorg-video-all (1:7.7+23ubuntu3) ...
+Removing xserver-xorg-video-vesa (1:2.6.0-1) ...
+Removing xserver-xorg-video-amdgpu (23.0.0-1build1) ...
+Removing xserver-xorg-input-all (1:7.7+23ubuntu3) ...
+Removing xserver-xorg-input-libinput (1.4.0-1build1) ...
+Removing xserver-xorg-video-nouveau (1:1.0.17-2build1) ...
+Removing xserver-xorg-video-vmware (1:13.4.0-1build1) ...
+Removing xserver-xorg-input-wacom (1:1.2.0-1ubuntu2) ...
+Removing xserver-xorg-video-ati (1:22.0.0-1build1) ...
+Removing xserver-xorg-video-fbdev (1:0.5.0-2build2) ...
+Removing xserver-xorg-video-intel (2:2.99.917+git20210115-1build1) ...
+Removing xserver-xorg-video-qxl (0.1.6-1build1) ...
+Removing xserver-xorg-video-radeon (1:22.0.0-1build1) ...
+Removing xserver-xorg-core (2:21.1.12-1ubuntu1.2) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+Processing triggers for libc-bin (2.39-0ubuntu8.7) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 182914 files and directories currently installed.)
+Purging configuration files for xserver-xorg (1:7.7+23ubuntu3) ...
+Purging configuration files for xserver-xorg-core (2:21.1.12-1ubuntu1.2) ...
+rm: cannot remove '/var/log/Xorg.*.log': No such file or directory
+rm: cannot remove '/var/log/Xorg.*.log.old': No such file or directory
+Purging configuration files for xserver-xorg-video-intel (2:2.99.917+git20210115-1build1) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libdecor-0-0 libdecor-0-plugin-1-gtk libglu1-mesa libopengl0 libxatracker2
+  libxcb-damage0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1
+  libxcb-render-util0 libxcb-xv0 libxcvt0 libxfont2 libxss1 libxvmc1 x11-apps
+  x11-session-utils xbitmaps xcvt xfonts-base xfonts-scalable xinit xinput
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED:
+  ubuntu-session* xserver-common* xserver-xephyr* xserver-xorg-legacy*
+  xwayland*
+0 upgraded, 0 newly installed, 5 to remove and 580 not upgraded.
+After this operation, 5,310 kB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 182914 files and directories currently installed.)
+Removing ubuntu-session (46.0-1ubuntu4) ...
+Removing xserver-xephyr (2:21.1.12-1ubuntu1.2) ...
+Removing xwayland (2:23.2.6-1ubuntu0.4) ...
+Removing xserver-xorg-legacy (2:21.1.12-1ubuntu1.2) ...
+Removing xserver-common (2:21.1.12-1ubuntu1.2) ...
+Processing triggers for gnome-menus (3.36.0-1.1ubuntu3) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+Processing triggers for desktop-file-utils (0.27-2build1) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 182871 files and directories currently installed.)
+Purging configuration files for xserver-xorg-legacy (2:21.1.12-1ubuntu1.2) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libdecor-0-0 libdecor-0-plugin-1-gtk libglu1-mesa libopengl0 libxatracker2
+  libxcb-damage0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1
+  libxcb-render-util0 libxcb-xv0 libxcvt0 libxfont2 libxss1 libxvmc1 x11-apps
+  x11-session-utils xbitmaps xcvt xfonts-base xfonts-scalable xinit xinput
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED:
+  gdm3*
+0 upgraded, 0 newly installed, 1 to remove and 579 not upgraded.
+After this operation, 2,077 kB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 182871 files and directories currently installed.)
+Removing gdm3 (46.2-1ubuntu1~24.04.1) ...
+Processing triggers for dbus (1.14.10-4ubuntu4.1) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 182740 files and directories currently installed.)
+Purging configuration files for gdm3 (46.2-1ubuntu1~24.04.1) ...
+info: Removing crontab ...
+info: Removing user `gdm' ...
+OK
+>> 062.sh
+[62] Avahi desabilitado
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libavahi-core7 libdaemon0 libdecor-0-0 libdecor-0-plugin-1-gtk libglu1-mesa
+  libopengl0 libxatracker2 libxcb-damage0 libxcb-icccm4 libxcb-image0
+  libxcb-keysyms1 libxcb-render-util0 libxcb-xv0 libxcvt0 libxfont2 libxss1
+  libxvmc1 x11-apps x11-session-utils xbitmaps xcvt xfonts-base
+  xfonts-scalable xinit xinput
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED:
+  avahi-daemon* ipp-usb*
+0 upgraded, 0 newly installed, 2 to remove and 577 not upgraded.
+After this operation, 6,489 kB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 182714 files and directories currently installed.)
+Removing ipp-usb (0.9.24-0ubuntu3.2) ...
+Removing avahi-daemon (0.8-13ubuntu6) ...
+Created symlink /run/systemd/system/avahi-daemon.service → /dev/null.
+[0;1;38;5;185mMasking 'avahi-daemon.service', but its triggering units are still active:[0m
+[0;1;38;5;185mavahi-daemon.socket[0m
+Removed "/run/systemd/system/avahi-daemon.service".
+Processing triggers for dbus (1.14.10-4ubuntu4.1) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 182669 files and directories currently installed.)
+Purging configuration files for ipp-usb (0.9.24-0ubuntu3.2) ...
+Purging configuration files for avahi-daemon (0.8-13ubuntu6) ...
+rmdir: failed to remove '/run/avahi-daemon': Directory not empty
+OK
+>> 063.sh
+[63] CUPS desabilitado
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  cups-browsed cups-core-drivers cups-daemon cups-server-common hplip-data
+  libavahi-core7 libcupsimage2t64 libdaemon0 libdecor-0-0
+  libdecor-0-plugin-1-gtk libglu1-mesa libhpmud0 libimagequant0 libopengl0
+  libraqm0 libsane-hpaio libxatracker2 libxcb-damage0 libxcb-icccm4
+  libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xv0 libxcvt0
+  libxfont2 libxss1 libxvmc1 printer-driver-postscript-hp python3-olefile
+  python3-pil x11-apps x11-session-utils xbitmaps xcvt xfonts-base
+  xfonts-scalable xinit xinput
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED:
+  bluez-cups* cups* hplip* printer-driver-hpcups* printer-driver-splix*
+0 upgraded, 0 newly installed, 5 to remove and 575 not upgraded.
+After this operation, 3,927 kB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 182664 files and directories currently installed.)
+Removing bluez-cups (5.72-0ubuntu5) ...
+Removing printer-driver-splix (2.0.0+svn315-7fakesync1ubuntu1) ...
+Removing hplip (3.23.12+dfsg0-0ubuntu5) ...
+Removing printer-driver-hpcups (3.23.12+dfsg0-0ubuntu5) ...
+Removing cups (2.4.7-1.2ubuntu7.3) ...
+Processing triggers for dbus (1.14.10-4ubuntu4.1) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 182492 files and directories currently installed.)
+Purging configuration files for hplip (3.23.12+dfsg0-0ubuntu5) ...
+Purging configuration files for cups (2.4.7-1.2ubuntu7.3) ...
+Processing triggers for dbus (1.14.10-4ubuntu4.1) ...
+OK
+>> 067.sh
+[67] FTP server ausente
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  cups-browsed cups-core-drivers cups-daemon cups-server-common hplip-data
+  libavahi-core7 libcupsimage2t64 libdaemon0 libdecor-0-0
+  libdecor-0-plugin-1-gtk libglu1-mesa libhpmud0 libimagequant0 libopengl0
+  libraqm0 libsane-hpaio libxatracker2 libxcb-damage0 libxcb-icccm4
+  libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xv0 libxcvt0
+  libxfont2 libxss1 libxvmc1 printer-driver-postscript-hp python3-olefile
+  python3-pil ssl-cert x11-apps x11-session-utils xbitmaps xcvt xfonts-base
+  xfonts-scalable xinit xinput
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED:
+  vsftpd*
+0 upgraded, 0 newly installed, 1 to remove and 575 not upgraded.
+After this operation, 312 kB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 182490 files and directories currently installed.)
+Removing vsftpd (3.0.5-0ubuntu3.1) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 182439 files and directories currently installed.)
+Purging configuration files for vsftpd (3.0.5-0ubuntu3.1) ...
+OK
+>> 082.sh
+[82] Cliente telnet removido
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  cups-browsed cups-core-drivers cups-daemon cups-server-common hplip-data
+  libavahi-core7 libcupsimage2t64 libdaemon0 libdecor-0-0
+  libdecor-0-plugin-1-gtk libglu1-mesa libhpmud0 libimagequant0 libopengl0
+  libraqm0 libsane-hpaio libxatracker2 libxcb-damage0 libxcb-icccm4
+  libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xv0 libxcvt0
+  libxfont2 libxss1 libxvmc1 printer-driver-postscript-hp python3-olefile
+  python3-pil ssl-cert x11-apps x11-session-utils xbitmaps xcvt xfonts-base
+  xfonts-scalable xinit xinput
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED:
+  telnet*
+0 upgraded, 0 newly installed, 1 to remove and 574 not upgraded.
+After this operation, 48.1 kB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 182434 files and directories currently installed.)
+Removing telnet (0.17+2.5-3ubuntu4) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  cups-browsed cups-core-drivers cups-daemon cups-server-common hplip-data
+  libavahi-core7 libcupsimage2t64 libdaemon0 libdecor-0-0
+  libdecor-0-plugin-1-gtk libglu1-mesa libhpmud0 libimagequant0 libopengl0
+  libraqm0 libsane-hpaio libxatracker2 libxcb-damage0 libxcb-icccm4
+  libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xv0 libxcvt0
+  libxfont2 libxss1 libxvmc1 printer-driver-postscript-hp python3-olefile
+  python3-pil ssl-cert x11-apps x11-session-utils xbitmaps xcvt xfonts-base
+  xfonts-scalable xinit xinput
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED:
+  inetutils-telnet*
+0 upgraded, 0 newly installed, 1 to remove and 573 not upgraded.
+After this operation, 247 kB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 182428 files and directories currently installed.)
+Removing inetutils-telnet (2:2.5-3ubuntu4) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+OK
+>> 083.sh
+[83] Cliente LDAP removido
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  cups-browsed cups-core-drivers cups-daemon cups-server-common hplip-data
+  libavahi-core7 libcupsimage2t64 libdaemon0 libdecor-0-0
+  libdecor-0-plugin-1-gtk libglu1-mesa libhpmud0 libimagequant0 libopengl0
+  libraqm0 libsane-hpaio libxatracker2 libxcb-damage0 libxcb-icccm4
+  libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xv0 libxcvt0
+  libxfont2 libxss1 libxvmc1 printer-driver-postscript-hp python3-olefile
+  python3-pil ssl-cert x11-apps x11-session-utils xbitmaps xcvt xfonts-base
+  xfonts-scalable xinit xinput
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED:
+  ldap-utils*
+0 upgraded, 0 newly installed, 1 to remove and 572 not upgraded.
+After this operation, 716 kB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 182419 files and directories currently installed.)
+Removing ldap-utils (2.6.7+dfsg-1~exp1ubuntu8.2) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+OK
+>> 084.sh
+[84] Serviços supérfluos
+OK
+>> 088.sh
+[88] Patches aplicados
+MANUAL | Aplicar atualizacoes de seguranca pela rotina de patch management aprovada.
+>> 089.sh
+[89] Time sync único
+Created symlink /etc/systemd/system/dbus-org.freedesktop.timesync1.service → /usr/lib/systemd/system/systemd-timesyncd.service.
+Created symlink /etc/systemd/system/sysinit.target.wants/systemd-timesyncd.service → /usr/lib/systemd/system/systemd-timesyncd.service.
+OK
+>> 090.sh
+[90] Cron/at restritos
+OK
+>> 091.sh
+[91] IP forwarding desabilitado
+OK
+>> 092.sh
+[92] Redirects desabilitados
+OK
+>> 093.sh
+[93] Source-route bloqueado
+OK
+>> 094.sh
+[94] ICMP redirects off
+OK
+>> 095.sh
+[95] RP filter on
+OK
+>> 098.sh
+[98] Syncookies ativos
+OK
+>> 099.sh
+[99] IPv6 desabilitado ou endurecido
+OK
+>> 108.sh
+[108] TLS mínimo 1.2+
+MANUAL | Definir politica TLS minima por servico ou OpenSSL conforme aplicacao em uso.
+>> 109.sh
+[109] Permissões SSH seguras
+OK
+>> 110.sh
+[110] Controle de acesso via Allow Deny
+MANUAL | Parametro depende de politica do cliente; definir em /etc/ssh/sshd_config e validar com sshd -t.
+>> 111.sh
+[111] SyslogFacility AUTHPRIV
+OK
+>> 112.sh
+[112] X11Forwarding off
+OK
+>> 113.sh
+[113] MaxAuthTries restrito
+OK
+>> 114.sh
+[114] IgnoreRhosts yes
+OK
+>> 115.sh
+[115] HostbasedAuth off
+OK
+>> 117.sh
+[117] EmptyPasswords off
+OK
+>> 118.sh
+[118] UserEnvironment off
+OK
+>> 120.sh
+[120] ClientAlive tunado
+OK
+>> 121.sh
+[121] LoginGraceTime restrito
+OK
+>> 122.sh
+[122] MaxStartups restrito
+OK
+>> 123.sh
+[123] AllowTcpForwarding restrito
+OK
+>> 124.sh
+[124] Banner legal
+MANUAL | Parametro depende de politica do cliente; definir em /etc/ssh/sshd_config e validar com sshd -t.
+>> 125.sh
+[125] Ciphers fortes apenas
+MANUAL | Parametro depende de politica do cliente; definir em /etc/ssh/sshd_config e validar com sshd -t.
+>> 126.sh
+[126] MACs fortes apenas
+MANUAL | Parametro depende de politica do cliente; definir em /etc/ssh/sshd_config e validar com sshd -t.
+>> 127.sh
+[127] KexAlgorithms fortes apenas
+MANUAL | Parametro depende de politica do cliente; definir em /etc/ssh/sshd_config e validar com sshd -t.
+>> 128.sh
+[128] Preferencia por algoritmos modernos
+MANUAL | Parametro depende de politica do cliente; definir em /etc/ssh/sshd_config e validar com sshd -t.
+>> 129.sh
+[129] ForceCommand Chroot SSH
+MANUAL | Parametro depende de politica do cliente; definir em /etc/ssh/sshd_config e validar com sshd -t.
+>> 130.sh
+[130] PAM complexidade
+Reading package lists...
+Building dependency tree...
+Reading state information...
+libpam-pwquality is already the newest version (1.4.5-3build1).
+libpam-pwquality set to manually installed.
+The following packages were automatically installed and are no longer required:
+  cups-browsed cups-core-drivers cups-daemon cups-server-common hplip-data
+  libavahi-core7 libcupsimage2t64 libdaemon0 libdecor-0-0
+  libdecor-0-plugin-1-gtk libglu1-mesa libhpmud0 libimagequant0 libopengl0
+  libraqm0 libsane-hpaio libxatracker2 libxcb-damage0 libxcb-icccm4
+  libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xv0 libxcvt0
+  libxfont2 libxss1 libxvmc1 printer-driver-postscript-hp python3-olefile
+  python3-pil ssl-cert x11-apps x11-session-utils xbitmaps xcvt xfonts-base
+  xfonts-scalable xinit xinput
+Use 'sudo apt autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 572 not upgraded.
+OK
+>> 131.sh
+[131] pwquality configurado
+Reading package lists...
+Building dependency tree...
+Reading state information...
+libpam-pwquality is already the newest version (1.4.5-3build1).
+The following packages were automatically installed and are no longer required:
+  cups-browsed cups-core-drivers cups-daemon cups-server-common hplip-data
+  libavahi-core7 libcupsimage2t64 libdaemon0 libdecor-0-0
+  libdecor-0-plugin-1-gtk libglu1-mesa libhpmud0 libimagequant0 libopengl0
+  libraqm0 libsane-hpaio libxatracker2 libxcb-damage0 libxcb-icccm4
+  libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xv0 libxcvt0
+  libxfont2 libxss1 libxvmc1 printer-driver-postscript-hp python3-olefile
+  python3-pil ssl-cert x11-apps x11-session-utils xbitmaps xcvt xfonts-base
+  xfonts-scalable xinit xinput
+Use 'sudo apt autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 572 not upgraded.
+OK
+>> 132.sh
+[132] pam faillock habilitado
+MANUAL | Habilitar pam_faillock em Debian/Ubuntu via PAM local testado; risco de lockout se aplicado genericamente.
+>> 134.sh
+[134] pwhistory configurado
+MANUAL | Habilitar pam_pwhistory em common-password via pam-auth-update ou alteracao PAM homologada.
+>> 135.sh
+[135] Senha mínima
+OK
+>> 136.sh
+[136] Complexidade mínima
+OK
+>> 137.sh
+[137] Sem repetição/sequência
+OK
+>> 139.sh
+[139] Hash forte
+OK
+>> 140.sh
+[140] Histórico de senhas
+MANUAL | Configurar pam_pwhistory remember=5 em common-password apos validacao PAM.
+>> 141.sh
+[141] Bloqueio por tentativas invalidas
+OK
+>> 142.sh
+[142] Tempo desbloqueio
+OK
+>> 143.sh
+[143] PASS_MAX_DAYS
+OK
+>> 144.sh
+[144] PASS_MIN_DAYS
+OK
+>> 146.sh
+[146] INACTIVE ajustado
+OK
+>> 151.sh
+[151] Shells válidos
+OK
+>> 152.sh
+[152] PATH root seguro
+OK
+>> 153.sh
+[153] Umask restritiva
+OK
+>> 154.sh
+[154] Timeout shell
+OK
+>> 155.sh
+[155] Sudo restrito
+MANUAL | Revisar e remover regras sudo amplas caso a caso; nao editar sudoers genericamente.
+>> 157.sh
+[157] Sudo logging
+/etc/sudoers.d/99-hitss-157: parsed OK
+OK
+>> 159.sh
+[159] Sudo timeout
+/etc/sudoers.d/99-hitss-159: parsed OK
+OK
+>> 160.sh
+[160] su restrito
+OK
+>> 162.sh
+[162] Journald persistente
+OK
+>> 165.sh
+[165] auditd instalado
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  cups-browsed cups-core-drivers cups-daemon cups-server-common hplip-data
+  libavahi-core7 libcupsimage2t64 libdaemon0 libdecor-0-0
+  libdecor-0-plugin-1-gtk libglu1-mesa libhpmud0 libimagequant0 libopengl0
+  libraqm0 libsane-hpaio libxatracker2 libxcb-damage0 libxcb-icccm4
+  libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xv0 libxcvt0
+  libxfont2 libxss1 libxvmc1 printer-driver-postscript-hp python3-olefile
+  python3-pil ssl-cert x11-apps x11-session-utils xbitmaps xcvt xfonts-base
+  xfonts-scalable xinit xinput
+Use 'sudo apt autoremove' to remove them.
+The following additional packages will be installed:
+  libauparse0t64
+The following NEW packages will be installed:
+  audispd-plugins auditd libauparse0t64
+0 upgraded, 3 newly installed, 0 to remove and 572 not upgraded.
+Need to get 312 kB of archives.
+After this operation, 1,024 kB of additional disk space will be used.
+Get:1 http://us.archive.ubuntu.com/ubuntu noble-updates/main amd64 libauparse0t64 amd64 1:3.1.2-2.1build1.1 [58.9 kB]
+Get:2 http://us.archive.ubuntu.com/ubuntu noble-updates/main amd64 auditd amd64 1:3.1.2-2.1build1.1 [215 kB]
+Get:3 http://us.archive.ubuntu.com/ubuntu noble-updates/universe amd64 audispd-plugins amd64 1:3.1.2-2.1build1.1 [38.8 kB]
+Fetched 312 kB in 3s (107 kB/s)
+Selecting previously unselected package libauparse0t64:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 182394 files and directories currently installed.)
+Preparing to unpack .../libauparse0t64_1%3a3.1.2-2.1build1.1_amd64.deb ...
+Adding 'diversion of /lib/x86_64-linux-gnu/libauparse.so.0 to /lib/x86_64-linux-gnu/libauparse.so.0.usr-is-merged by libauparse0t64'
+Adding 'diversion of /lib/x86_64-linux-gnu/libauparse.so.0.0.0 to /lib/x86_64-linux-gnu/libauparse.so.0.0.0.usr-is-merged by libauparse0t64'
+Unpacking libauparse0t64:amd64 (1:3.1.2-2.1build1.1) ...
+Selecting previously unselected package auditd.
+Preparing to unpack .../auditd_1%3a3.1.2-2.1build1.1_amd64.deb ...
+Unpacking auditd (1:3.1.2-2.1build1.1) ...
+Selecting previously unselected package audispd-plugins.
+Preparing to unpack .../audispd-plugins_1%3a3.1.2-2.1build1.1_amd64.deb ...
+Unpacking audispd-plugins (1:3.1.2-2.1build1.1) ...
+Setting up libauparse0t64:amd64 (1:3.1.2-2.1build1.1) ...
+Setting up auditd (1:3.1.2-2.1build1.1) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/auditd.service → /usr/lib/systemd/system/auditd.service.
+Setting up audispd-plugins (1:3.1.2-2.1build1.1) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+Processing triggers for libc-bin (2.39-0ubuntu8.7) ...
+
+Running kernel seems to be up-to-date.
+
+Restarting services...
+
+Service restarts being deferred:
+ systemctl restart gdm.service
+
+No containers need to be restarted.
+
+User sessions running outdated binaries:
+ vagrant @ session #1: gdm-session-wor[2406]
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+Synchronizing state of auditd.service with SysV service script with /usr/lib/systemd/systemd-sysv-install.
+Executing: /usr/lib/systemd/systemd-sysv-install enable auditd
+OK
+>> 166.sh
+[166] auditd no boot
+MANUAL | Adicionar audit=1 ao GRUB e reiniciar em janela aprovada.
+>> 167.sh
+[167] Tamanho máximo audit
+OK
+>> 168.sh
+[168] Logs de auditoria nao excluidos automaticamente
+OK
+>> 169.sh
+[169] Auditoria data/hora
+OK
+>> 170.sh
+[170] Auditoria contas
+OK
+>> 171.sh
+[171] Auditoria rede
+OK
+>> 173.sh
+[173] Auditoria login
+OK
+>> 174.sh
+[174] Auditoria DAC
+OK
+>> 175.sh
+[175] Auditoria acesso negado
+OK
+>> 176.sh
+[176] Auditoria exec privilegiado
+MANUAL | Gerar regras audit para binarios SUID/SGID aprovados; depende da whitelist do host.
+>> 177.sh
+[177] Auditoria mount
+OK
+>> 178.sh
+[178] Auditoria deleção
+OK
+>> 179.sh
+[179] Auditoria módulos kernel
+OK
+>> 180.sh
+[180] Auditoria sudo
+OK
+>> 181.sh
+[181] Configuracao de auditoria imutavel
+MANUAL | Aplicar -e 2 somente ao final da mudanca; torna audit rules imutaveis ate reboot.
+>> 182.sh
+[182] AIDE instalado e inicializado
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  cups-browsed cups-core-drivers cups-daemon cups-server-common hplip-data
+  libavahi-core7 libcupsimage2t64 libdaemon0 libdecor-0-0
+  libdecor-0-plugin-1-gtk libglu1-mesa libhpmud0 libimagequant0 libopengl0
+  libraqm0 libsane-hpaio libxatracker2 libxcb-damage0 libxcb-icccm4
+  libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xv0 libxcvt0
+  libxfont2 libxss1 libxvmc1 printer-driver-postscript-hp python3-olefile
+  python3-pil x11-apps x11-session-utils xbitmaps xcvt xfonts-base
+  xfonts-scalable xinit xinput
+Use 'sudo apt autoremove' to remove them.
+The following additional packages will be installed:
+  aide-common bsd-mailx liblockfile-bin liblockfile1 libnsl2 postfix
+Suggested packages:
+  figlet postfix-cdb postfix-doc postfix-ldap postfix-lmdb
+  postfix-mta-sts-resolver postfix-mysql postfix-pcre postfix-pgsql
+  postfix-sqlite procmail sasl2-bin | dovecot-common
+The following NEW packages will be installed:
+  aide aide-common bsd-mailx liblockfile-bin liblockfile1 libnsl2 postfix
+0 upgraded, 7 newly installed, 0 to remove and 572 not upgraded.
+Need to get 1,582 kB of archives.
+After this operation, 5,297 kB of additional disk space will be used.
+Get:1 http://us.archive.ubuntu.com/ubuntu noble/main amd64 libnsl2 amd64 1.3.0-3build3 [41.4 kB]
+Get:2 http://us.archive.ubuntu.com/ubuntu noble-updates/main amd64 postfix amd64 3.8.6-1ubuntu0.1 [1,255 kB]
+Get:3 http://us.archive.ubuntu.com/ubuntu noble-updates/main amd64 aide amd64 0.18.6-2ubuntu0.1 [118 kB]
+Get:4 http://us.archive.ubuntu.com/ubuntu noble/main amd64 liblockfile-bin amd64 1.17-1build3 [11.2 kB]
+Get:5 http://us.archive.ubuntu.com/ubuntu noble/main amd64 liblockfile1 amd64 1.17-1build3 [6,840 B]
+Get:6 http://us.archive.ubuntu.com/ubuntu noble-updates/main amd64 aide-common all 0.18.6-2ubuntu0.1 [82.2 kB]
+Get:7 http://us.archive.ubuntu.com/ubuntu noble/main amd64 bsd-mailx amd64 8.1.2-0.20220412cvs-1build1 [67.2 kB]
+Preconfiguring packages ...
+Fetched 1,582 kB in 3s (624 kB/s)
+Selecting previously unselected package libnsl2:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 182504 files and directories currently installed.)
+Preparing to unpack .../0-libnsl2_1.3.0-3build3_amd64.deb ...
+Unpacking libnsl2:amd64 (1.3.0-3build3) ...
+Selecting previously unselected package postfix.
+Preparing to unpack .../1-postfix_3.8.6-1ubuntu0.1_amd64.deb ...
+Unpacking postfix (3.8.6-1ubuntu0.1) ...
+Selecting previously unselected package aide.
+Preparing to unpack .../2-aide_0.18.6-2ubuntu0.1_amd64.deb ...
+Unpacking aide (0.18.6-2ubuntu0.1) ...
+Selecting previously unselected package liblockfile-bin.
+Preparing to unpack .../3-liblockfile-bin_1.17-1build3_amd64.deb ...
+Unpacking liblockfile-bin (1.17-1build3) ...
+Selecting previously unselected package liblockfile1:amd64.
+Preparing to unpack .../4-liblockfile1_1.17-1build3_amd64.deb ...
+Unpacking liblockfile1:amd64 (1.17-1build3) ...
+Selecting previously unselected package aide-common.
+Preparing to unpack .../5-aide-common_0.18.6-2ubuntu0.1_all.deb ...
+Unpacking aide-common (0.18.6-2ubuntu0.1) ...
+Selecting previously unselected package bsd-mailx.
+Preparing to unpack .../6-bsd-mailx_8.1.2-0.20220412cvs-1build1_amd64.deb ...
+Unpacking bsd-mailx (8.1.2-0.20220412cvs-1build1) ...
+Setting up aide (0.18.6-2ubuntu0.1) ...
+Setting up liblockfile-bin (1.17-1build3) ...
+Setting up libnsl2:amd64 (1.3.0-3build3) ...
+Setting up liblockfile1:amd64 (1.17-1build3) ...
+Setting up aide-common (0.18.6-2ubuntu0.1) ...
+
+Creating config file /etc/default/aide with new version
+
+Creating config file /etc/cron.daily/dailyaidecheck with new version
+
+Creating config file /etc/aide/aide.conf with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_clamav-freshclam with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_vpnc with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_lastlog with new version
+
+Creating config file /etc/aide/aide.conf.d/70_aide_proc_sys with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_cron-apt with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_saslauthd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_fail2ban with new version
+
+Creating config file /etc/aide/aide.conf.d/10_aide_machineid with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_man with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_dev with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_courier-authlib with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_cron with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_systemd-timesyncd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_initramfs-tools with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_cups with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_acpid with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_systemd-nspawn with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_openvpn with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_mysql-server with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_wtmp with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_mail with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_ssh-server with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_bind9 with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_clamav-unofficial-sigs with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_redis with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_dovecot with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_anubis with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_initscripts with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_plocate with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_smartmontools with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_netdata with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_resolvconf with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_checksecurity with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_lvm2 with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_hald with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_lldpd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_pam_motd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_dpkg with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_bandwidthd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_fake-hwclock with new version
+
+Creating config file /etc/aide/aide.conf.d/30_inn2_vars with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_borgbackup with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_aptitude with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_munin with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_systemd-resolved with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_ifupdown with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_systemd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_gnupg with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_pcscd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_syslog-ng with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_etckeeper with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_sudo with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_rkhunter with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_postgresql-15 with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_debconf with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_xinetd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_systemd-networkd with new version
+
+Creating config file /etc/aide/aide.conf.d/10_aide_year with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_avahi-daemon with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_apache2-fcgid with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_slrn with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_isc-dhcp-server with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_portmap with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_findutils with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_unbound with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_awstats with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_php7 with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_network-manager with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_util-linux with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_postfix-cluebringer with new version
+
+Creating config file /etc/aide/aide.conf.d/70_aide_etc with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_wpasupplicant with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_opie-server with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_openvpn-server with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_locales with new version
+
+Creating config file /etc/aide/aide.conf.d/10_aide_distribution with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_squid with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_dokuwiki with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_kerberos with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_munin-node with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_amavisd-new with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_irqbalance with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_dlocate with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_inn2 with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_run_systemd_netif with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_atop with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_dcc-common with new version
+
+Creating config file /etc/aide/aide.conf.d/70_aide_dev with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_php-common with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_tiger with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_ddclient with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_adjtime with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_nslcd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_run_tmpfiles with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_trac with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_haveged with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_mlocate with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_btmp with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_spampd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_spamassassin with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_snmpd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_svn-server with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_dmeventd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_run_systemd_resolve with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_mdadm with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_schroot with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_logrotate with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_pm-utils with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_smokeping with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_apt-listchanges with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_inetd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_debspawn with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_lpd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_sniproxy with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_boinc-client with new version
+
+Creating config file /etc/aide/aide.conf.d/30_aide_bind9 with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_runuser with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_torrus with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_apache2 with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_amanda-server with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_libapache2-mod-fastcgi with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_nginx with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_debsecan with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_isc-dhcp-client with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_oidentd with new version
+
+Creating config file /etc/aide/aide.conf.d/20_aide_run_systemd-journald with new version
+
+Creating config file /etc/aide/aide.conf.d/99_aide_root with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_alsa with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_systemd-cron with new version
+
+Creating config file /etc/aide/aide.conf.d/70_aide_tmp with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_munin-nodes with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_network with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_cereal with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_root-dotfiles with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_apt-listbugs with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_dehydrated with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_ufw with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_slapd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_x11-common with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_exim4_logs with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_laptop-mode-tools with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_xdm with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_udev with new version
+
+Creating config file /etc/aide/aide.conf.d/70_aide_run with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_nfs with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_tlp with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_lighttpd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_rngd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_privoxy with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_dbus with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_screen with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_systemd_sessions with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_clamav with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_ssh-agent with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_exim4 with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_logcheck with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_webalizer with new version
+
+Creating config file /etc/aide/aide.conf.d/10_aide_run with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_rsyslog with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_hapsd with new version
+
+Creating config file /etc/aide/aide.conf.d/10_aide_logext with new version
+
+Creating config file /etc/aide/aide.conf.d/30_aide_apache2 with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_tmux with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_icinga2 with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_apcupsd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_apt with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_e2fsprogs with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_exim4_exiscan with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_systemd-journald with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_tt-rss with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_x11-xkb-utils with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_console-setup with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_console-log with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_nscd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_uuidd-runtime with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_apt-show-versions with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_systemd-machined with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_aide with new version
+
+Creating config file /etc/aide/aide.conf.d/21_aide_run_agetty with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_libvirt with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_rsnapshot with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_mariadb with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_needrestart with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_postfix with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_nrpe with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_modules with new version
+
+Creating config file /etc/aide/aide.conf.d/70_aide_var with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_greylistd with new version
+
+Creating config file /etc/aide/aide.conf.d/10_aide_hostname with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_utmp with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_xe-guest-utilities with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_haproxy with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_anacron with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_apt-cacher-ng with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_cracklib-runtime with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_at with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_ntpsec with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_fcron with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_vsftpd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_asterisk with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_php-fpm with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_ifplugd with new version
+
+Creating config file /etc/aide/aide.conf.d/21_aide_spamassassin with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_chrony with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_grub-efi with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_proftpd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_postgrey with new version
+
+Creating config file /etc/aide/aide.conf.d/10_aide_constants with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_ippl with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_samba with new version
+
+Creating config file /etc/aide/aide.conf.d/10_aide_prevyear with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_amanda-client with new version
+
+Creating config file /etc/aide/aide.settings.d/31_aide_trac_settings with new version
+
+Creating config file /etc/aide/aide.settings.d/31_aide_apt_settings with new version
+
+Creating config file /etc/aide/aide.settings.d/31_aide_torrus_settings with new version
+
+Creating config file /etc/aide/aide.settings.d/31_aide_svn-server_settings with new version
+
+Creating config file /etc/aide/aide.settings.d/10_aide_sourceslist with new version
+Creating group '_aide' with GID 982.
+Creating user '_aide' (Advanced Intrusion Detection Environment) with UID 982 and GID 982.
+Created symlink /etc/systemd/system/timers.target.wants/dailyaidecheck.timer → /usr/lib/systemd/system/dailyaidecheck.timer.
+dailyaidecheck.service is a disabled or a static unit, not starting it.
+dailyaidecheck.service is a disabled or a static unit, not starting it.
+Setting up postfix (3.8.6-1ubuntu0.1) ...
+info: Selecting GID from range 100 to 999 ...
+info: Adding group `postfix' (GID 116) ...
+info: Selecting UID from range 100 to 999 ...
+
+info: Adding system user `postfix' (UID 114) ...
+info: Adding new user `postfix' (UID 114) with group `postfix' ...
+info: Not creating home directory `/var/spool/postfix'.
+Creating /etc/postfix/dynamicmaps.cf
+info: Selecting GID from range 100 to 999 ...
+info: Adding group `postdrop' (GID 124) ...
+setting myhostname: ubuntu-desktop-2404-vdi-20260609
+setting alias maps
+setting alias database
+mailname is not a fully qualified domain name.  Not changing /etc/mailname.
+setting destinations: $myhostname, ubuntu-desktop-2404-vdi-20260609, localhost.localdomain, , localhost
+setting relayhost: 
+setting mynetworks: 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+setting mailbox_size_limit: 0
+setting recipient_delimiter: +
+setting inet_interfaces: all
+setting inet_protocols: all
+/etc/aliases does not exist, creating it.
+WARNING: /etc/aliases exists, but does not have a root alias.
+
+Postfix (main.cf) is now set up with a default configuration.  If you need to 
+make changes, edit /etc/postfix/main.cf (and others) as needed.  To view 
+Postfix configuration values, see postconf(1).
+
+After modifying main.cf, be sure to run 'systemctl reload postfix'.
+
+Running newaliases
+Created symlink /etc/systemd/system/multi-user.target.wants/postfix.service → /usr/lib/systemd/system/postfix.service.
+Setting up bsd-mailx (8.1.2-0.20220412cvs-1build1) ...
+update-alternatives: using /usr/bin/bsd-mailx to provide /usr/bin/mailx (mailx) in auto mode
+Processing triggers for rsyslog (8.2312.0-3ubuntu9) ...
+Processing triggers for ufw (0.36.2-6) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+Processing triggers for libc-bin (2.39-0ubuntu8.7) ...
+
+Running kernel seems to be up-to-date.
+
+Restarting services...
+
+Service restarts being deferred:
+ systemctl restart gdm.service
+
+No containers need to be restarted.
+
+User sessions running outdated binaries:
+ vagrant @ session #1: gdm-session-wor[2406]
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+OK
+>> 183.sh
+[183] Verificação integridade
+OK
+>> 184.sh
+[184] Protecao dos binarios de auditoria
+OK
+>> 187.sh
+[187] Permissões shadow
+OK
+>> 188.sh
+[188] Permissões shadow-
+OK
+>> 189.sh
+[189] Permissões gshadow-
+OK
+>> 190.sh
+[190] Permissões gshadow
+OK
+>> 196.sh
+[196] Sticky world-writable
+OK
+>> 198.sh
+[198] SUID SGID revisados
+MANUAL | Revisar SUID/SGID contra whitelist aprovada antes de remover bits.
+>> 202.sh
+[202] Dotfiles seguros
+OK
+>> 203.sh
+[203] Arquivos trust legado
+OK

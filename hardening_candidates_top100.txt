@@ -1,0 +1,94 @@
+HARDENING BASELINE CANDIDATES - CRITICAL / VPR > 7 / NO PATCH
+Generated: 2026-06-22 19:32:16
+Candidates: 18
+
+1. Plugin 302234 | VPR 9.0 | CVSS3 9.8
+   CVE: CVE-2026-32746
+   Hosts: sensor_eng_video_01, sensor_eng_video_02, sensor_eng_video_04
+   Baseline: controle compensatorio de hardening para CVE sem patch
+
+2. Plugin 315531 | VPR 8.4 | CVSS3 7.3
+   CVE: CVE-2026-46529
+   Hosts: sensor_eng_video_03
+   Baseline: controle compensatorio de hardening para CVE sem patch
+
+3. Plugin 299923 | VPR 8.1 | CVSS3 10.0
+   CVE: CVE-2026-2761
+   Hosts: sensor_eng_video_03
+   Baseline: controle compensatorio de hardening para CVE sem patch
+
+4. Plugin 303537 | VPR 8.1 | CVSS3 10.0
+   CVE: CVE-2026-4689
+   Hosts: sensor_eng_video_03
+   Baseline: controle compensatorio de hardening para CVE sem patch
+
+5. Plugin 286820 | VPR 8.1 | CVSS3 10.0
+   CVE: CVE-2026-0881
+   Hosts: sensor_eng_video_03
+   Baseline: controle compensatorio de hardening para CVE sem patch
+
+6. Plugin 299922 | VPR 8.1 | CVSS3 10.0
+   CVE: CVE-2026-2760
+   Hosts: sensor_eng_video_03
+   Baseline: controle compensatorio de hardening para CVE sem patch
+
+7. Plugin 304057 | VPR 8.1 | CVSS3 10.0
+   CVE: CVE-2026-4725
+   Hosts: sensor_eng_video_03
+   Baseline: controle compensatorio de hardening para CVE sem patch
+
+8. Plugin 299936 | VPR 8.1 | CVSS3 10.0
+   CVE: CVE-2026-2768
+   Hosts: sensor_eng_video_03
+   Baseline: controle compensatorio de hardening para CVE sem patch
+
+9. Plugin 299914 | VPR 8.1 | CVSS3 10.0
+   CVE: CVE-2026-2776
+   Hosts: sensor_eng_video_03
+   Baseline: controle compensatorio de hardening para CVE sem patch
+
+10. Plugin 299944 | VPR 8.1 | CVSS3 10.0
+   CVE: CVE-2026-2778
+   Hosts: sensor_eng_video_03
+   Baseline: controle compensatorio de hardening para CVE sem patch
+
+11. Plugin 303543 | VPR 8.1 | CVSS3 10.0
+   CVE: CVE-2026-4688
+   Hosts: sensor_eng_video_03
+   Baseline: controle compensatorio de hardening para CVE sem patch
+
+12. Plugin 303538 | VPR 8.1 | CVSS3 10.0
+   CVE: CVE-2026-4692
+   Hosts: sensor_eng_video_03
+   Baseline: controle compensatorio de hardening para CVE sem patch
+
+13. Plugin 247758 | VPR 7.4 | CVSS3 9.8
+   CVE: CVE-2024-9680
+   Hosts: sensor_eng_video_03
+   Baseline: controle compensatorio de hardening para CVE sem patch
+
+14. Plugin 316589 | VPR 7.3 | CVSS3 10.0
+   CVE: CVE-2026-46595
+   Hosts: sensor_eng_video_01, sensor_eng_video_02, sensor_eng_video_03, sensor_eng_video_04
+   Baseline: controle compensatorio de hardening para CVE sem patch
+
+15. Plugin 315524 | VPR 7.3 | CVSS3 9.6
+   CVE: CVE-2026-8953
+   Hosts: sensor_eng_video_03
+   Baseline: controle compensatorio de hardening para CVE sem patch
+
+16. Plugin 249720 | VPR 7.3 | CVSS3 9.6
+   CVE: CVE-2024-7519
+   Hosts: sensor_eng_video_03
+   Baseline: controle compensatorio de hardening para CVE sem patch
+
+17. Plugin 316449 | VPR 7.3 | CVSS3 9.6
+   CVE: CVE-2026-8959
+   Hosts: sensor_eng_video_03
+   Baseline: controle compensatorio de hardening para CVE sem patch
+
+18. Plugin 315532 | VPR 7.1 | CVSS3 9.3
+   CVE: CVE-2026-8950
+   Hosts: sensor_eng_video_03
+   Baseline: controle compensatorio de hardening para CVE sem patch
+

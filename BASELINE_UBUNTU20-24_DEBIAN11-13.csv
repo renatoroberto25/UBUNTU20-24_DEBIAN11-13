@@ -1,0 +1,191 @@
+﻿Tópico,Subtópico,Perfil,Criticidade,Resumo,Description,Auditoria - Descrição
+1,Kernel,Light,Alta,Bloqueio cramfs,Bloquear módulo cramfs persistentemente via modprobe.d e remover se carregado.,Verificar se módulo cramfs está bloqueado
+2,Kernel,Light,Alta,Bloqueio squashfs,Bloquear módulo squashfs persistentemente via modprobe.d e remover se carregado.,Verificar se módulo squashfs está bloqueado
+3,Kernel,Light,Média,Bloqueio udf,Bloquear módulo udf persistentemente via modprobe.d e remover se carregado.,Verificar se módulo udf está bloqueado
+4,Kernel,Light,Alta,Bloqueio hfs,Bloquear módulo hfs persistentemente via modprobe.d e remover se carregado.,Verificar se módulo hfs está bloqueado
+5,Kernel,Light,Alta,Bloqueio hfsplus,Bloquear módulo hfsplus persistentemente via modprobe.d e remover se carregado.,Verificar se módulo hfsplus está bloqueado
+6,Kernel,Light,Alta,Bloqueio jffs2,Bloquear módulo jffs2 persistentemente via modprobe.d e remover se carregado.,Verificar se módulo jffs2 está bloqueado
+7,Kernel,Light,Alta,Bloqueio freevxfs,Bloquear módulo freevxfs persistentemente via modprobe.d e remover se carregado.,Verificar se módulo freevxfs está bloqueado
+8,Kernel,Full,Média,Desabilitar overlayfs quando nao for requisito,Desabilitar o modulo overlayfs,Checa se overlay nao esta carregado e se ha regra de bloqueio
+9,Kernel,Light,Alta,Bloqueio usb_storage,Bloquear módulo usb_storage persistentemente.,Verificar se usb_storage está bloqueado
+10,Kernel,Full,Alta,Desabilitar modulo DCCP,Desabilitar o modulo dccp,Confere se dccp nao esta carregado e se existe regra de bloqueio
+11,Kernel,Full,Alta,Desabilitar modulo SCTP quando nao requerido,Desabilitar o modulo sctp,Checa se sctp nao esta carregado e se esta bloqueado em modprobe
+12,Kernel,Full,Alta,Desabilitar modulo RDS,Desabilitar o modulo rds,Valida que rds nao esta ativo e esta proibido em modprobe
+13,Kernel,Full,Alta,Desabilitar modulo TIPC,Desabilitar o modulo tipc,Checa se tipc nao esta carregado e se ha bloqueio configurado
+14,Kernel,Full,Alta,Core dumps restritos,Restringir core dumps em especial de binarios setuid,Verifica limite de core e valor de fs suid dumpable igual a zero
+15,Kernel,Light,Alta,SUID dump off,Configurar fs.suid_dumpable=0 persistentemente.,Verificar valor de fs.suid_dumpable
+16,Kernel,Full,Alta,NX XD ativo,Habilitar NX ou XD no hardware e no kernel,Checa suporte a nx na cpu e mensagem de ativacao no dmesg
+17,Kernel,Full,Média,ASLR habilitado,Habilitar ASLR completo para espaco de enderecamento,Verifica kernel randomize va space igual a dois
+18,Kernel,Light,Média,ASLR completo,Configurar ASLR completo via sysctl persistente.,Verificar randomize_va_space
+19,Kernel,Full,Alta,perf event restrito,Restringir perf event para usuarios nao privilegiados,Verifica kernel perf event paranoid em nivel mais restritivo
+20,Kernel,Light,Média,perf_event restrito,Configurar perf_event_paranoid restritivo via sysctl persistente.,Verificar perf_event_paranoid
+21,Kernel,Light,Alta,dmesg restrito,Configurar dmesg_restrict=1 via sysctl persistente.,Verificar dmesg_restrict
+22,Kernel,Full,Alta,protected symlinks,Ativar protecao de symlinks em diretorios sensiveis,Checa fs protected symlinks igual a um
+23,Kernel,Light,Alta,Symlinks protegidos,Configurar fs.protected_symlinks=1 persistentemente.,Verificar protected_symlinks
+24,Kernel,Light,Alta,Hardlinks protegidos,Configurar fs.protected_hardlinks=1 persistentemente.,Verificar protected_hardlinks
+25,Filesystem,Full,Média,Particao dedicada para tmp,Usar particao ou ponto dedicado para tmp,Verifica se existe montagem especifica para tmp via findmnt
+26,Filesystem,Full,Média,Particao dedicada para dev shm,Usar particao dedicada para dev shm,Checa montagem propria para dev shm
+27,Filesystem,Full,Alta,Particao dedicada para var,Usar particao dedicada para var,Verifica montagem independente para var
+28,Filesystem,Full,Alta,Particao dedicada para var tmp,Usar particao dedicada para var tmp,Checa se var tmp possui montagem propria
+29,Filesystem,Full,Alta,Particao dedicada para var log,Usar particao dedicada para var log,Confere montagem especifica para var log
+30,Filesystem,Full,Média,Particao dedicada para var log audit,Usar particao dedicada para var log audit,Verifica se var log audit tem montagem independente
+31,Filesystem,Full,Alta,Particao dedicada para home,Usar particao dedicada para home,Checa montagem independente para home
+32,Filesystem,Full,Alta,Particao dedicada para historico,Usar particao dedicada para historico,Verifica se existe montagem especifica para historico
+33,Filesystem,Full,Alta,Particao dedicada para crash,Usar particao dedicada para crash,Confere montagem dedicada para crash
+34,Filesystem,Full,Média,Particao dedicada para UNIX,Usar particao dedicada para UNIX,Verifica se ha montagem propria para UNIX
+35,Filesystem,Light,Baixa,Nodev removíveis,Ajustar opções nodev nosuid noexec para mídias removíveis no fstab.,Verificar opções de montagem para mídias removíveis
+36,Filesystem,Light,Baixa,Nodev partições críticas,Ajustar opções nodev nosuid para partições críticas.,Verificar opções de montagem críticas
+37,Filesystem,Full,Alta,Opcoes de montagem seguras em tmp,Aplicar opcoes seguras em tmp,Checa se tmp possui opcoes nodev nosuid e noexec
+38,Filesystem,Full,Alta,Opcoes de montagem seguras em dev shm,Aplicar opcoes seguras em dev shm,Verifica nodev nosuid noexec na montagem de dev shm
+39,Filesystem,Full,Média,Opcoes de montagem seguras em var tmp,Aplicar opcoes seguras em var tmp,Checa opcoes nodev nosuid ou noexec em var tmp
+40,Filesystem,Light,Alta,Segurança /var/log,Configurar /var/log com nodev nosuid.,Verificar opções de montagem de /var/log
+41,Filesystem,Light,Alta,Segurança audit log,Configurar /var/log/audit com nodev nosuid.,Verificar opções de montagem de /var/log/audit
+42,Filesystem,Light,Alta,Segurança /home,Configurar /home com nodev quando aplicável.,Verificar opções de montagem de /home
+43,Filesystem,Full,Média,Opcoes de montagem seguras em midias removiveis,Aplicar opcoes seguras em midias removiveis,Verifica se midias removiveis estao definidas com opcoes seguras em fstab
+44,Filesystem,Light,Alta,Sticky world-writable,Aplicar sticky bit em diretórios world writable locais.,Verificar sticky bit em diretórios world writable
+45,Filesystem,Light,Baixa,Sticky /tmp,Aplicar sticky bit em /tmp.,Verificar sticky bit em /tmp
+46,Filesystem,Light,Média,Sticky /var/tmp,Aplicar sticky bit em /var/tmp.,Verificar sticky bit em /var/tmp
+47,Filesystem,Light,Alta,Sticky /dev/shm,Aplicar sticky bit em /dev/shm quando aplicável.,Verificar sticky bit em /dev/shm
+48,Seguranca de Boot,Full,Baixa,Autofs desabilitado em servidores,Desabilitar autofs em servidores,Verifica se o servico autofs esta desabilitado
+49,Seguranca de Boot,Full,Alta,Senha de bootloader configurada,Configurar senha de bootloader,Verifica presenca de senha hash em grub cfg
+50,Seguranca de Boot,Full,Média,Permissoes seguras no arquivo do bootloader,Configurar permissoes seguras no arquivo do bootloader,Verifica permissoes de leitura e propriedade do grub cfg
+51,Seguranca de Boot,Full,Média,Single user mode com autenticacao,Exigir autenticacao no modo single user,Confere configuracao de autenticacao no systemd e emergency service
+56,Sistema,Light,Alta,Prelink removido,Remover prelink quando presente.,Verificar se prelink está instalado
+57,Sistema,Light,Baixa,xinetd removido,Desabilitar ou remover xinetd quando não requerido.,Verificar presença de xinetd
+58,Sistema,Light,Alta,Time sync ativo,Habilitar serviço de sincronização de tempo aprovado.,Verificar serviço de tempo ativo
+59,Sistema,Light,Baixa,Fontes NTP confiáveis,Configurar fontes de tempo confiáveis.,Verificar servidores configurados
+60,Sistema,Light,Baixa,NTP no boot,Habilitar sincronização automática no boot.,Verificar sincronização automática
+61,Sistema,Light,Alta,X11 removido,Remover componentes X11 quando não necessários.,Verificar presença de pacotes X11
+62,Sistema,Light,Alta,Avahi desabilitado,Desabilitar avahi quando não requerido.,Verificar status do avahi
+63,Sistema,Light,Baixa,CUPS desabilitado,Desabilitar CUPS quando não requerido.,Verificar status do CUPS
+64,Sistema,Full,Alta,DHCP server ausente,Remover servidor DHCP,Checa se pacote dhcp server esta instalado
+65,Sistema,Full,Alta,LDAP server ausente,Remover servidor LDAP,Verifica se openldap servers esta instalado
+66,Sistema,Full,Alta,DNS server ausente,Remover servidor DNS,Checa se pacote bind esta instalado
+67,Sistema,Full,Alta,FTP server ausente,Remover servidor FTP,Confere presenca do pacote vsftpd
+68,Sistema,Full,Média,HTTP server ausente,Remover servidor HTTP nao essencial,Verifica se httpd esta instalado
+69,Sistema,Light,Alta,IMAP/POP removidos,Remover serviços IMAP/POP3 quando não aplicáveis.,Verificar presença de serviços IMAP POP3
+70,Sistema,Light,Baixa,Samba removido,Remover Samba quando não aplicável.,Verificar presença de Samba
+71,Sistema,Light,Alta,Proxy removido,Remover proxy HTTP quando não aplicável.,Verificar presença de proxy HTTP
+72,Sistema,Light,Baixa,SNMP desabilitado,Desabilitar SNMP quando não requerido.,Verificar status do SNMP
+73,Sistema,Light,Baixa,NIS removido,Remover servidor NIS quando não aplicável.,Verificar presença de NIS
+74,Sistema,Light,Alta,Telnet removido,Remover servidor Telnet.,Verificar presença de telnetd
+75,Sistema,Light,Baixa,MTA local-only,Configurar MTA para modo local only quando aplicável.,Verificar configuração do MTA
+76,Sistema,Light,Alta,NFS desabilitado,Desabilitar NFS server quando não aplicável.,Verificar presença de NFS server
+77,Sistema,Light,Média,rpcbind desabilitado,Desabilitar rpcbind quando não requerido.,Verificar status do rpcbind
+78,Sistema,Light,Alta,rsync desabilitado,Desabilitar rsync daemon quando não requerido.,Verificar presença do rsync daemon
+79,Sistema,Light,Alta,Cliente NIS removido,Remover cliente NIS.,Verificar presença do cliente NIS
+80,Sistema,Light,Baixa,Cliente rsh removido,Remover cliente rsh.,Verificar presença de rsh
+81,Sistema,Light,Alta,Cliente talk removido,Remover cliente talk.,Verificar presença de talk
+82,Sistema,Light,Alta,Cliente telnet removido,Remover cliente telnet.,Verificar presença de cliente telnet
+83,Sistema,Light,Baixa,Cliente LDAP removido,Remover cliente LDAP quando não requerido.,Verificar presença de cliente LDAP
+84,Sistema,Light,Média,Serviços supérfluos,Remover ou mascarar serviços não essenciais.,Verificar serviços ativos não autorizados
+85,Sistema,Light,Média,TFTP removido,Remover servidor TFTP.,Verificar presença de TFTP
+86,Sistema,Light,Alta,Polkit seguro,Configurar polkit conforme baseline aprovado.,Verificar regras do polkit
+87,Sistema,Light,Baixa,gpgcheck ativo,Habilitar gpgcheck em todos os repositórios.,Verificar configuração de repositórios
+88,Sistema,Light,Alta,Patches aplicados,Aplicar atualizações de segurança pendentes.,Verificar atualizações pendentes
+89,Sistema,Light,Alta,Time sync único,Manter apenas um mecanismo de sincronização ativo.,Verificar serviços de tempo ativos
+90,Sistema,Light,Alta,Cron/at restritos,Restringir cron e at a usuários autorizados.,Verificar listas de controle de cron e at
+91,Rede,Full,Alta,IP forwarding desabilitado,Desabilitar IP forwarding em hosts nao roteadores,Confere sysctl de net ipv4 ip forward e net ipv6 conf all forwarding iguais a zero
+92,Rede,Light,Alta,Redirects desabilitados,Desabilitar redirects de pacotes via sysctl persistente.,Verificar configuração de redirects
+93,Rede,Light,Média,Source-route bloqueado,Desabilitar source routed packets via sysctl persistente.,Verificar parâmetros de source route
+94,Rede,Light,Média,ICMP redirects off,Desabilitar ICMP redirects via sysctl persistente.,Verificar ICMP redirects
+95,Rede,Light,Alta,RP filter on,Habilitar reverse path filtering via sysctl persistente.,Verificar rp_filter
+96,Rede,Light,Alta,Ignore broadcast ICMP,Habilitar ignore broadcast ICMP via sysctl persistente.,Verificar ignore_broadcasts
+97,Rede,Light,Média,Ignore bogus ICMP,Habilitar ignore bogus ICMP responses via sysctl persistente.,Verificar ignore_bogus_error_responses
+98,Rede,Light,Alta,Syncookies ativos,Habilitar tcp_syncookies via sysctl persistente.,Verificar tcp_syncookies
+99,Rede,Full,Alta,IPv6 desabilitado ou endurecido,Desabilitar ou endurecer IPv6 conforme politica,Verifica sysctl net ipv6 conf all disable ipv6 igual a um
+102,Rede,Light,Baixa,Wireless desabilitado,Desabilitar interfaces wireless ou bluetooth quando não necessárias.,Verificar interfaces wireless ou bluetooth ativas
+109,SSH Hardening,Light,Baixa,Permissões SSH seguras,Ajustar permissões de sshd_config e diretório /etc/ssh.,Verificar permissões de arquivos e diretório SSH
+108,Criptografia TLS,Full,Alta,TLS mínimo 1.2+,Exigir uso de TLS 1.2 ou superior para serviços e comunicações.,Verificar se políticas de criptografia bloqueiam TLS < 1.
+110,SSH Hardening,Full,Média,Controle de acesso via Allow Deny,Configurar directivas Allow e Deny conforme politica,Procura diretivas AllowUsers AllowGroups DenyUsers ou DenyGroups no sshd config
+111,SSH Hardening,Light,Baixa,SyslogFacility AUTHPRIV,Configurar SyslogFacility AUTHPRIV.,Verificar parâmetro SyslogFacility
+112,SSH Hardening,Light,Baixa,X11Forwarding off,Desabilitar X11Forwarding quando não requerido.,Verificar parâmetro X11Forwarding
+113,SSH Hardening,Light,Alta,MaxAuthTries restrito,Configurar MaxAuthTries de forma restritiva.,Verificar valor de MaxAuthTries
+114,SSH Hardening,Light,Alta,IgnoreRhosts yes,Configurar IgnoreRhosts yes.,Verificar parâmetro IgnoreRhosts
+115,SSH Hardening,Light,Baixa,HostbasedAuth off,Configurar HostbasedAuthentication no.,Verificar parâmetro HostbasedAuthentication
+117,SSH Hardening,Light,Alta,EmptyPasswords off,Configurar PermitEmptyPasswords no.,Verificar parâmetro PermitEmptyPasswords
+118,SSH Hardening,Light,Média,UserEnvironment off,Configurar PermitUserEnvironment no.,Verificar parâmetro PermitUserEnvironment
+119,SSH Hardening,Light,Alta,UsePAM on,Configurar UsePAM yes.,Verificar parâmetro UsePAM
+120,SSH Hardening,Light,Baixa,ClientAlive tunado,Ajustar ClientAliveInterval e ClientAliveCountMax.,Verificar parâmetros ClientAlive
+121,SSH Hardening,Light,Alta,LoginGraceTime restrito,Configurar LoginGraceTime restritivo.,Verificar parâmetro LoginGraceTime
+122,SSH Hardening,Light,Média,MaxStartups restrito,Configurar MaxStartups e MaxSessions restritivos.,Verificar parâmetros MaxStartups e MaxSessions
+123,SSH Hardening,Full,Alta,AllowTcpForwarding restrito,Restringir AllowTcpForwarding,Confere se AllowTcpForwarding esta definido como no ou restrito
+124,SSH Hardening,Light,Baixa,Banner legal,Configurar Banner legal quando exigido.,Verificar parâmetro Banner
+125,SSH Hardening,Full,Alta,Ciphers fortes apenas,Aplicar lista de cifradores fortes,Verifica se diretiva Ciphers contem apenas algoritmos considerados fortes
+126,SSH Hardening,Full,Alta,MACs fortes apenas,Aplicar MACs fortes,Checa se diretiva MACs contem somente algoritmos seguros
+127,SSH Hardening,Full,Alta,KexAlgorithms fortes apenas,Aplicar KexAlgorithms fortes,Verifica se KexAlgorithms inclui apenas metodos fortes como curve25519 e DH robusto
+128,SSH Hardening,Full,Alta,Preferencia por algoritmos modernos,Priorizar algoritmos modernos,Checa se Ciphers e KexAlgorithms priorizam suites modernas
+129,SSH Hardening,Full,Alta,ForceCommand Chroot SSH,Utilizar ForceCommand ou Chroot quando aplicavel,Verifica se ha diretivas ForceCommand ou ChrootDirectory configuradas para contas especificas
+130,Senhas e Contas,Light,Alta,PAM complexidade,Incluir módulo de complexidade na stack PAM.,Verificar presença do módulo de complexidade na stack PAM
+131,Senhas e Contas,Light,Alta,pwquality configurado,Configurar pam_pwquality conforme baseline.,Verificar parâmetros do pam_pwquality
+132,Senhas e Contas,Full,Alta,pam faillock habilitado,Habilitar pam faillock para bloqueio de conta,Verifica uso de pam faillock nas pilhas de autenticacao
+133,Senhas e Contas,Full,Alta,pam tally2 habilitado,Habilitar pam tally2 quando aplicavel,Checa referencias a pam tally2 nas pilhas de autenticacao
+134,Senhas e Contas,Light,Alta,pwhistory configurado,Configurar pam_pwhistory.,Verificar configuração de pwhistory
+135,Senhas e Contas,Light,Alta,Senha mínima,Definir tamanho mínimo de senha.,Verificar parâmetro de tamanho mínimo
+136,Senhas e Contas,Light,Alta,Complexidade mínima,Configurar complexidade mínima de senha.,Verificar requisitos de complexidade
+137,Senhas e Contas,Light,Baixa,Sem repetição/sequência,Configurar limites de repetição e sequência.,Verificar parâmetros de repetição e sequência
+138,Senhas e Contas,Light,Baixa,Dicionário ativo,Habilitar verificação de dicionário quando aplicável.,Verificar parâmetro de verificação de dicionário
+139,Senhas e Contas,Light,Alta,Hash forte,Configurar algoritmo de hashing forte.,Verificar algoritmo configurado
+140,Senhas e Contas,Light,Alta,Histórico de senhas,Configurar histórico de senha.,Verificar parâmetro de histórico
+141,Senhas e Contas,Full,Alta,Bloqueio por tentativas invalidas,Configurar bloqueio por tentativas invalidas,Verifica parametro deny em faillock conf
+142,Senhas e Contas,Light,Baixa,Tempo desbloqueio,Configurar tempo de desbloqueio conforme política.,Verificar tempo de desbloqueio
+143,Senhas e Contas,Light,Alta,PASS_MAX_DAYS,Configurar PASS_MAX_DAYS.,Verificar PASS_MAX_DAYS
+144,Senhas e Contas,Light,Baixa,PASS_MIN_DAYS,Configurar PASS_MIN_DAYS.,Verificar PASS_MIN_DAYS
+145,Senhas e Contas,Light,Baixa,PASS_WARN_AGE,Configurar PASS_WARN_AGE.,Verificar PASS_WARN_AGE
+146,Senhas e Contas,Light,Alta,INACTIVE ajustado,Configurar parâmetro INACTIVE para contas locais.,Verificar parâmetro INACTIVE
+147,Senhas e Contas,Light,Baixa,Corrigir datas senha,Corrigir datas inconsistentes de troca de senha.,Verificar inconsistências de data
+148,Senhas e Contas,Light,Alta,UID 0 exclusivo,Garantir apenas root com UID 0.,Verificar contas com UID 0
+149,Senhas e Contas,Light,Alta,GID 0 exclusivo,Garantir apenas grupo root com GID 0.,Verificar grupos com GID 0
+150,Senhas e Contas,Light,Alta,Contas sistema bloqueadas,Bloquear contas de sistema com shell inválido.,Verificar shells de contas de sistema
+151,Senhas e Contas,Light,Baixa,Shells válidos,Remover shells inválidos de /etc/shells.,Verificar conteúdo de /etc/shells
+152,Senhas e Contas,Light,Alta,PATH root seguro,Ajustar PATH do root removendo diretórios inseguros.,Verificar variável PATH do root
+153,Senhas e Contas,Light,Alta,Umask restritiva,Configurar umask restritiva padrão.,Verificar valor de umask padrão
+154,Senhas e Contas,Light,Baixa,Timeout shell,Configurar timeout de shell.,Verificar variável de timeout
+155,Sudo,Light,Alta,Sudo restrito,Restringir administração privilegiada via sudo.,Verificar configuração do sudoers
+156,Sudo,Light,Alta,Sudo tty,Configurar sudo para uso de pseudo tty.,Verificar parâmetro requiretty ou equivalente
+157,Sudo,Light,Alta,Sudo logging,Habilitar logging de sudo.,Verificar configuração de log do sudo
+158,Sudo,Full,Média,Reautenticacao nao desabilitada,Garantir que reautenticacao nao esteja desabilitada,Verifica ausencia de Defaults authenticate desabilitado em sudoers
+159,Sudo,Light,Média,Sudo timeout,Configurar timeout de autenticação sudo.,Verificar configuração de timeout
+160,Sudo,Light,Alta,su restrito,Restringir uso de su a grupo autorizado.,Verificar configuração do su e grupo permitido
+161,Auditoria e Logs,Light,Baixa,Arquitetura logs,Ajustar arquitetura de logs evitando duplicidade.,Verificar coexistência de mecanismos redundantes
+162,Auditoria e Logs,Light,Alta,Journald persistente,Configurar journald com persistência quando aplicável.,Verificar configuração de persistência
+163,Auditoria e Logs,Light,Baixa,rsyslog ativo,Instalar e ativar rsyslog quando requerido.,Verificar presença e status do rsyslog
+164,Auditoria e Logs,Light,Alta,Rotação logs,Configurar rotação de logs.,Verificar configuração de rotação
+165,Auditoria e Logs,Light,Alta,auditd instalado,Instalar e habilitar auditd.,Verificar presença e status do auditd
+166,Auditoria e Logs,Light,Alta,auditd no boot,Garantir auditd inicializa antes de serviços críticos.,Verificar ordem de inicialização
+167,Auditoria e Logs,Light,Alta,Tamanho máximo audit,Configurar tamanho máximo de log de auditoria.,Verificar parâmetro max_log_file
+168,Auditoria e Logs,Full,Alta,Logs de auditoria nao excluidos automaticamente,Evitar exclusao automatica de logs de auditoria,Verifica max log file action em auditd conf para garantir keep logs ou rotate
+169,Auditoria e Logs,Light,Alta,Auditoria data/hora,Configurar auditoria de alteração de data e hora.,Verificar regras de auditoria de time change
+170,Auditoria e Logs,Light,Alta,Auditoria contas,Configurar auditoria de alteração de contas e grupos.,Verificar regras de auditoria relacionadas a contas
+171,Auditoria e Logs,Light,Média,Auditoria rede,Configurar auditoria de alterações de rede.,Verificar regras de auditoria de rede
+173,Auditoria e Logs,Light,Alta,Auditoria login,Configurar auditoria de login e logout.,Verificar regras de auditoria de login
+174,Auditoria e Logs,Light,Baixa,Auditoria DAC,Configurar auditoria de permissões DAC.,Verificar regras de auditoria DAC
+175,Auditoria e Logs,Light,Alta,Auditoria acesso negado,Configurar auditoria de tentativas de acesso não autorizado.,Verificar regras de acesso negado
+176,Auditoria e Logs,Light,Alta,Auditoria exec privilegiado,Configurar auditoria de execuções privilegiadas.,Verificar regras de execve privilegiado
+177,Auditoria e Logs,Light,Baixa,Auditoria mount,Configurar auditoria de mount e unmount.,Verificar regras relacionadas a mount
+178,Auditoria e Logs,Light,Baixa,Auditoria deleção,Configurar auditoria de deleção de arquivos.,Verificar regras de deleção
+179,Auditoria e Logs,Light,Alta,Auditoria módulos kernel,Configurar auditoria de carga e descarga de módulos de kernel.,Verificar regras relacionadas a módulos
+180,Auditoria e Logs,Light,Alta,Auditoria sudo,Configurar auditoria de sudo e sudoers.,Verificar regras de auditoria de sudo
+181,Auditoria e Logs,Full,Alta,Configuracao de auditoria imutavel,Tornar configuracao de auditoria imutavel em producao,Verifica se parametro e2 esta ativo em auditctl
+182,Integridade,Full,Alta,AIDE instalado e inicializado,Garantir AIDE instalado e base inicializada,Verifica instalacao do pacote AIDE e existencia de banco de dados inicial
+183,Integridade,Light,Alta,Verificação integridade,Agendar verificação periódica de integridade.,Verificar agendamento configurado
+184,Integridade,Full,Alta,Protecao dos binarios de auditoria,Proteger binarios e ferramentas de auditoria,Verifica permissoes e proprietario de binarios como auditctl aureport ausearch auditd
+185,Permissões,Light,Alta,Permissões passwd,Ajustar permissões de /etc/passwd.,Verificar permissões de /etc/passwd
+186,Permissões,Light,Baixa,Permissões passwd-,Ajustar permissões de /etc/passwd-.,Verificar permissões de /etc/passwd-
+187,Permissões,Light,Alta,Permissões shadow,Ajustar permissões de /etc/shadow.,Verificar permissões de /etc/shadow
+188,Permissões,Light,Baixa,Permissões shadow-,Ajustar permissões de /etc/shadow-.,Verificar permissões de /etc/shadow-
+189,Permissões,Light,Baixa,Permissões gshadow-,Ajustar permissões de /etc/gshadow-.,Verificar permissões de /etc/gshadow-
+190,Permissões,Light,Alta,Permissões gshadow,Ajustar permissões de /etc/gshadow.,Verificar permissões de /etc/gshadow
+191,Permissões,Light,Baixa,Permissões group,Ajustar permissões de /etc/group.,Verificar permissões de /etc/group
+192,Permissões,Light,Baixa,Permissões group-,Ajustar permissões de /etc/group-.,Verificar permissões de /etc/group-
+193,Sistema e Contas,Full,Baixa,nologin fora de etc shells,Garantir que nologin seja tratado de forma consistente,Verifica se nologin aparece listado em etc shells
+194,Permissões,Light,Alta,Proteger opasswd,Proteger /etc/security/opasswd contra acesso não autorizado.,Verificar permissões de opasswd
+195,Permissões,Light,Baixa,Arquivos órfãos,Corrigir arquivos órfãos sem owner válido.,Identificar arquivos sem owner válido
+196,Permissões,Light,Alta,Sticky world-writable,Garantir sticky bit em diretórios world writable.,Verificar sticky bit em diretórios world writable
+197,Permissões,Light,Baixa,Arquivos sem grupo,Corrigir arquivos sem owner ou grupo válido.,Identificar arquivos sem owner ou grupo
+198,Permissões,Full,Alta,SUID SGID revisados,Rever binarios SUID e SGID,Lista arquivos com bits SUID ou SGID definidos
+199,Home,Light,Baixa,Home ausente,Verificar usuários sem diretório home,Verificar usuários sem diretório home
+200,Home,Light,Alta,Ownership home,Ajustar ownership dos diretórios home para o respectivo usuário.,Verificar ownership dos diretórios home
+201,Home,Light,Alta,Permissões home,Ajustar permissões de home para 750 ou mais restritivas.,Verificar permissões dos diretórios home
+202,Home,Light,Baixa,Dotfiles seguros,Ajustar permissões de dotfiles removendo escrita indevida.,Verificar permissões de dotfiles
+203,Home,Light,Alta,Arquivos trust legado,Remover ou proteger arquivos forward  netrc e rhosts conforme política.,Verificar presença desses arquivos
