@@ -1,191 +1,206 @@
-﻿Tópico,Subtópico,Perfil,Criticidade,Resumo,Description,Auditoria - Descrição
-1,Kernel,Light,Alta,Bloqueio cramfs,Bloquear módulo cramfs persistentemente via modprobe.d e remover se carregado.,Verificar se módulo cramfs está bloqueado
-2,Kernel,Light,Alta,Bloqueio squashfs,Bloquear módulo squashfs persistentemente via modprobe.d e remover se carregado.,Verificar se módulo squashfs está bloqueado
-3,Kernel,Light,Média,Bloqueio udf,Bloquear módulo udf persistentemente via modprobe.d e remover se carregado.,Verificar se módulo udf está bloqueado
-4,Kernel,Light,Alta,Bloqueio hfs,Bloquear módulo hfs persistentemente via modprobe.d e remover se carregado.,Verificar se módulo hfs está bloqueado
-5,Kernel,Light,Alta,Bloqueio hfsplus,Bloquear módulo hfsplus persistentemente via modprobe.d e remover se carregado.,Verificar se módulo hfsplus está bloqueado
-6,Kernel,Light,Alta,Bloqueio jffs2,Bloquear módulo jffs2 persistentemente via modprobe.d e remover se carregado.,Verificar se módulo jffs2 está bloqueado
-7,Kernel,Light,Alta,Bloqueio freevxfs,Bloquear módulo freevxfs persistentemente via modprobe.d e remover se carregado.,Verificar se módulo freevxfs está bloqueado
-8,Kernel,Full,Média,Desabilitar overlayfs quando nao for requisito,Desabilitar o modulo overlayfs,Checa se overlay nao esta carregado e se ha regra de bloqueio
-9,Kernel,Light,Alta,Bloqueio usb_storage,Bloquear módulo usb_storage persistentemente.,Verificar se usb_storage está bloqueado
-10,Kernel,Full,Alta,Desabilitar modulo DCCP,Desabilitar o modulo dccp,Confere se dccp nao esta carregado e se existe regra de bloqueio
-11,Kernel,Full,Alta,Desabilitar modulo SCTP quando nao requerido,Desabilitar o modulo sctp,Checa se sctp nao esta carregado e se esta bloqueado em modprobe
-12,Kernel,Full,Alta,Desabilitar modulo RDS,Desabilitar o modulo rds,Valida que rds nao esta ativo e esta proibido em modprobe
-13,Kernel,Full,Alta,Desabilitar modulo TIPC,Desabilitar o modulo tipc,Checa se tipc nao esta carregado e se ha bloqueio configurado
-14,Kernel,Full,Alta,Core dumps restritos,Restringir core dumps em especial de binarios setuid,Verifica limite de core e valor de fs suid dumpable igual a zero
-15,Kernel,Light,Alta,SUID dump off,Configurar fs.suid_dumpable=0 persistentemente.,Verificar valor de fs.suid_dumpable
-16,Kernel,Full,Alta,NX XD ativo,Habilitar NX ou XD no hardware e no kernel,Checa suporte a nx na cpu e mensagem de ativacao no dmesg
-17,Kernel,Full,Média,ASLR habilitado,Habilitar ASLR completo para espaco de enderecamento,Verifica kernel randomize va space igual a dois
-18,Kernel,Light,Média,ASLR completo,Configurar ASLR completo via sysctl persistente.,Verificar randomize_va_space
-19,Kernel,Full,Alta,perf event restrito,Restringir perf event para usuarios nao privilegiados,Verifica kernel perf event paranoid em nivel mais restritivo
-20,Kernel,Light,Média,perf_event restrito,Configurar perf_event_paranoid restritivo via sysctl persistente.,Verificar perf_event_paranoid
-21,Kernel,Light,Alta,dmesg restrito,Configurar dmesg_restrict=1 via sysctl persistente.,Verificar dmesg_restrict
-22,Kernel,Full,Alta,protected symlinks,Ativar protecao de symlinks em diretorios sensiveis,Checa fs protected symlinks igual a um
-23,Kernel,Light,Alta,Symlinks protegidos,Configurar fs.protected_symlinks=1 persistentemente.,Verificar protected_symlinks
-24,Kernel,Light,Alta,Hardlinks protegidos,Configurar fs.protected_hardlinks=1 persistentemente.,Verificar protected_hardlinks
-25,Filesystem,Full,Média,Particao dedicada para tmp,Usar particao ou ponto dedicado para tmp,Verifica se existe montagem especifica para tmp via findmnt
-26,Filesystem,Full,Média,Particao dedicada para dev shm,Usar particao dedicada para dev shm,Checa montagem propria para dev shm
-27,Filesystem,Full,Alta,Particao dedicada para var,Usar particao dedicada para var,Verifica montagem independente para var
-28,Filesystem,Full,Alta,Particao dedicada para var tmp,Usar particao dedicada para var tmp,Checa se var tmp possui montagem propria
-29,Filesystem,Full,Alta,Particao dedicada para var log,Usar particao dedicada para var log,Confere montagem especifica para var log
-30,Filesystem,Full,Média,Particao dedicada para var log audit,Usar particao dedicada para var log audit,Verifica se var log audit tem montagem independente
-31,Filesystem,Full,Alta,Particao dedicada para home,Usar particao dedicada para home,Checa montagem independente para home
-32,Filesystem,Full,Alta,Particao dedicada para historico,Usar particao dedicada para historico,Verifica se existe montagem especifica para historico
-33,Filesystem,Full,Alta,Particao dedicada para crash,Usar particao dedicada para crash,Confere montagem dedicada para crash
-34,Filesystem,Full,Média,Particao dedicada para UNIX,Usar particao dedicada para UNIX,Verifica se ha montagem propria para UNIX
-35,Filesystem,Light,Baixa,Nodev removíveis,Ajustar opções nodev nosuid noexec para mídias removíveis no fstab.,Verificar opções de montagem para mídias removíveis
-36,Filesystem,Light,Baixa,Nodev partições críticas,Ajustar opções nodev nosuid para partições críticas.,Verificar opções de montagem críticas
-37,Filesystem,Full,Alta,Opcoes de montagem seguras em tmp,Aplicar opcoes seguras em tmp,Checa se tmp possui opcoes nodev nosuid e noexec
-38,Filesystem,Full,Alta,Opcoes de montagem seguras em dev shm,Aplicar opcoes seguras em dev shm,Verifica nodev nosuid noexec na montagem de dev shm
-39,Filesystem,Full,Média,Opcoes de montagem seguras em var tmp,Aplicar opcoes seguras em var tmp,Checa opcoes nodev nosuid ou noexec em var tmp
-40,Filesystem,Light,Alta,Segurança /var/log,Configurar /var/log com nodev nosuid.,Verificar opções de montagem de /var/log
-41,Filesystem,Light,Alta,Segurança audit log,Configurar /var/log/audit com nodev nosuid.,Verificar opções de montagem de /var/log/audit
-42,Filesystem,Light,Alta,Segurança /home,Configurar /home com nodev quando aplicável.,Verificar opções de montagem de /home
-43,Filesystem,Full,Média,Opcoes de montagem seguras em midias removiveis,Aplicar opcoes seguras em midias removiveis,Verifica se midias removiveis estao definidas com opcoes seguras em fstab
-44,Filesystem,Light,Alta,Sticky world-writable,Aplicar sticky bit em diretórios world writable locais.,Verificar sticky bit em diretórios world writable
-45,Filesystem,Light,Baixa,Sticky /tmp,Aplicar sticky bit em /tmp.,Verificar sticky bit em /tmp
-46,Filesystem,Light,Média,Sticky /var/tmp,Aplicar sticky bit em /var/tmp.,Verificar sticky bit em /var/tmp
-47,Filesystem,Light,Alta,Sticky /dev/shm,Aplicar sticky bit em /dev/shm quando aplicável.,Verificar sticky bit em /dev/shm
-48,Seguranca de Boot,Full,Baixa,Autofs desabilitado em servidores,Desabilitar autofs em servidores,Verifica se o servico autofs esta desabilitado
-49,Seguranca de Boot,Full,Alta,Senha de bootloader configurada,Configurar senha de bootloader,Verifica presenca de senha hash em grub cfg
-50,Seguranca de Boot,Full,Média,Permissoes seguras no arquivo do bootloader,Configurar permissoes seguras no arquivo do bootloader,Verifica permissoes de leitura e propriedade do grub cfg
-51,Seguranca de Boot,Full,Média,Single user mode com autenticacao,Exigir autenticacao no modo single user,Confere configuracao de autenticacao no systemd e emergency service
-56,Sistema,Light,Alta,Prelink removido,Remover prelink quando presente.,Verificar se prelink está instalado
-57,Sistema,Light,Baixa,xinetd removido,Desabilitar ou remover xinetd quando não requerido.,Verificar presença de xinetd
-58,Sistema,Light,Alta,Time sync ativo,Habilitar serviço de sincronização de tempo aprovado.,Verificar serviço de tempo ativo
-59,Sistema,Light,Baixa,Fontes NTP confiáveis,Configurar fontes de tempo confiáveis.,Verificar servidores configurados
-60,Sistema,Light,Baixa,NTP no boot,Habilitar sincronização automática no boot.,Verificar sincronização automática
-61,Sistema,Light,Alta,X11 removido,Remover componentes X11 quando não necessários.,Verificar presença de pacotes X11
-62,Sistema,Light,Alta,Avahi desabilitado,Desabilitar avahi quando não requerido.,Verificar status do avahi
-63,Sistema,Light,Baixa,CUPS desabilitado,Desabilitar CUPS quando não requerido.,Verificar status do CUPS
-64,Sistema,Full,Alta,DHCP server ausente,Remover servidor DHCP,Checa se pacote dhcp server esta instalado
-65,Sistema,Full,Alta,LDAP server ausente,Remover servidor LDAP,Verifica se openldap servers esta instalado
-66,Sistema,Full,Alta,DNS server ausente,Remover servidor DNS,Checa se pacote bind esta instalado
-67,Sistema,Full,Alta,FTP server ausente,Remover servidor FTP,Confere presenca do pacote vsftpd
-68,Sistema,Full,Média,HTTP server ausente,Remover servidor HTTP nao essencial,Verifica se httpd esta instalado
-69,Sistema,Light,Alta,IMAP/POP removidos,Remover serviços IMAP/POP3 quando não aplicáveis.,Verificar presença de serviços IMAP POP3
-70,Sistema,Light,Baixa,Samba removido,Remover Samba quando não aplicável.,Verificar presença de Samba
-71,Sistema,Light,Alta,Proxy removido,Remover proxy HTTP quando não aplicável.,Verificar presença de proxy HTTP
-72,Sistema,Light,Baixa,SNMP desabilitado,Desabilitar SNMP quando não requerido.,Verificar status do SNMP
-73,Sistema,Light,Baixa,NIS removido,Remover servidor NIS quando não aplicável.,Verificar presença de NIS
-74,Sistema,Light,Alta,Telnet removido,Remover servidor Telnet.,Verificar presença de telnetd
-75,Sistema,Light,Baixa,MTA local-only,Configurar MTA para modo local only quando aplicável.,Verificar configuração do MTA
-76,Sistema,Light,Alta,NFS desabilitado,Desabilitar NFS server quando não aplicável.,Verificar presença de NFS server
-77,Sistema,Light,Média,rpcbind desabilitado,Desabilitar rpcbind quando não requerido.,Verificar status do rpcbind
-78,Sistema,Light,Alta,rsync desabilitado,Desabilitar rsync daemon quando não requerido.,Verificar presença do rsync daemon
-79,Sistema,Light,Alta,Cliente NIS removido,Remover cliente NIS.,Verificar presença do cliente NIS
-80,Sistema,Light,Baixa,Cliente rsh removido,Remover cliente rsh.,Verificar presença de rsh
-81,Sistema,Light,Alta,Cliente talk removido,Remover cliente talk.,Verificar presença de talk
-82,Sistema,Light,Alta,Cliente telnet removido,Remover cliente telnet.,Verificar presença de cliente telnet
-83,Sistema,Light,Baixa,Cliente LDAP removido,Remover cliente LDAP quando não requerido.,Verificar presença de cliente LDAP
-84,Sistema,Light,Média,Serviços supérfluos,Remover ou mascarar serviços não essenciais.,Verificar serviços ativos não autorizados
-85,Sistema,Light,Média,TFTP removido,Remover servidor TFTP.,Verificar presença de TFTP
-86,Sistema,Light,Alta,Polkit seguro,Configurar polkit conforme baseline aprovado.,Verificar regras do polkit
-87,Sistema,Light,Baixa,gpgcheck ativo,Habilitar gpgcheck em todos os repositórios.,Verificar configuração de repositórios
-88,Sistema,Light,Alta,Patches aplicados,Aplicar atualizações de segurança pendentes.,Verificar atualizações pendentes
-89,Sistema,Light,Alta,Time sync único,Manter apenas um mecanismo de sincronização ativo.,Verificar serviços de tempo ativos
-90,Sistema,Light,Alta,Cron/at restritos,Restringir cron e at a usuários autorizados.,Verificar listas de controle de cron e at
-91,Rede,Full,Alta,IP forwarding desabilitado,Desabilitar IP forwarding em hosts nao roteadores,Confere sysctl de net ipv4 ip forward e net ipv6 conf all forwarding iguais a zero
-92,Rede,Light,Alta,Redirects desabilitados,Desabilitar redirects de pacotes via sysctl persistente.,Verificar configuração de redirects
-93,Rede,Light,Média,Source-route bloqueado,Desabilitar source routed packets via sysctl persistente.,Verificar parâmetros de source route
-94,Rede,Light,Média,ICMP redirects off,Desabilitar ICMP redirects via sysctl persistente.,Verificar ICMP redirects
-95,Rede,Light,Alta,RP filter on,Habilitar reverse path filtering via sysctl persistente.,Verificar rp_filter
-96,Rede,Light,Alta,Ignore broadcast ICMP,Habilitar ignore broadcast ICMP via sysctl persistente.,Verificar ignore_broadcasts
-97,Rede,Light,Média,Ignore bogus ICMP,Habilitar ignore bogus ICMP responses via sysctl persistente.,Verificar ignore_bogus_error_responses
-98,Rede,Light,Alta,Syncookies ativos,Habilitar tcp_syncookies via sysctl persistente.,Verificar tcp_syncookies
-99,Rede,Full,Alta,IPv6 desabilitado ou endurecido,Desabilitar ou endurecer IPv6 conforme politica,Verifica sysctl net ipv6 conf all disable ipv6 igual a um
-102,Rede,Light,Baixa,Wireless desabilitado,Desabilitar interfaces wireless ou bluetooth quando não necessárias.,Verificar interfaces wireless ou bluetooth ativas
-109,SSH Hardening,Light,Baixa,Permissões SSH seguras,Ajustar permissões de sshd_config e diretório /etc/ssh.,Verificar permissões de arquivos e diretório SSH
-108,Criptografia TLS,Full,Alta,TLS mínimo 1.2+,Exigir uso de TLS 1.2 ou superior para serviços e comunicações.,Verificar se políticas de criptografia bloqueiam TLS < 1.
-110,SSH Hardening,Full,Média,Controle de acesso via Allow Deny,Configurar directivas Allow e Deny conforme politica,Procura diretivas AllowUsers AllowGroups DenyUsers ou DenyGroups no sshd config
-111,SSH Hardening,Light,Baixa,SyslogFacility AUTHPRIV,Configurar SyslogFacility AUTHPRIV.,Verificar parâmetro SyslogFacility
-112,SSH Hardening,Light,Baixa,X11Forwarding off,Desabilitar X11Forwarding quando não requerido.,Verificar parâmetro X11Forwarding
-113,SSH Hardening,Light,Alta,MaxAuthTries restrito,Configurar MaxAuthTries de forma restritiva.,Verificar valor de MaxAuthTries
-114,SSH Hardening,Light,Alta,IgnoreRhosts yes,Configurar IgnoreRhosts yes.,Verificar parâmetro IgnoreRhosts
-115,SSH Hardening,Light,Baixa,HostbasedAuth off,Configurar HostbasedAuthentication no.,Verificar parâmetro HostbasedAuthentication
-117,SSH Hardening,Light,Alta,EmptyPasswords off,Configurar PermitEmptyPasswords no.,Verificar parâmetro PermitEmptyPasswords
-118,SSH Hardening,Light,Média,UserEnvironment off,Configurar PermitUserEnvironment no.,Verificar parâmetro PermitUserEnvironment
-119,SSH Hardening,Light,Alta,UsePAM on,Configurar UsePAM yes.,Verificar parâmetro UsePAM
-120,SSH Hardening,Light,Baixa,ClientAlive tunado,Ajustar ClientAliveInterval e ClientAliveCountMax.,Verificar parâmetros ClientAlive
-121,SSH Hardening,Light,Alta,LoginGraceTime restrito,Configurar LoginGraceTime restritivo.,Verificar parâmetro LoginGraceTime
-122,SSH Hardening,Light,Média,MaxStartups restrito,Configurar MaxStartups e MaxSessions restritivos.,Verificar parâmetros MaxStartups e MaxSessions
-123,SSH Hardening,Full,Alta,AllowTcpForwarding restrito,Restringir AllowTcpForwarding,Confere se AllowTcpForwarding esta definido como no ou restrito
-124,SSH Hardening,Light,Baixa,Banner legal,Configurar Banner legal quando exigido.,Verificar parâmetro Banner
-125,SSH Hardening,Full,Alta,Ciphers fortes apenas,Aplicar lista de cifradores fortes,Verifica se diretiva Ciphers contem apenas algoritmos considerados fortes
-126,SSH Hardening,Full,Alta,MACs fortes apenas,Aplicar MACs fortes,Checa se diretiva MACs contem somente algoritmos seguros
-127,SSH Hardening,Full,Alta,KexAlgorithms fortes apenas,Aplicar KexAlgorithms fortes,Verifica se KexAlgorithms inclui apenas metodos fortes como curve25519 e DH robusto
-128,SSH Hardening,Full,Alta,Preferencia por algoritmos modernos,Priorizar algoritmos modernos,Checa se Ciphers e KexAlgorithms priorizam suites modernas
-129,SSH Hardening,Full,Alta,ForceCommand Chroot SSH,Utilizar ForceCommand ou Chroot quando aplicavel,Verifica se ha diretivas ForceCommand ou ChrootDirectory configuradas para contas especificas
-130,Senhas e Contas,Light,Alta,PAM complexidade,Incluir módulo de complexidade na stack PAM.,Verificar presença do módulo de complexidade na stack PAM
-131,Senhas e Contas,Light,Alta,pwquality configurado,Configurar pam_pwquality conforme baseline.,Verificar parâmetros do pam_pwquality
-132,Senhas e Contas,Full,Alta,pam faillock habilitado,Habilitar pam faillock para bloqueio de conta,Verifica uso de pam faillock nas pilhas de autenticacao
-133,Senhas e Contas,Full,Alta,pam tally2 habilitado,Habilitar pam tally2 quando aplicavel,Checa referencias a pam tally2 nas pilhas de autenticacao
-134,Senhas e Contas,Light,Alta,pwhistory configurado,Configurar pam_pwhistory.,Verificar configuração de pwhistory
-135,Senhas e Contas,Light,Alta,Senha mínima,Definir tamanho mínimo de senha.,Verificar parâmetro de tamanho mínimo
-136,Senhas e Contas,Light,Alta,Complexidade mínima,Configurar complexidade mínima de senha.,Verificar requisitos de complexidade
-137,Senhas e Contas,Light,Baixa,Sem repetição/sequência,Configurar limites de repetição e sequência.,Verificar parâmetros de repetição e sequência
-138,Senhas e Contas,Light,Baixa,Dicionário ativo,Habilitar verificação de dicionário quando aplicável.,Verificar parâmetro de verificação de dicionário
-139,Senhas e Contas,Light,Alta,Hash forte,Configurar algoritmo de hashing forte.,Verificar algoritmo configurado
-140,Senhas e Contas,Light,Alta,Histórico de senhas,Configurar histórico de senha.,Verificar parâmetro de histórico
-141,Senhas e Contas,Full,Alta,Bloqueio por tentativas invalidas,Configurar bloqueio por tentativas invalidas,Verifica parametro deny em faillock conf
-142,Senhas e Contas,Light,Baixa,Tempo desbloqueio,Configurar tempo de desbloqueio conforme política.,Verificar tempo de desbloqueio
-143,Senhas e Contas,Light,Alta,PASS_MAX_DAYS,Configurar PASS_MAX_DAYS.,Verificar PASS_MAX_DAYS
-144,Senhas e Contas,Light,Baixa,PASS_MIN_DAYS,Configurar PASS_MIN_DAYS.,Verificar PASS_MIN_DAYS
-145,Senhas e Contas,Light,Baixa,PASS_WARN_AGE,Configurar PASS_WARN_AGE.,Verificar PASS_WARN_AGE
-146,Senhas e Contas,Light,Alta,INACTIVE ajustado,Configurar parâmetro INACTIVE para contas locais.,Verificar parâmetro INACTIVE
-147,Senhas e Contas,Light,Baixa,Corrigir datas senha,Corrigir datas inconsistentes de troca de senha.,Verificar inconsistências de data
-148,Senhas e Contas,Light,Alta,UID 0 exclusivo,Garantir apenas root com UID 0.,Verificar contas com UID 0
-149,Senhas e Contas,Light,Alta,GID 0 exclusivo,Garantir apenas grupo root com GID 0.,Verificar grupos com GID 0
-150,Senhas e Contas,Light,Alta,Contas sistema bloqueadas,Bloquear contas de sistema com shell inválido.,Verificar shells de contas de sistema
-151,Senhas e Contas,Light,Baixa,Shells válidos,Remover shells inválidos de /etc/shells.,Verificar conteúdo de /etc/shells
-152,Senhas e Contas,Light,Alta,PATH root seguro,Ajustar PATH do root removendo diretórios inseguros.,Verificar variável PATH do root
-153,Senhas e Contas,Light,Alta,Umask restritiva,Configurar umask restritiva padrão.,Verificar valor de umask padrão
-154,Senhas e Contas,Light,Baixa,Timeout shell,Configurar timeout de shell.,Verificar variável de timeout
-155,Sudo,Light,Alta,Sudo restrito,Restringir administração privilegiada via sudo.,Verificar configuração do sudoers
-156,Sudo,Light,Alta,Sudo tty,Configurar sudo para uso de pseudo tty.,Verificar parâmetro requiretty ou equivalente
-157,Sudo,Light,Alta,Sudo logging,Habilitar logging de sudo.,Verificar configuração de log do sudo
-158,Sudo,Full,Média,Reautenticacao nao desabilitada,Garantir que reautenticacao nao esteja desabilitada,Verifica ausencia de Defaults authenticate desabilitado em sudoers
-159,Sudo,Light,Média,Sudo timeout,Configurar timeout de autenticação sudo.,Verificar configuração de timeout
-160,Sudo,Light,Alta,su restrito,Restringir uso de su a grupo autorizado.,Verificar configuração do su e grupo permitido
-161,Auditoria e Logs,Light,Baixa,Arquitetura logs,Ajustar arquitetura de logs evitando duplicidade.,Verificar coexistência de mecanismos redundantes
-162,Auditoria e Logs,Light,Alta,Journald persistente,Configurar journald com persistência quando aplicável.,Verificar configuração de persistência
-163,Auditoria e Logs,Light,Baixa,rsyslog ativo,Instalar e ativar rsyslog quando requerido.,Verificar presença e status do rsyslog
-164,Auditoria e Logs,Light,Alta,Rotação logs,Configurar rotação de logs.,Verificar configuração de rotação
-165,Auditoria e Logs,Light,Alta,auditd instalado,Instalar e habilitar auditd.,Verificar presença e status do auditd
-166,Auditoria e Logs,Light,Alta,auditd no boot,Garantir auditd inicializa antes de serviços críticos.,Verificar ordem de inicialização
-167,Auditoria e Logs,Light,Alta,Tamanho máximo audit,Configurar tamanho máximo de log de auditoria.,Verificar parâmetro max_log_file
-168,Auditoria e Logs,Full,Alta,Logs de auditoria nao excluidos automaticamente,Evitar exclusao automatica de logs de auditoria,Verifica max log file action em auditd conf para garantir keep logs ou rotate
-169,Auditoria e Logs,Light,Alta,Auditoria data/hora,Configurar auditoria de alteração de data e hora.,Verificar regras de auditoria de time change
-170,Auditoria e Logs,Light,Alta,Auditoria contas,Configurar auditoria de alteração de contas e grupos.,Verificar regras de auditoria relacionadas a contas
-171,Auditoria e Logs,Light,Média,Auditoria rede,Configurar auditoria de alterações de rede.,Verificar regras de auditoria de rede
-173,Auditoria e Logs,Light,Alta,Auditoria login,Configurar auditoria de login e logout.,Verificar regras de auditoria de login
-174,Auditoria e Logs,Light,Baixa,Auditoria DAC,Configurar auditoria de permissões DAC.,Verificar regras de auditoria DAC
-175,Auditoria e Logs,Light,Alta,Auditoria acesso negado,Configurar auditoria de tentativas de acesso não autorizado.,Verificar regras de acesso negado
-176,Auditoria e Logs,Light,Alta,Auditoria exec privilegiado,Configurar auditoria de execuções privilegiadas.,Verificar regras de execve privilegiado
-177,Auditoria e Logs,Light,Baixa,Auditoria mount,Configurar auditoria de mount e unmount.,Verificar regras relacionadas a mount
-178,Auditoria e Logs,Light,Baixa,Auditoria deleção,Configurar auditoria de deleção de arquivos.,Verificar regras de deleção
-179,Auditoria e Logs,Light,Alta,Auditoria módulos kernel,Configurar auditoria de carga e descarga de módulos de kernel.,Verificar regras relacionadas a módulos
-180,Auditoria e Logs,Light,Alta,Auditoria sudo,Configurar auditoria de sudo e sudoers.,Verificar regras de auditoria de sudo
-181,Auditoria e Logs,Full,Alta,Configuracao de auditoria imutavel,Tornar configuracao de auditoria imutavel em producao,Verifica se parametro e2 esta ativo em auditctl
-182,Integridade,Full,Alta,AIDE instalado e inicializado,Garantir AIDE instalado e base inicializada,Verifica instalacao do pacote AIDE e existencia de banco de dados inicial
-183,Integridade,Light,Alta,Verificação integridade,Agendar verificação periódica de integridade.,Verificar agendamento configurado
-184,Integridade,Full,Alta,Protecao dos binarios de auditoria,Proteger binarios e ferramentas de auditoria,Verifica permissoes e proprietario de binarios como auditctl aureport ausearch auditd
-185,Permissões,Light,Alta,Permissões passwd,Ajustar permissões de /etc/passwd.,Verificar permissões de /etc/passwd
-186,Permissões,Light,Baixa,Permissões passwd-,Ajustar permissões de /etc/passwd-.,Verificar permissões de /etc/passwd-
-187,Permissões,Light,Alta,Permissões shadow,Ajustar permissões de /etc/shadow.,Verificar permissões de /etc/shadow
-188,Permissões,Light,Baixa,Permissões shadow-,Ajustar permissões de /etc/shadow-.,Verificar permissões de /etc/shadow-
-189,Permissões,Light,Baixa,Permissões gshadow-,Ajustar permissões de /etc/gshadow-.,Verificar permissões de /etc/gshadow-
-190,Permissões,Light,Alta,Permissões gshadow,Ajustar permissões de /etc/gshadow.,Verificar permissões de /etc/gshadow
-191,Permissões,Light,Baixa,Permissões group,Ajustar permissões de /etc/group.,Verificar permissões de /etc/group
-192,Permissões,Light,Baixa,Permissões group-,Ajustar permissões de /etc/group-.,Verificar permissões de /etc/group-
-193,Sistema e Contas,Full,Baixa,nologin fora de etc shells,Garantir que nologin seja tratado de forma consistente,Verifica se nologin aparece listado em etc shells
-194,Permissões,Light,Alta,Proteger opasswd,Proteger /etc/security/opasswd contra acesso não autorizado.,Verificar permissões de opasswd
-195,Permissões,Light,Baixa,Arquivos órfãos,Corrigir arquivos órfãos sem owner válido.,Identificar arquivos sem owner válido
-196,Permissões,Light,Alta,Sticky world-writable,Garantir sticky bit em diretórios world writable.,Verificar sticky bit em diretórios world writable
-197,Permissões,Light,Baixa,Arquivos sem grupo,Corrigir arquivos sem owner ou grupo válido.,Identificar arquivos sem owner ou grupo
-198,Permissões,Full,Alta,SUID SGID revisados,Rever binarios SUID e SGID,Lista arquivos com bits SUID ou SGID definidos
-199,Home,Light,Baixa,Home ausente,Verificar usuários sem diretório home,Verificar usuários sem diretório home
-200,Home,Light,Alta,Ownership home,Ajustar ownership dos diretórios home para o respectivo usuário.,Verificar ownership dos diretórios home
-201,Home,Light,Alta,Permissões home,Ajustar permissões de home para 750 ou mais restritivas.,Verificar permissões dos diretórios home
-202,Home,Light,Baixa,Dotfiles seguros,Ajustar permissões de dotfiles removendo escrita indevida.,Verificar permissões de dotfiles
-203,Home,Light,Alta,Arquivos trust legado,Remover ou proteger arquivos forward  netrc e rhosts conforme política.,Verificar presença desses arquivos
+﻿Tópico,Subtópico,Perfil,Criticidade,Resumo,Description,Auditoria - Descrição,Auditoria – REGEX
+1,Kernel,Light,Alta,Bloqueio cramfs,Bloquear módulo cramfs persistentemente via modprobe.d e remover se carregado.,Verificar se módulo cramfs está bloqueado,"(modinfo cramfs &>/dev/null && modprobe --showconfig | grep -Pq '\b(install|blacklist)\h+cramfs\b' && ! lsmod | grep -q cramfs) || (! modinfo cramfs &>/dev/null) && echo ""PASS"" || echo ""FAIL"""
+2,Kernel,Light,Alta,Bloqueio squashfs,Bloquear módulo squashfs persistentemente via modprobe.d e remover se carregado.,Verificar se módulo squashfs está bloqueado,"(modinfo squashfs &>/dev/null && modprobe --showconfig | grep -Pq '\b(install|blacklist)\h+squashfs\b' && ! lsmod | grep -q squashfs) || (! modinfo squashfs &>/dev/null) && echo ""PASS"" || echo ""FAIL"""
+3,Kernel,Light,Média,Bloqueio udf,Bloquear módulo udf persistentemente via modprobe.d e remover se carregado.,Verificar se módulo udf está bloqueado,"(modinfo udf &>/dev/null && modprobe --showconfig | grep -Pq '\b(install|blacklist)\h+udf\b' && ! lsmod | grep -q udf) || (! modinfo udf &>/dev/null) && echo ""PASS"" || echo ""FAIL"""
+4,Kernel,Light,Alta,Bloqueio hfs,Bloquear módulo hfs persistentemente via modprobe.d e remover se carregado.,Verificar se módulo hfs está bloqueado,"(modinfo hfs &>/dev/null && modprobe --showconfig | grep -Pq '\b(install|blacklist)\h+hfs\b' && ! lsmod | grep -q hfs) || (! modinfo hfs &>/dev/null) && echo ""PASS"" || echo ""FAIL"""
+5,Kernel,Light,Alta,Bloqueio hfsplus,Bloquear módulo hfsplus persistentemente via modprobe.d e remover se carregado.,Verificar se módulo hfsplus está bloqueado,"(modinfo hfsplus &>/dev/null && modprobe --showconfig | grep -Pq '\b(install|blacklist)\h+hfsplus\b' && ! lsmod | grep -q hfsplus) || (! modinfo hfsplus &>/dev/null) && echo ""PASS"" || echo ""FAIL"""
+6,Kernel,Light,Alta,Bloqueio jffs2,Bloquear módulo jffs2 persistentemente via modprobe.d e remover se carregado.,Verificar se módulo jffs2 está bloqueado,"(modinfo jffs2 &>/dev/null && modprobe --showconfig | grep -Pq '\b(install|blacklist)\h+jffs2\b' && ! lsmod | grep -q jffs2) || (! modinfo jffs2 &>/dev/null) && echo ""PASS"" || echo ""FAIL"""
+7,Kernel,Light,Alta,Bloqueio freevxfs,Bloquear módulo freevxfs persistentemente via modprobe.d e remover se carregado.,Verificar se módulo freevxfs está bloqueado,"(modinfo freevxfs &>/dev/null && modprobe --showconfig | grep -Pq '\b(install|blacklist)\h+freevxfs\b' && ! lsmod | grep -q freevxfs) || (! modinfo freevxfs &>/dev/null) && echo ""PASS"" || echo ""FAIL"""
+8,Kernel,Full,Média,Desabilitar overlayfs quando nao for requisito,Desabilitar o modulo overlayfs,Checa se overlay nao esta carregado e se ha regra de bloqueio,"(modinfo overlay &>/dev/null && modprobe --showconfig | grep -Pq '\b(install|blacklist)\h+overlay\b' && ! lsmod | grep -q overlay) || (! modinfo overlay &>/dev/null) && echo ""PASS"" || echo ""FAIL"""
+9,Kernel,Light,Alta,Bloqueio usb_storage,Bloquear módulo usb_storage persistentemente.,Verificar se usb_storage está bloqueado,"(modinfo usb-storage &>/dev/null && modprobe --showconfig | grep -Pq '\b(install|blacklist)\h+usb_storage\b' && ! lsmod | grep -q usb_storage) || (! modinfo usb-storage &>/dev/null) && echo ""PASS"" || echo ""FAIL"""
+10,Kernel,Full,Alta,Desabilitar modulo DCCP,Desabilitar o modulo dccp,Confere se dccp nao esta carregado e se existe regra de bloqueio,"(modinfo dccp &>/dev/null && modprobe --showconfig | grep -Pq '\b(install|blacklist)\h+dccp\b' && ! lsmod | grep -q dccp) || (! modinfo dccp &>/dev/null) && echo ""PASS"" || echo ""FAIL"""
+11,Kernel,Full,Alta,Desabilitar modulo SCTP quando nao requerido,Desabilitar o modulo sctp,Checa se sctp nao esta carregado e se esta bloqueado em modprobe,"(modinfo sctp &>/dev/null && modprobe --showconfig | grep -Pq '\b(install|blacklist)\h+sctp\b' && ! lsmod | grep -q sctp) || (! modinfo sctp &>/dev/null) && echo ""PASS"" || echo ""FAIL"""
+12,Kernel,Full,Alta,Desabilitar modulo RDS,Desabilitar o modulo rds,Valida que rds nao esta ativo e esta proibido em modprobe,"(modinfo rds &>/dev/null && modprobe --showconfig | grep -Pq '\b(install|blacklist)\h+rds\b' && ! lsmod | grep -q rds) || (! modinfo rds &>/dev/null) && echo ""PASS"" || echo ""FAIL"""
+13,Kernel,Full,Alta,Desabilitar modulo TIPC,Desabilitar o modulo tipc,Checa se tipc nao esta carregado e se ha bloqueio configurado,"(modinfo tipc &>/dev/null && modprobe --showconfig | grep -Pq '\b(install|blacklist)\h+tipc\b' && ! lsmod | grep -q tipc) || (! modinfo tipc &>/dev/null) && echo ""PASS"" || echo ""FAIL"""
+14,Kernel,Full,Alta,Core dumps restritos,Restringir core dumps em especial de binarios setuid,Verifica limite de core e valor de fs suid dumpable igual a zero,"(ulimit -c 0 && sysctl -n fs.suid_dumpable | grep -q '^0$') && echo ""PASS"" || echo ""FAIL"""
+15,Kernel,Light,Alta,SUID dump off,Configurar fs.suid_dumpable=0 persistentemente.,Verificar valor de fs.suid_dumpable,"(sysctl -n fs.suid_dumpable | grep -q '^0$') && echo ""PASS"" || echo ""FAIL"""
+16,Kernel,Full,Alta,NX XD ativo,Habilitar NX ou XD no hardware e no kernel,Checa suporte a nx na cpu e mensagem de ativacao no dmesg,"(grep -q 'nx' /proc/cpuinfo && dmesg | grep -qi 'NX.*active') && echo ""PASS"" || echo ""FAIL"""
+17,Kernel,Full,Média,ASLR habilitado,Habilitar ASLR completo para espaco de enderecamento,Verifica kernel randomize va space igual a dois,"(sysctl -n kernel.randomize_va_space | grep -q '^2$') && echo ""PASS"" || echo ""FAIL"""
+18,Kernel,Light,Média,ASLR completo,Configurar ASLR completo via sysctl persistente.,Verificar randomize_va_space,"(sysctl -n kernel.randomize_va_space | grep -q '^2$') && echo ""PASS"" || echo ""FAIL"""
+19,Kernel,Full,Alta,perf event restrito,Restringir perf event para usuarios nao privilegiados,Verifica kernel perf event paranoid em nivel mais restritivo,"(sysctl -n kernel.perf_event_paranoid | grep -q '^[2-3]$') && echo ""PASS"" || echo ""FAIL"""
+20,Kernel,Light,Média,perf_event restrito,Configurar perf_event_paranoid restritivo via sysctl persistente.,Verificar perf_event_paranoid,"(sysctl -n kernel.perf_event_paranoid | grep -q '^[2-3]$') && echo ""PASS"" || echo ""FAIL"""
+21,Kernel,Light,Alta,dmesg restrito,Configurar dmesg_restrict=1 via sysctl persistente.,Verificar dmesg_restrict,"(sysctl -n kernel.dmesg_restrict | grep -q '^1$') && echo ""PASS"" || echo ""FAIL"""
+22,Kernel,Full,Alta,protected symlinks,Ativar protecao de symlinks em diretorios sensiveis,Checa fs protected symlinks igual a um,"(sysctl -n fs.protected_symlinks | grep -q '^1$') && echo ""PASS"" || echo ""FAIL"""
+23,Kernel,Light,Alta,Symlinks protegidos,Configurar fs.protected_symlinks=1 persistentemente.,Verificar protected_symlinks,"(sysctl -n fs.protected_symlinks | grep -q '^1$') && echo ""PASS"" || echo ""FAIL"""
+24,Kernel,Light,Alta,Hardlinks protegidos,Configurar fs.protected_hardlinks=1 persistentemente.,Verificar protected_hardlinks,"(sysctl -n fs.protected_hardlinks | grep -q '^1$') && echo ""PASS"" || echo ""FAIL"""
+25,Filesystem,Full,Média,Particao dedicada para tmp,Usar particao ou ponto dedicado para tmp,Verifica se existe montagem especifica para tmp via findmnt,"(findmnt -kn /tmp >/dev/null && echo ""PASS"" || echo ""FAIL"")"
+26,Filesystem,Full,Média,Particao dedicada para dev shm,Usar particao dedicada para dev shm,Checa montagem propria para dev shm,"(findmnt -kn /dev/shm >/dev/null && echo ""PASS"" || echo ""FAIL"")"
+27,Filesystem,Full,Alta,Particao dedicada para var,Usar particao dedicada para var,Verifica montagem independente para var,"(findmnt -kn /var >/dev/null && echo ""PASS"" || echo ""FAIL"")"
+28,Filesystem,Full,Alta,Particao dedicada para var tmp,Usar particao dedicada para var tmp,Checa se var tmp possui montagem propria,"(findmnt -kn /var/tmp >/dev/null && echo ""PASS"" || echo ""FAIL"")"
+29,Filesystem,Full,Alta,Particao dedicada para var log,Usar particao dedicada para var log,Confere montagem especifica para var log,"(findmnt -kn /var/log >/dev/null && echo ""PASS"" || echo ""FAIL"")"
+30,Filesystem,Full,Média,Particao dedicada para var log audit,Usar particao dedicada para var log audit,Verifica se var log audit tem montagem independente,"(findmnt -kn /var/log/audit >/dev/null && echo ""PASS"" || echo ""FAIL"")"
+31,Filesystem,Full,Alta,Particao dedicada para home,Usar particao dedicada para home,Checa montagem independente para home,"(findmnt -kn /home >/dev/null && echo ""PASS"" || echo ""FAIL"")"
+32,Filesystem,Full,Alta,Particao dedicada para historico,Usar particao dedicada para historico,Verifica se existe montagem especifica para historico,"(findmnt -kn /historico >/dev/null && echo ""PASS"" || echo ""FAIL"")"
+33,Filesystem,Full,Alta,Particao dedicada para crash,Usar particao dedicada para crash,Confere montagem dedicada para crash,"(findmnt -kn /crash >/dev/null && echo ""PASS"" || echo ""FAIL"")"
+34,Filesystem,Full,Média,Particao dedicada para UNIX,Usar particao dedicada para UNIX,Verifica se ha montagem propria para UNIX,"(findmnt -kn /UNIX >/dev/null && echo ""PASS"" || echo ""FAIL"")"
+35,Filesystem,Light,Baixa,Nodev removíveis,Ajustar opções nodev nosuid noexec para mídias removíveis no fstab.,Verificar opções de montagem para mídias removíveis,"(grep -E 'nodev|nosuid|noexec' /etc/fstab | grep -E '/media|/run/media' >/dev/null && echo ""PASS"" || echo ""FAIL"")"
+36,Filesystem,Light,Baixa,Nodev partições críticas,Ajustar opções nodev nosuid para partições críticas.,Verificar opções de montagem críticas,"(grep -E 'nodev|nosuid|noexec' /etc/fstab >/dev/null && echo ""PASS"" || echo ""FAIL"")"
+37,Filesystem,Full,Alta,Opcoes de montagem seguras em tmp,Aplicar opcoes seguras em tmp,Checa se tmp possui opcoes nodev nosuid e noexec,"(findmnt -n /tmp | grep -Eq 'nodev|nosuid|noexec' && echo ""PASS"" || echo ""FAIL"")"
+38,Filesystem,Full,Alta,Opcoes de montagem seguras em dev shm,Aplicar opcoes seguras em dev shm,Verifica nodev nosuid noexec na montagem de dev shm,"(findmnt -n /dev/shm | grep -Eq 'nodev|nosuid|noexec' && echo ""PASS"" || echo ""FAIL"")"
+39,Filesystem,Full,Média,Opcoes de montagem seguras em var tmp,Aplicar opcoes seguras em var tmp,Checa opcoes nodev nosuid ou noexec em var tmp,"(findmnt -n /var/tmp | grep -Eq 'nodev|nosuid|noexec' && echo ""PASS"" || echo ""FAIL"")"
+40,Filesystem,Light,Alta,Segurança /var/log,Configurar /var/log com nodev nosuid.,Verificar opções de montagem de /var/log,"(findmnt -n /var/log | grep -Eq 'nodev|nosuid|noexec' && echo ""PASS"" || echo ""FAIL"")"
+41,Filesystem,Light,Alta,Segurança audit log,Configurar /var/log/audit com nodev nosuid.,Verificar opções de montagem de /var/log/audit,"(findmnt -n /var/log/audit | grep -Eq 'nodev|nosuid|noexec' && echo ""PASS"" || echo ""FAIL"")"
+42,Filesystem,Light,Alta,Segurança /home,Configurar /home com nodev quando aplicável.,Verificar opções de montagem de /home,"(findmnt -n /home | grep -qw nodev && echo ""PASS"" || echo ""FAIL"")"
+43,Filesystem,Full,Média,Opcoes de montagem seguras em midias removiveis,Aplicar opcoes seguras em midias removiveis,Verifica se midias removiveis estao definidas com opcoes seguras em fstab,"(grep -E 'nodev|nosuid|noexec' /etc/fstab | grep -E '/media|/run/media' >/dev/null && echo ""PASS"" || echo ""FAIL"")"
+44,Filesystem,Light,Alta,Sticky world-writable,Aplicar sticky bit em diretórios world writable locais.,Verificar sticky bit em diretórios world writable,"(find / -xdev -type d -perm -0002 ! -perm -1000 2>/dev/null | grep . && echo ""FAIL"" || echo ""PASS"")"
+45,Filesystem,Light,Baixa,Sticky /tmp,Aplicar sticky bit em /tmp.,Verificar sticky bit em /tmp,"(stat -c ""%A"" /tmp | grep -q 't' && echo ""PASS"" || echo ""FAIL"")"
+46,Filesystem,Light,Média,Sticky /var/tmp,Aplicar sticky bit em /var/tmp.,Verificar sticky bit em /var/tmp,"(stat -c ""%A"" /var/tmp | grep -q 't' && echo ""PASS"" || echo ""FAIL"")"
+47,Filesystem,Light,Alta,Sticky /dev/shm,Aplicar sticky bit em /dev/shm quando aplicável.,Verificar sticky bit em /dev/shm,"(stat -c ""%A"" /dev/shm | grep -q 't' && echo ""PASS"" || echo ""FAIL"")"
+48,Seguranca de Boot,Full,Baixa,Autofs desabilitado em servidores,Desabilitar autofs em servidores,Verifica se o servico autofs esta desabilitado,"(systemctl is-enabled autofs &>/dev/null && echo ""FAIL"" || echo ""PASS"")"
+49,Seguranca de Boot,Full,Alta,Senha de bootloader configurada,Configurar senha de bootloader,Verifica presenca de senha hash em grub cfg,"if [ -n ""$GRUBCFG"" ]; then
+  (grep -q 'password_pbkdf2' ""$GRUBCFG"" 2>/dev/null && echo ""PASS"" || echo ""FAIL"")
+else
+  echo ""FAIL""
+fi"
+50,Seguranca de Boot,Full,Média,Permissoes seguras no arquivo do bootloader,Configurar permissoes seguras no arquivo do bootloader,Verifica permissoes de leitura e propriedade do grub cfg,"if [ -n ""$GRUBCFG"" ]; then
+  (stat -Lc '%a %U %G' ""$GRUBCFG"" 2>/dev/null | grep -Eq '^(400|600) root root$' && echo ""PASS"" || echo ""FAIL"")
+else
+  echo ""FAIL""
+fi"
+51,Seguranca de Boot,Full,Média,Single user mode com autenticacao,Exigir autenticacao no modo single user,Confere configuracao de autenticacao no systemd e emergency service,"(grep -q '^ExecStart=-/bin/sh' /usr/lib/systemd/system/emergency.service && echo ""FAIL"" || echo ""PASS"")
+
+#echo -e ""\n[55] Sem serviços sem restrições MAC (Manual)""
+#(ps -eZ | grep -q 'unconfined_t' && echo ""FAIL"" || echo ""PASS"")"
+56,Sistema,Light,Alta,Prelink removido,Remover prelink quando presente.,Verificar se prelink está instalado,"(pkg_installed prelink && echo ""FAIL"" || echo ""PASS"")"
+57,Sistema,Light,Baixa,xinetd removido,Desabilitar ou remover xinetd quando não requerido.,Verificar presença de xinetd,"(pkg_installed xinetd && echo ""FAIL"" || echo ""PASS"")"
+58,Sistema,Light,Alta,Time sync ativo,Habilitar serviço de sincronização de tempo aprovado.,Verificar serviço de tempo ativo,"( systemctl is-active --quiet chronyd &>/dev/null || systemctl is-active --quiet ntpd &>/dev/null || systemctl is-active --quiet systemd-timesyncd &>/dev/null ) && echo ""PASS"" || echo ""FAIL"""
+59,Sistema,Light,Baixa,Fontes NTP confiáveis,Configurar fontes de tempo confiáveis.,Verificar servidores configurados,"( ! pkg_installed chrony || ( service_enabled chronyd && grep -q '^server' /etc/chrony.conf 2>/dev/null ) ) && echo ""PASS"" || echo ""FAIL"""
+60,Sistema,Light,Baixa,NTP no boot,Habilitar sincronização automática no boot.,Verificar sincronização automática,"( ! pkg_installed ntp || ( service_enabled ntpd && grep -q '^server' /etc/ntp.conf 2>/dev/null ) ) && echo ""PASS"" || echo ""FAIL"""
+61,Sistema,Light,Alta,X11 removido,Remover componentes X11 quando não necessários.,Verificar presença de pacotes X11,"(pkg_any_installed xserver-xorg-core xorg xserver-common gdm3 lightdm ubuntu-desktop kubuntu-desktop xubuntu-desktop && echo ""FAIL"" || echo ""PASS"")"
+62,Sistema,Light,Alta,Avahi desabilitado,Desabilitar avahi quando não requerido.,Verificar status do avahi,"(pkg_installed avahi-daemon && echo ""FAIL"" || echo ""PASS"")"
+63,Sistema,Light,Baixa,CUPS desabilitado,Desabilitar CUPS quando não requerido.,Verificar status do CUPS,"(pkg_installed cups && echo ""FAIL"" || echo ""PASS"")"
+64,Sistema,Full,Alta,DHCP server ausente,Remover servidor DHCP,Checa se pacote dhcp server esta instalado,"(pkg_any_installed isc-dhcp-server kea-dhcp4-server && echo ""FAIL"" || echo ""PASS"")"
+65,Sistema,Full,Alta,LDAP server ausente,Remover servidor LDAP,Verifica se openldap servers esta instalado,"(pkg_installed slapd && echo ""FAIL"" || echo ""PASS"")"
+66,Sistema,Full,Alta,DNS server ausente,Remover servidor DNS,Checa se pacote bind esta instalado,"(pkg_installed bind9 && echo ""FAIL"" || echo ""PASS"")"
+67,Sistema,Full,Alta,FTP server ausente,Remover servidor FTP,Confere presenca do pacote vsftpd,"(pkg_installed vsftpd && echo ""FAIL"" || echo ""PASS"")"
+68,Sistema,Full,Média,HTTP server ausente,Remover servidor HTTP nao essencial,Verifica se httpd esta instalado,"(pkg_any_installed apache2 nginx lighttpd && echo ""FAIL"" || echo ""PASS"")"
+69,Sistema,Light,Alta,IMAP/POP removidos,Remover serviços IMAP/POP3 quando não aplicáveis.,Verificar presença de serviços IMAP POP3,"(pkg_any_installed dovecot-imapd dovecot-pop3d && echo ""FAIL"" || echo ""PASS"")"
+70,Sistema,Light,Baixa,Samba removido,Remover Samba quando não aplicável.,Verificar presença de Samba,"(pkg_installed samba && echo ""FAIL"" || echo ""PASS"")"
+71,Sistema,Light,Alta,Proxy removido,Remover proxy HTTP quando não aplicável.,Verificar presença de proxy HTTP,"(pkg_installed squid && echo ""FAIL"" || echo ""PASS"")"
+72,Sistema,Light,Baixa,SNMP desabilitado,Desabilitar SNMP quando não requerido.,Verificar status do SNMP,"(pkg_installed snmpd && echo ""FAIL"" || echo ""PASS"")"
+73,Sistema,Light,Baixa,NIS removido,Remover servidor NIS quando não aplicável.,Verificar presença de NIS,"(pkg_installed nis && echo ""FAIL"" || echo ""PASS"")"
+74,Sistema,Light,Alta,Telnet removido,Remover servidor Telnet.,Verificar presença de telnetd,"(pkg_any_installed telnetd inetutils-telnetd && echo ""FAIL"" || echo ""PASS"")"
+75,Sistema,Light,Baixa,MTA local-only,Configurar MTA para modo local only quando aplicável.,Verificar configuração do MTA,"( [ ! -f /etc/postfix/main.cf ] || grep -Eq '^[[:space:]]*inet_interfaces[[:space:]]*=[[:space:]]*(localhost|loopback-only)\b' /etc/postfix/main.cf 2>/dev/null ) && echo ""PASS"" || echo ""FAIL"""
+76,Sistema,Light,Alta,NFS desabilitado,Desabilitar NFS server quando não aplicável.,Verificar presença de NFS server,"(systemctl is-enabled nfs-server &>/dev/null && echo ""FAIL"" || echo ""PASS"")"
+77,Sistema,Light,Média,rpcbind desabilitado,Desabilitar rpcbind quando não requerido.,Verificar status do rpcbind,"(systemctl is-enabled rpcbind &>/dev/null && echo ""FAIL"" || echo ""PASS"")"
+78,Sistema,Light,Alta,rsync desabilitado,Desabilitar rsync daemon quando não requerido.,Verificar presença do rsync daemon,"(systemctl is-enabled rsyncd &>/dev/null && echo ""FAIL"" || echo ""PASS"")"
+79,Sistema,Light,Alta,Cliente NIS removido,Remover cliente NIS.,Verificar presença do cliente NIS,"(pkg_installed nis && echo ""FAIL"" || echo ""PASS"")"
+80,Sistema,Light,Baixa,Cliente rsh removido,Remover cliente rsh.,Verificar presença de rsh,"(pkg_any_installed rsh-client rsh-redone-client && echo ""FAIL"" || echo ""PASS"")"
+81,Sistema,Light,Alta,Cliente talk removido,Remover cliente talk.,Verificar presença de talk,"(pkg_installed talk && echo ""FAIL"" || echo ""PASS"")"
+82,Sistema,Light,Alta,Cliente telnet removido,Remover cliente telnet.,Verificar presença de cliente telnet,"(pkg_any_installed telnet inetutils-telnet && echo ""FAIL"" || echo ""PASS"")"
+83,Sistema,Light,Baixa,Cliente LDAP removido,Remover cliente LDAP quando não requerido.,Verificar presença de cliente LDAP,"(pkg_installed ldap-utils && echo ""FAIL"" || echo ""PASS"")"
+84,Sistema,Light,Média,Serviços supérfluos,Remover ou mascarar serviços não essenciais.,Verificar serviços ativos não autorizados,"(systemctl list-unit-files --state=enabled 2>/dev/null | grep -Eq '^(avahi-daemon|cups|vsftpd|xinetd|tftpd-hpa|nis|rpcbind|slapd)\.service' && echo ""FAIL"" || echo ""PASS"")"
+85,Sistema,Light,Média,TFTP removido,Remover servidor TFTP.,Verificar presença de TFTP,"(pkg_any_installed tftpd-hpa atftpd && echo ""FAIL"" || echo ""PASS"")"
+86,Sistema,Light,Alta,Polkit seguro,Configurar polkit conforme baseline aprovado.,Verificar regras do polkit,"( grep -Ehv '^[[:space:]]*(//|#)' /etc/polkit-1/rules.d/*.rules 2>/dev/null | grep -Eq 'polkit\.Result\.YES|[^[:alnum:]_]allow[^[:alnum:]_]' ) && echo ""FAIL"" || echo ""PASS"""
+87,Sistema,Light,Baixa,gpgcheck ativo,Habilitar gpgcheck em todos os repositórios.,Verificar configuração de repositórios,"(find /etc/apt/sources.list /etc/apt/sources.list.d -type f -print0 2>/dev/null | xargs -0r grep -Ehv '^[[:space:]]*#' 2>/dev/null | grep -Eq '^[[:space:]]*deb[[:space:]]' && ! apt-config dump 2>/dev/null | grep -Eq 'Acquire::AllowInsecureRepositories ""true""|APT::Get::AllowUnauthenticated ""true""' && echo ""PASS"" || echo ""FAIL"")"
+88,Sistema,Light,Alta,Patches aplicados,Aplicar atualizações de segurança pendentes.,Verificar atualizações pendentes,"(apt list --upgradable 2>/dev/null | grep -Eiq 'security|ubuntu[[:alnum:].-]+-security|debian-security' && echo ""FAIL"" || echo ""PASS"")"
+89,Sistema,Light,Alta,Time sync único,Manter apenas um mecanismo de sincronização ativo.,Verificar serviços de tempo ativos,"( ( systemctl is-active --quiet chronyd &>/dev/null && ! systemctl is-active --quiet ntpd &>/dev/null && ! systemctl is-active --quiet systemd-timesyncd &>/dev/null ) || ( ! systemctl is-active --quiet chronyd &>/dev/null && systemctl is-active --quiet ntpd &>/dev/null && ! systemctl is-active --quiet systemd-timesyncd &>/dev/null ) || ( ! systemctl is-active --quiet chronyd &>/dev/null && ! systemctl is-active --quiet ntpd &>/dev/null && systemctl is-active --quiet systemd-timesyncd &>/dev/null ) ) && echo ""PASS"" || echo ""FAIL"""
+90,Sistema,Light,Alta,Cron/at restritos,Restringir cron e at a usuários autorizados.,Verificar listas de controle de cron e at,"(stat -Lc '%a %U %G' /etc/cron.allow 2>/dev/null | grep -Eq '^640 root (root|crontab)$' && echo ""PASS"" || echo ""FAIL"")"
+91,Rede,Full,Alta,IP forwarding desabilitado,Desabilitar IP forwarding em hosts nao roteadores,Confere sysctl de net ipv4 ip forward e net ipv6 conf all forwarding iguais a zero,"(sysctl -n net.ipv4.ip_forward 2>/dev/null | grep -q '^0$' && sysctl -n net.ipv6.conf.all.forwarding 2>/dev/null | grep -q '^0$' && echo ""PASS"" || echo ""FAIL"")"
+92,Rede,Light,Alta,Redirects desabilitados,Desabilitar redirects de pacotes via sysctl persistente.,Verificar configuração de redirects,"(sysctl -n net.ipv4.conf.all.send_redirects 2>/dev/null | grep -q '^0$' && echo ""PASS"" || echo ""FAIL"")"
+93,Rede,Light,Média,Source-route bloqueado,Desabilitar source routed packets via sysctl persistente.,Verificar parâmetros de source route,"(sysctl -n net.ipv4.conf.all.accept_source_route 2>/dev/null | grep -q '^0$' && echo ""PASS"" || echo ""FAIL"")"
+94,Rede,Light,Média,ICMP redirects off,Desabilitar ICMP redirects via sysctl persistente.,Verificar ICMP redirects,"(sysctl -n net.ipv4.conf.all.accept_redirects 2>/dev/null | grep -q '^0$' && sysctl -n net.ipv4.conf.all.secure_redirects 2>/dev/null | grep -q '^0$' && echo ""PASS"" || echo ""FAIL"")"
+95,Rede,Light,Alta,RP filter on,Habilitar reverse path filtering via sysctl persistente.,Verificar rp_filter,"(sysctl -n net.ipv4.conf.all.rp_filter 2>/dev/null | grep -Eq '^[12]$' && echo ""PASS"" || echo ""FAIL"")"
+96,Rede,Light,Alta,Ignore broadcast ICMP,Habilitar ignore broadcast ICMP via sysctl persistente.,Verificar ignore_broadcasts,"(sysctl -n net.ipv4.icmp_echo_ignore_broadcasts 2>/dev/null | grep -q '^1$' && echo ""PASS"" || echo ""FAIL"")"
+97,Rede,Light,Média,Ignore bogus ICMP,Habilitar ignore bogus ICMP responses via sysctl persistente.,Verificar ignore_bogus_error_responses,"(sysctl -n net.ipv4.icmp_ignore_bogus_error_responses 2>/dev/null | grep -q '^1$' && echo ""PASS"" || echo ""FAIL"")"
+98,Rede,Light,Alta,Syncookies ativos,Habilitar tcp_syncookies via sysctl persistente.,Verificar tcp_syncookies,"(sysctl -n net.ipv4.tcp_syncookies 2>/dev/null | grep -q '^1$' && echo ""PASS"" || echo ""FAIL"")"
+99,Rede,Full,Alta,IPv6 desabilitado ou endurecido,Desabilitar ou endurecer IPv6 conforme politica,Verifica sysctl net ipv6 conf all disable ipv6 igual a um,"(sysctl -n net.ipv6.conf.all.disable_ipv6 2>/dev/null | grep -q '^1$' && echo ""PASS"" || echo ""FAIL"")"
+102,Rede,Light,Baixa,Wireless desabilitado,Desabilitar interfaces wireless ou bluetooth quando não necessárias.,Verificar interfaces wireless ou bluetooth ativas,"(lsmod | grep -Eq 'bluetooth|iwlwifi' && echo ""FAIL"" || echo ""PASS"")"
+108,Criptografia TLS,Full,Alta,TLS mínimo 1.2+,Exigir uso de TLS 1.2 ou superior para serviços e comunicações.,Verificar se políticas de criptografia bloqueiam TLS < 1.,"(grep -REiq 'MinProtocol[[:space:]]*=[[:space:]]*TLSv1\.[23]|TLS.MinProtocol[[:space:]]*=[[:space:]]*TLSv1\.[23]' /etc/ssl/openssl.cnf /etc/ssl/openssl.cnf.d /etc/ssl/openssl.cnf.d/* 2>/dev/null) && echo ""PASS"" || echo ""FAIL"""
+109,SSH Hardening,Light,Baixa,Permissões SSH seguras,Ajustar permissões de sshd_config e diretório /etc/ssh.,Verificar permissões de arquivos e diretório SSH,"( stat -c %a /etc/ssh/sshd_config | grep -Eq '^(600|400)$' && [ ""$(stat -c %U:%G /etc/ssh)"" = ""root:root"" ] ) && echo ""PASS"" || echo ""FAIL""
+#Em POSIX, permissões não são ordenáveis semanticamente por número"
+110,SSH Hardening,Full,Média,Controle de acesso via Allow Deny,Configurar directivas Allow e Deny conforme politica,Procura diretivas AllowUsers AllowGroups DenyUsers ou DenyGroups no sshd config,"(grep -Eq '^[[:space:]]*(AllowUsers|AllowGroups|DenyUsers|DenyGroups)[[:space:]]+' /etc/ssh/sshd_config 2>/dev/null) && echo ""PASS"" || echo ""FAIL"""
+111,SSH Hardening,Light,Baixa,SyslogFacility AUTHPRIV,Configurar SyslogFacility AUTHPRIV.,Verificar parâmetro SyslogFacility,"(grep -Eq '^[[:space:]]*SyslogFacility[[:space:]]+AUTHPRIV\b' /etc/ssh/sshd_config 2>/dev/null) && echo ""PASS"" || echo ""FAIL"""
+112,SSH Hardening,Light,Baixa,X11Forwarding off,Desabilitar X11Forwarding quando não requerido.,Verificar parâmetro X11Forwarding,"(grep -Eq '^[[:space:]]*X11Forwarding[[:space:]]+no' /etc/ssh/sshd_config) && echo ""PASS"" || echo ""FAIL"""
+113,SSH Hardening,Light,Alta,MaxAuthTries restrito,Configurar MaxAuthTries de forma restritiva.,Verificar valor de MaxAuthTries,"(grep -Eq '^[[:space:]]*MaxAuthTries[[:space:]]+[1-4]$' /etc/ssh/sshd_config) && echo ""PASS"" || echo ""FAIL"""
+114,SSH Hardening,Light,Alta,IgnoreRhosts yes,Configurar IgnoreRhosts yes.,Verificar parâmetro IgnoreRhosts,"(grep -Eq '^[[:space:]]*IgnoreRhosts[[:space:]]+yes' /etc/ssh/sshd_config) && echo ""PASS"" || echo ""FAIL"""
+115,SSH Hardening,Light,Baixa,HostbasedAuth off,Configurar HostbasedAuthentication no.,Verificar parâmetro HostbasedAuthentication,"(grep -Eq '^[[:space:]]*HostbasedAuthentication[[:space:]]+no' /etc/ssh/sshd_config) && echo ""PASS"" || echo ""FAIL""
+
+#echo -e ""\n[116] PermitRootLogin restrito/desabilitado""
+#(grep -Eq '^[[:space:]]*PermitRootLogin[[:space:]]+(no|prohibit-password)' /etc/ssh/sshd_config) && echo ""PASS"" || echo ""FAIL"""
+117,SSH Hardening,Light,Alta,EmptyPasswords off,Configurar PermitEmptyPasswords no.,Verificar parâmetro PermitEmptyPasswords,"(grep -Eq '^[[:space:]]*PermitEmptyPasswords[[:space:]]+no' /etc/ssh/sshd_config) && echo ""PASS"" || echo ""FAIL"""
+118,SSH Hardening,Light,Média,UserEnvironment off,Configurar PermitUserEnvironment no.,Verificar parâmetro PermitUserEnvironment,"(grep -Eq '^[[:space:]]*PermitUserEnvironment[[:space:]]+no' /etc/ssh/sshd_config) && echo ""PASS"" || echo ""FAIL"""
+119,SSH Hardening,Light,Alta,UsePAM on,Configurar UsePAM yes.,Verificar parâmetro UsePAM,"(grep -Eq '^[[:space:]]*UsePAM[[:space:]]+yes' /etc/ssh/sshd_config) && echo ""PASS"" || echo ""FAIL"""
+120,SSH Hardening,Light,Baixa,ClientAlive tunado,Ajustar ClientAliveInterval e ClientAliveCountMax.,Verificar parâmetros ClientAlive,"(grep -Eq '^[[:space:]]*ClientAliveInterval[[:space:]]+([1-9][0-9]|[1-2][0-9]{2}|300)$' /etc/ssh/sshd_config  && grep -Eq '^[[:space:]]*ClientAliveCountMax[[:space:]]+[1-3]$' /etc/ssh/sshd_config) && echo ""PASS"" || echo ""FAIL"""
+121,SSH Hardening,Light,Alta,LoginGraceTime restrito,Configurar LoginGraceTime restritivo.,Verificar parâmetro LoginGraceTime,"(grep -Eq '^[[:space:]]*LoginGraceTime[[:space:]]+([1-9][0-9]|[1-5][0-9]{2})s?$' /etc/ssh/sshd_config) && echo ""PASS"" || echo ""FAIL"""
+122,SSH Hardening,Light,Média,MaxStartups restrito,Configurar MaxStartups e MaxSessions restritivos.,Verificar parâmetros MaxStartups e MaxSessions,"(grep -Eq '^[[:space:]]*MaxStartups[[:space:]]+.+$' /etc/ssh/sshd_config  && grep -Eq '^[[:space:]]*MaxSessions[[:space:]]+[1-9]+' /etc/ssh/sshd_config) && echo ""PASS"" || echo ""FAIL"""
+123,SSH Hardening,Full,Alta,AllowTcpForwarding restrito,Restringir AllowTcpForwarding,Confere se AllowTcpForwarding esta definido como no ou restrito,"(grep -Eq '^[[:space:]]*AllowTcpForwarding[[:space:]]+no' /etc/ssh/sshd_config) && echo ""PASS"" || echo ""FAIL"""
+124,SSH Hardening,Light,Baixa,Banner legal,Configurar Banner legal quando exigido.,Verificar parâmetro Banner,"( grep -Eq '^[[:space:]]*Banner[[:space:]]+\S+' /etc/ssh/sshd_config ) && echo ""PASS"" || echo ""FAIL"""
+125,SSH Hardening,Full,Alta,Ciphers fortes apenas,Aplicar lista de cifradores fortes,Verifica se diretiva Ciphers contem apenas algoritmos considerados fortes,"(grep -Eq '^[[:space:]]*Ciphers[[:space:]]+.*(chacha20|aes256).*' /etc/ssh/sshd_config) && echo ""PASS"" || echo ""FAIL"""
+126,SSH Hardening,Full,Alta,MACs fortes apenas,Aplicar MACs fortes,Checa se diretiva MACs contem somente algoritmos seguros,"(grep -Eq '^[[:space:]]*MACs[[:space:]]+.*(hmac-sha2|umac).*' /etc/ssh/sshd_config) && echo ""PASS"" || echo ""FAIL"""
+127,SSH Hardening,Full,Alta,KexAlgorithms fortes apenas,Aplicar KexAlgorithms fortes,Verifica se KexAlgorithms inclui apenas metodos fortes como curve25519 e DH robusto,"(grep -Eq '^[[:space:]]*KexAlgorithms[[:space:]]+.*(curve25519|diffie-hellman-group-exchange-sha256).*' /etc/ssh/sshd_config) && echo ""PASS"" || echo ""FAIL"""
+128,SSH Hardening,Full,Alta,Preferencia por algoritmos modernos,Priorizar algoritmos modernos,Checa se Ciphers e KexAlgorithms priorizam suites modernas,"(grep -Eq '^[[:space:]]*(Ciphers|KexAlgorithms)[[:space:]]+.*(chacha20|curve25519).*' /etc/ssh/sshd_config) && echo ""PASS"" || echo ""FAIL"""
+129,SSH Hardening,Full,Alta,ForceCommand Chroot SSH,Utilizar ForceCommand ou Chroot quando aplicavel,Verifica se ha diretivas ForceCommand ou ChrootDirectory configuradas para contas especificas,"(grep -Eq '^[[:space:]]*(ForceCommand|ChrootDirectory)[[:space:]]+' /etc/ssh/sshd_config) && echo ""PASS"" || echo ""FAIL"""
+130,Senhas e Contas,Light,Alta,PAM complexidade,Incluir módulo de complexidade na stack PAM.,Verificar presença do módulo de complexidade na stack PAM,"grep -Eq 'pam_pwquality\.so' /etc/pam.d/*auth && echo ""PASS"" || echo ""FAIL"""
+131,Senhas e Contas,Light,Alta,pwquality configurado,Configurar pam_pwquality conforme baseline.,Verificar parâmetros do pam_pwquality,"( grep -Eq 'pam_pwquality\.so' /etc/pam.d/common-password 2>/dev/null && grep -Psiq '^\s*minlen\s*=\s*(1[4-9]|[2-9][0-9]+)\b' /etc/security/pwquality.conf /etc/security/pwquality.conf.d/*.conf 2>/dev/null && grep -Psiq '^\s*minclass\s*=\s*[4-9]\b' /etc/security/pwquality.conf /etc/security/pwquality.conf.d/*.conf 2>/dev/null ) && echo ""PASS"" || echo ""FAIL"""
+132,Senhas e Contas,Full,Alta,pam faillock habilitado,Habilitar pam faillock para bloqueio de conta,Verifica uso de pam faillock nas pilhas de autenticacao,"(grep -Eq 'pam_faillock\.so' /etc/pam.d/common-auth /etc/pam.d/common-account 2>/dev/null) && echo ""PASS"" || echo ""FAIL"""
+133,Senhas e Contas,Full,Alta,pam tally2 habilitado,Habilitar pam tally2 quando aplicavel,Checa referencias a pam tally2 nas pilhas de autenticacao,"! grep -Eq 'pam_tally2\.so' /etc/pam.d/*auth && echo ""PASS"" || echo ""FAIL"""
+134,Senhas e Contas,Light,Alta,pwhistory configurado,Configurar pam_pwhistory.,Verificar configuração de pwhistory,"(grep -Eq 'pam_pwhistory\.so' /etc/pam.d/common-password 2>/dev/null) && echo ""PASS"" || echo ""FAIL"""
+135,Senhas e Contas,Light,Alta,Senha mínima,Definir tamanho mínimo de senha.,Verificar parâmetro de tamanho mínimo,"grep -Psiq '^\s*minlen\s*=\s*(1[4-9]|[2-9][0-9]+)' /etc/security/pwquality.conf* && echo ""PASS"" || echo ""FAIL"""
+136,Senhas e Contas,Light,Alta,Complexidade mínima,Configurar complexidade mínima de senha.,Verificar requisitos de complexidade,"grep -Psiq '^\s*minclass\s*=\s*[4-9]' /etc/security/pwquality.conf* && echo ""PASS"" || echo ""FAIL"""
+137,Senhas e Contas,Light,Baixa,Sem repetição/sequência,Configurar limites de repetição e sequência.,Verificar parâmetros de repetição e sequência,"grep -Psiq '^\s*maxrepeat\s*=\s*3\b'   /etc/security/pwquality.conf* && grep -Psiq '^\s*maxsequence\s*=\s*3\b' /etc/security/pwquality.conf* && echo ""PASS"" || echo ""FAIL"""
+138,Senhas e Contas,Light,Baixa,Dicionário ativo,Habilitar verificação de dicionário quando aplicável.,Verificar parâmetro de verificação de dicionário,"! grep -Psiq '^\s*dictcheck\s*=\s*0\b' /etc/security/pwquality.conf* && echo ""PASS"" || echo ""FAIL"""
+139,Senhas e Contas,Light,Alta,Hash forte,Configurar algoritmo de hashing forte.,Verificar algoritmo configurado,"grep -Eq 'pam_unix\.so.*(sha512|yescrypt)' /etc/pam.d/*auth && echo ""PASS"" || echo ""FAIL"""
+140,Senhas e Contas,Light,Alta,Histórico de senhas,Configurar histórico de senha.,Verificar parâmetro de histórico,"(grep -Eq 'pam_pwhistory\.so.*remember=([5-9]|[1-9][0-9]+)' /etc/pam.d/common-password 2>/dev/null) && echo ""PASS"" || echo ""FAIL"""
+141,Senhas e Contas,Full,Alta,Bloqueio por tentativas invalidas,Configurar bloqueio por tentativas invalidas,Verifica parametro deny em faillock conf,"grep -Pi '^\s*deny\s*=\s*([5-9]|[1-9][0-9]+)' /etc/security/faillock.conf && echo ""PASS"" || echo ""FAIL"""
+142,Senhas e Contas,Light,Baixa,Tempo desbloqueio,Configurar tempo de desbloqueio conforme política.,Verificar tempo de desbloqueio,"grep -Pi '^\s*unlock_time\s*=\s*(9[0-9]{2}|[1-9][0-9]{3,})\b' /etc/security/faillock.conf && echo ""PASS"" || echo ""FAIL"""
+143,Senhas e Contas,Light,Alta,PASS_MAX_DAYS,Configurar PASS_MAX_DAYS.,Verificar PASS_MAX_DAYS,"val=$(awk '$1==""PASS_MAX_DAYS""{print $2; exit}' /etc/login.defs); [[ ""$val"" =~ ^[0-9]+$ ]] && [[ ""$val"" -le 365 ]] && echo ""PASS"" || echo ""FAIL"""
+144,Senhas e Contas,Light,Baixa,PASS_MIN_DAYS,Configurar PASS_MIN_DAYS.,Verificar PASS_MIN_DAYS,"grep -Eq '^\s*PASS_MIN_DAYS\s+[1-9][0-9]*' /etc/login.defs && echo ""PASS"" || echo ""FAIL"""
+145,Senhas e Contas,Light,Baixa,PASS_WARN_AGE,Configurar PASS_WARN_AGE.,Verificar PASS_WARN_AGE,"grep -Eq '^\s*PASS_WARN_AGE\s+([7-9]|[1-9][0-9]+)' /etc/login.defs && echo ""PASS"" || echo ""FAIL"""
+146,Senhas e Contas,Light,Alta,INACTIVE ajustado,Configurar parâmetro INACTIVE para contas locais.,Verificar parâmetro INACTIVE,"awk -F: '$2~/^\$/ && ($7=="""" || $7<30){exit 1}' /etc/shadow && echo ""PASS"" || echo ""FAIL"""
+147,Senhas e Contas,Light,Baixa,Corrigir datas senha,Corrigir datas inconsistentes de troca de senha.,Verificar inconsistências de data,"awk -F: '$2~/^\$/{if($3==""""||$3==0) exit 1} END{exit 0}' /etc/shadow && echo ""PASS"" || echo ""FAIL"""
+148,Senhas e Contas,Light,Alta,UID 0 exclusivo,Garantir apenas root com UID 0.,Verificar contas com UID 0,"awk -F: '($3==0 && $1!=""root""){exit 1}' /etc/passwd && echo ""PASS"" || echo ""FAIL"""
+149,Senhas e Contas,Light,Alta,GID 0 exclusivo,Garantir apenas grupo root com GID 0.,Verificar grupos com GID 0,"[ ""$(awk -F: '/^root:/ {print $4}' /etc/passwd)"" = ""0"" ] && echo ""PASS"" || echo ""FAIL"""
+150,Senhas e Contas,Light,Alta,Contas sistema bloqueadas,Bloquear contas de sistema com shell inválido.,Verificar shells de contas de sistema,"awk -F: '($3<1000 && $1!=""root"" && $7 ~ /(bash|sh|zsh)$/){exit 1}' /etc/passwd && echo ""PASS"" || echo ""FAIL"""
+151,Senhas e Contas,Light,Baixa,Shells válidos,Remover shells inválidos de /etc/shells.,Verificar conteúdo de /etc/shells,"grep -qE '^(\/usr)?\/sbin\/nologin$' /etc/shells && echo ""PASS"" || echo ""FAIL"""
+152,Senhas e Contas,Light,Alta,PATH root seguro,Ajustar PATH do root removendo diretórios inseguros.,Verificar variável PATH do root,"(grep -Rqs 'PATH=.*\/usr/local/sbin.*\/usr/sbin.*\/sbin' /root/.profile /root/.bashrc /etc/profile /etc/profile.d 2>/dev/null) && echo ""PASS"" || echo ""FAIL"""
+153,Senhas e Contas,Light,Alta,Umask restritiva,Configurar umask restritiva padrão.,Verificar valor de umask padrão,"grep -Rqs 'umask 027' /etc/profile /etc/bash.bashrc /etc/profile.d 2>/dev/null && echo ""PASS"" || echo ""FAIL"""
+154,Senhas e Contas,Light,Baixa,Timeout shell,Configurar timeout de shell.,Verificar variável de timeout,"grep -Rqs 'TMOUT=900' /etc/profile /etc/bash.bashrc /etc/profile.d 2>/dev/null && echo ""PASS"" || echo ""FAIL"""
+155,Sudo,Light,Alta,Sudo restrito,Restringir administração privilegiada via sudo.,Verificar configuração do sudoers,"grep -RqsE '^%.*ALL=\(ALL\)' /etc/sudoers /etc/sudoers.d 2>/dev/null && echo ""FAIL"" || echo ""PASS"""
+156,Sudo,Light,Alta,Sudo tty,Configurar sudo para uso de pseudo tty.,Verificar parâmetro requiretty ou equivalente,"grep -Rqs 'use_pty' /etc/sudoers /etc/sudoers.d && echo ""PASS"" || echo ""FAIL"""
+157,Sudo,Light,Alta,Sudo logging,Habilitar logging de sudo.,Verificar configuração de log do sudo,"grep -Rqs 'logfile=' /etc/sudoers /etc/sudoers.d && echo ""PASS"" || echo ""FAIL"""
+158,Sudo,Full,Média,Reautenticacao nao desabilitada,Garantir que reautenticacao nao esteja desabilitada,Verifica ausencia de Defaults authenticate desabilitado em sudoers,"grep -Rqs '!authenticate' /etc/sudoers /etc/sudoers.d && echo ""FAIL"" || echo ""PASS"""
+159,Sudo,Light,Média,Sudo timeout,Configurar timeout de autenticação sudo.,Verificar configuração de timeout,"grep -Rqs 'timestamp_timeout=5' /etc/sudoers /etc/sudoers.d && echo ""PASS"" || echo ""FAIL"""
+160,Sudo,Light,Alta,su restrito,Restringir uso de su a grupo autorizado.,Verificar configuração do su e grupo permitido,"grep -Eq 'pam_wheel\.so.*group=(sudo|wheel)' /etc/pam.d/su && echo ""PASS"" || echo ""FAIL"""
+161,Auditoria e Logs,Light,Baixa,Arquitetura logs,Ajustar arquitetura de logs evitando duplicidade.,Verificar coexistência de mecanismos redundantes,"( systemctl is-active rsyslog &>/dev/null || systemctl is-active systemd-journald &>/dev/null ) && echo ""PASS"" || echo ""FAIL"""
+162,Auditoria e Logs,Light,Alta,Journald persistente,Configurar journald com persistência quando aplicável.,Verificar configuração de persistência,"grep -q '^Storage=persistent' /etc/systemd/journald.conf && echo ""PASS"" || echo ""FAIL"""
+163,Auditoria e Logs,Light,Baixa,rsyslog ativo,Instalar e ativar rsyslog quando requerido.,Verificar presença e status do rsyslog,"( pkg_installed rsyslog && systemctl is-active rsyslog &>/dev/null ) && echo ""PASS"" || echo ""FAIL"""
+164,Auditoria e Logs,Light,Alta,Rotação logs,Configurar rotação de logs.,Verificar configuração de rotação,"( grep -Eq 'rsyslog' /etc/logrotate.d/* 2>/dev/null ) && echo ""PASS"" || echo ""FAIL"""
+165,Auditoria e Logs,Light,Alta,auditd instalado,Instalar e habilitar auditd.,Verificar presença e status do auditd,"( ( pkg_installed audit || pkg_installed auditd ) && systemctl is-active auditd &>/dev/null ) && echo ""PASS"" || echo ""FAIL"""
+166,Auditoria e Logs,Light,Alta,auditd no boot,Garantir auditd inicializa antes de serviços críticos.,Verificar ordem de inicialização,"grep -q 'audit=1' /proc/cmdline && echo ""PASS"" || echo ""FAIL"""
+167,Auditoria e Logs,Light,Alta,Tamanho máximo audit,Configurar tamanho máximo de log de auditoria.,Verificar parâmetro max_log_file,"( grep -Eq '^\s*max_log_file\s*=\s*[1-9]' /etc/audit/auditd.conf ) && echo ""PASS"" || echo ""FAIL"""
+168,Auditoria e Logs,Full,Alta,Logs de auditoria nao excluidos automaticamente,Evitar exclusao automatica de logs de auditoria,Verifica max log file action em auditd conf para garantir keep logs ou rotate,"( grep -Eq '^\s*max_log_file_action\s*=\s*(keep_logs|rotate)' /etc/audit/auditd.conf ) && echo ""PASS"" || echo ""FAIL"""
+169,Auditoria e Logs,Light,Alta,Auditoria data/hora,Configurar auditoria de alteração de data e hora.,Verificar regras de auditoria de time change,"( auditctl -l 2>/dev/null | grep -Eq 'adjtimex|settimeofday|clock_settime' ) && echo ""PASS"" || echo ""FAIL"""
+170,Auditoria e Logs,Light,Alta,Auditoria contas,Configurar auditoria de alteração de contas e grupos.,Verificar regras de auditoria relacionadas a contas,"( auditctl -l 2>/dev/null | grep -Eq '/etc/(passwd|shadow|group|gshadow)' ) && echo ""PASS"" || echo ""FAIL"""
+171,Auditoria e Logs,Light,Média,Auditoria rede,Configurar auditoria de alterações de rede.,Verificar regras de auditoria de rede,"( auditctl -l 2>/dev/null | grep -Eq 'sethostname|setdomainname|/etc/hosts|/etc/hostname' ) && echo ""PASS"" || echo ""FAIL"""
+173,Auditoria e Logs,Light,Alta,Auditoria login,Configurar auditoria de login e logout.,Verificar regras de auditoria de login,"( auditctl -l 2>/dev/null | grep -Eq '/var/log/faillog|/var/log/lastlog|/var/run/utmp' ) && echo ""PASS"" || echo ""FAIL"""
+174,Auditoria e Logs,Light,Baixa,Auditoria DAC,Configurar auditoria de permissões DAC.,Verificar regras de auditoria DAC,"( auditctl -l 2>/dev/null | grep -Eq 'chmod|chown|fchmod|fchown' ) && echo ""PASS"" || echo ""FAIL"""
+175,Auditoria e Logs,Light,Alta,Auditoria acesso negado,Configurar auditoria de tentativas de acesso não autorizado.,Verificar regras de acesso negado,"( auditctl -l 2>/dev/null | grep -Eq 'EACCES|EPERM' ) && echo ""PASS"" || echo ""FAIL"""
+176,Auditoria e Logs,Light,Alta,Auditoria exec privilegiado,Configurar auditoria de execuções privilegiadas.,Verificar regras de execve privilegiado,"( find / -xdev -perm -4000 -type f 2>/dev/null | while read -r f; do auditctl -l 2>/dev/null | grep -q ""$f"" || exit 1; done ) && echo ""PASS"" || echo ""FAIL"""
+177,Auditoria e Logs,Light,Baixa,Auditoria mount,Configurar auditoria de mount e unmount.,Verificar regras relacionadas a mount,"( auditctl -l 2>/dev/null | grep -Eq 'mount|umount' ) && echo ""PASS"" || echo ""FAIL"""
+178,Auditoria e Logs,Light,Baixa,Auditoria deleção,Configurar auditoria de deleção de arquivos.,Verificar regras de deleção,"( auditctl -l 2>/dev/null | grep -Eq 'unlink|rename|rmdir|unlinkat|renameat' ) && echo ""PASS"" || echo ""FAIL"""
+179,Auditoria e Logs,Light,Alta,Auditoria módulos kernel,Configurar auditoria de carga e descarga de módulos de kernel.,Verificar regras relacionadas a módulos,"( auditctl -l 2>/dev/null | grep -Eq 'init_module|finit_module|delete_module' ) && echo ""PASS"" || echo ""FAIL"""
+180,Auditoria e Logs,Light,Alta,Auditoria sudo,Configurar auditoria de sudo e sudoers.,Verificar regras de auditoria de sudo,"( auditctl -l 2>/dev/null | grep -Eq '/etc/sudoers|/etc/sudoers.d' ) && echo ""PASS"" || echo ""FAIL"""
+181,Auditoria e Logs,Full,Alta,Configuracao de auditoria imutavel,Tornar configuracao de auditoria imutavel em producao,Verifica se parametro e2 esta ativo em auditctl,"( auditctl -s 2>/dev/null | grep -Eq '^[[:space:]]*enabled[[:space:]]+2\b' ) && echo ""PASS"" || echo ""FAIL"""
+182,Integridade,Full,Alta,AIDE instalado e inicializado,Garantir AIDE instalado e base inicializada,Verifica instalacao do pacote AIDE e existencia de banco de dados inicial,"( pkg_installed aide && [ -f /var/lib/aide/aide.db.gz ] ) && echo ""PASS"" || echo ""FAIL"""
+183,Integridade,Light,Alta,Verificação integridade,Agendar verificação periódica de integridade.,Verificar agendamento configurado,"( grep -Ersq 'aide(\.wrapper)? .*(--check|--update|\$AIDEARGS)' /etc/cron.* /etc/crontab /var/spool/cron 2>/dev/null || systemctl list-timers --all 2>/dev/null | grep -qi aime ) && echo ""PASS"" || echo ""FAIL"""
+184,Integridade,Full,Alta,Protecao dos binarios de auditoria,Proteger binarios e ferramentas de auditoria,Verifica permissoes e proprietario de binarios como auditctl aureport ausearch auditd,"( for b in auditctl aureport ausearch autrace auditd augenrules; do p=""$(command -v ""$b"")"" || exit 1; stat -Lc ""%U %G"" ""$p"" | awk '{if($1!=""root"" || $2!=""root"") exit 1}' || exit 1; done ) && echo ""PASS"" || echo ""FAIL"""
+185,Permissões,Light,Alta,Permissões passwd,Ajustar permissões de /etc/passwd.,Verificar permissões de /etc/passwd,"( [ -f /etc/passwd ] && stat -Lc ""%a %u %g"" /etc/passwd | grep -Eq '^64[0-9] 0 0$' ) && echo ""PASS"" || echo ""FAIL"""
+186,Permissões,Light,Baixa,Permissões passwd-,Ajustar permissões de /etc/passwd-.,Verificar permissões de /etc/passwd-,"( [ -f /etc/passwd- ] && stat -Lc ""%a %u %g"" /etc/passwd- | grep -Eq '^64[0-9] 0 0$' ) && echo ""PASS"" || echo ""FAIL"""
+187,Permissões,Light,Alta,Permissões shadow,Ajustar permissões de /etc/shadow.,Verificar permissões de /etc/shadow,"( [ -f /etc/shadow ] && stat -Lc ""%a %u %g"" /etc/shadow | grep -Eq '^0+ 0 0$' ) && echo ""PASS"" || echo ""FAIL"""
+188,Permissões,Light,Baixa,Permissões shadow-,Ajustar permissões de /etc/shadow-.,Verificar permissões de /etc/shadow-,"( [ -f /etc/shadow- ] && stat -Lc ""%a %u %g"" /etc/shadow- | grep -Eq '^0+ 0 0$' ) && echo ""PASS"" || echo ""FAIL"""
+189,Permissões,Light,Baixa,Permissões gshadow-,Ajustar permissões de /etc/gshadow-.,Verificar permissões de /etc/gshadow-,"( [ -f /etc/gshadow- ] && stat -Lc ""%a %u %g"" /etc/gshadow- | grep -Eq '^(600|60[0-9]|[0-5][0-9]{2}) 0 0$' ) && echo ""PASS"" || echo ""FAIL"""
+190,Permissões,Light,Alta,Permissões gshadow,Ajustar permissões de /etc/gshadow.,Verificar permissões de /etc/gshadow,"( [ -f /etc/gshadow ] && stat -Lc ""%a %u %g"" /etc/gshadow | grep -Eq '^(600|60[0-9]|[0-5][0-9]{2}) 0 0$' ) && echo ""PASS"" || echo ""FAIL"""
+191,Permissões,Light,Baixa,Permissões group,Ajustar permissões de /etc/group.,Verificar permissões de /etc/group,"( [ -f /etc/group ] && stat -Lc ""%a %u %g"" /etc/group | grep -Eq '^64[0-9] 0 0$' ) && echo ""PASS"" || echo ""FAIL"""
+192,Permissões,Light,Baixa,Permissões group-,Ajustar permissões de /etc/group-.,Verificar permissões de /etc/group-,"( [ -f /etc/group- ] && stat -Lc ""%a %u %g"" /etc/group- | grep -Eq '^64[0-9] 0 0$' ) && echo ""PASS"" || echo ""FAIL"""
+193,Sistema e Contas,Full,Baixa,nologin fora de etc shells,Garantir que nologin seja tratado de forma consistente,Verifica se nologin aparece listado em etc shells,"grep -qE '^(\/usr)?\/sbin\/nologin$' /etc/shells && echo ""PASS"" || echo ""FAIL"""
+194,Permissões,Light,Alta,Proteger opasswd,Proteger /etc/security/opasswd contra acesso não autorizado.,Verificar permissões de opasswd,"( [ -f /etc/security/opasswd ] && stat -Lc ""%a %u %g"" /etc/security/opasswd | grep -Eq '^600 0 0$' ) && echo ""PASS"" || echo ""FAIL"""
+195,Permissões,Light,Baixa,Arquivos órfãos,Corrigir arquivos órfãos sem owner válido.,Identificar arquivos sem owner válido,"( find / -xdev \( -nouser -o -nogroup \) 2>/dev/null | grep -q . ) && echo ""FAIL"" || echo ""PASS"""
+196,Permissões,Light,Alta,Sticky world-writable,Garantir sticky bit em diretórios world writable.,Verificar sticky bit em diretórios world writable,"(find / -xdev -type d -perm -0002 ! -perm -1000 2>/dev/null | grep . && echo ""FAIL"" || echo ""PASS"")"
+197,Permissões,Light,Baixa,Arquivos sem grupo,Corrigir arquivos sem owner ou grupo válido.,Identificar arquivos sem owner ou grupo,"( find / -xdev \( -nouser -o -nogroup \) 2>/dev/null | grep -q . ) && echo ""FAIL"" || echo ""PASS"""
+198,Permissões,Full,Alta,SUID SGID revisados,Rever binarios SUID e SGID,Lista arquivos com bits SUID ou SGID definidos,"( find / -xdev \( -perm -4000 -o -perm -2000 \) 2>/dev/null | grep -Ev '^(/usr/bin/sudo|/usr/bin/su|/bin/su|/usr/bin/passwd|/usr/bin/chage|/usr/bin/chsh|/usr/bin/chfn|/usr/bin/newgrp|/usr/bin/gpasswd|/usr/sbin/unix_chkpwd|/usr/sbin/pam_timestamp_check|/usr/bin/mount|/usr/bin/umount|/usr/bin/fusermount|/usr/bin/pkexec|/usr/bin/crontab|/usr/bin/ssh-agent|/usr/bin/ksu|/usr/libexec/openssh/ssh-keysign|/usr/bin/ping|/usr/bin/ping6|/usr/bin/traceroute|/usr/bin/traceroute6)$' | grep -q . ) && echo ""FAIL"" || echo ""PASS"""
+199,Home,Light,Baixa,Home ausente,Verificar usuários sem diretório home,Verificar usuários sem diretório home,"( awk -F: '$3>=1000 && $1!=""nobody""{print $6}' /etc/passwd | while read -r h; do [ -d ""$h"" ] || exit 1; done ) && echo ""PASS"" || echo ""FAIL"""
+200,Home,Light,Alta,Ownership home,Ajustar ownership dos diretórios home para o respectivo usuário.,Verificar ownership dos diretórios home,"( awk -F: '$3>=1000 && $1!=""nobody""{print $1,$6}' /etc/passwd | while read -r u h; do [ -d ""$h"" ] && [ ""$(stat -Lc %U ""$h"")"" = ""$u"" ] || exit 1; done ) && echo ""PASS"" || echo ""FAIL"""
+201,Home,Light,Alta,Permissões home,Ajustar permissões de home para 750 ou mais restritivas.,Verificar permissões dos diretórios home,"( awk -F: '$3>=1000 && $1!=""nobody""{print $6}' /etc/passwd | while read -r h; do [ -d ""$h"" ] && [ ""$(stat -Lc %a ""$h"")"" -le 750 ] || exit 1; done ) && echo ""PASS"" || echo ""FAIL"""
+202,Home,Light,Baixa,Dotfiles seguros,Ajustar permissões de dotfiles removendo escrita indevida.,Verificar permissões de dotfiles,"( while read -r h; do [ -d ""$h"" ] || continue; find ""$h"" -maxdepth 1 -type f -name "".*"" -perm /022 2>/dev/null; done < <(awk -F: '$3>=1000 && $1!=""nobody""{print $6}' /etc/passwd) | grep -q . ) && echo ""FAIL"" || echo ""PASS"""
+203,Home,Light,Alta,Arquivos trust legado,Remover ou proteger arquivos forward  netrc e rhosts conforme política.,Verificar presença desses arquivos,"( while read -r h; do [ -d ""$h"" ] || continue; for f in ""$h/.forward"" ""$h/.netrc"" ""$h/.rhosts""; do [ -e ""$f"" ] && echo ""$f""; done; done < <(awk -F: '$3>=1000 && $1!=""nobody""{print $6}' /etc/passwd) | grep -q . ) && echo ""FAIL"" || echo ""PASS"""
