@@ -343,8 +343,8 @@ echo -e "\n[85] Verificar presença de TFTP"
 echo -e "\n[86] Verificar regras do polkit"
 ( grep -Ehv '^[[:space:]]*(//|#)' /etc/polkit-1/rules.d/*.rules 2>/dev/null | grep -Eq 'polkit\.Result\.YES|[^[:alnum:]_]allow[^[:alnum:]_]' ) && echo "FAIL" || echo "PASS"
 
-echo -e "\n[87] Verificar configuração de repositórios"
-(find /etc/apt/sources.list /etc/apt/sources.list.d -type f -print0 2>/dev/null | xargs -0r grep -Ehv '^[[:space:]]*#' 2>/dev/null | grep -Eq '^[[:space:]]*deb[[:space:]]' && ! apt-config dump 2>/dev/null | grep -Eq 'Acquire::AllowInsecureRepositories "true"|APT::Get::AllowUnauthenticated "true"' && echo "PASS" || echo "FAIL")
+echo -e "\n[87] Verificar ausência de trusted=yes e permissões APT inseguras"
+(find /etc/apt/sources.list /etc/apt/sources.list.d -type f -print0 2>/dev/null | xargs -0r grep -Ehv '^[[:space:]]*(#|$)' 2>/dev/null | grep -Eiq '^[[:space:]]*deb[[:space:]]|^[[:space:]]*Types:[[:space:]]*.*\bdeb\b' && ! find /etc/apt/sources.list /etc/apt/sources.list.d -type f -print0 2>/dev/null | xargs -0r grep -Eiq '(^|[[:space:]\[])trusted[[:space:]]*=[[:space:]]*yes|^[[:space:]]*Trusted:[[:space:]]*yes' && ! apt-config dump 2>/dev/null | grep -Eq 'Acquire::AllowInsecureRepositories "true"|Acquire::AllowDowngradeToInsecureRepositories "true"|APT::Get::AllowUnauthenticated "true"' && echo "PASS" || echo "FAIL")
 
 echo -e "\n[88] Verificar atualizações pendentes"
 (apt list --upgradable 2>/dev/null | grep -Eiq 'security|ubuntu[[:alnum:].-]+-security|debian-security' && echo "FAIL" || echo "PASS")
@@ -352,8 +352,8 @@ echo -e "\n[88] Verificar atualizações pendentes"
 echo -e "\n[89] Verificar serviços de tempo ativos"
 ([ "$(time_sync_active_count)" -eq 1 ] && echo "PASS" || echo "FAIL")
 
-echo -e "\n[90] Verificar listas de controle de cron e at"
-(stat -Lc '%a %U %G' /etc/cron.allow 2>/dev/null | grep -Eq '^640 root (root|crontab)$' && echo "PASS" || echo "FAIL")
+echo -e "\n[90] Verificar allow-list de usuários para cron e at"
+(stat -Lc '%a %U %G' /etc/cron.allow 2>/dev/null | grep -Eq '^640 root (root|crontab)$' && [ ! -e /etc/cron.deny ] && { ! command -v at >/dev/null 2>&1 || { stat -Lc '%a %U %G' /etc/at.allow 2>/dev/null | grep -Eq '^640 root (root|daemon)$' && [ ! -e /etc/at.deny ]; }; } && echo "PASS" || echo "FAIL")
 
 echo -e "\n[91] Confere sysctl de net ipv4 ip forward e net ipv6 conf all forwarding iguais a zero"
 (sysctl -n net.ipv4.ip_forward 2>/dev/null | grep -q '^0$' && sysctl -n net.ipv6.conf.all.forwarding 2>/dev/null | grep -q '^0$' && echo "PASS" || echo "FAIL")
@@ -437,16 +437,16 @@ echo -e "\n[123] Confere se AllowTcpForwarding esta definido como no ou restrito
 echo -e "\n[124] Verificar parâmetro Banner"
 ( sshd_effective_config | grep -Eiq '^banner[[:space:]]+\S+' ) && echo "PASS" || echo "FAIL"
 
-echo -e "\n[125] Verifica se diretiva Ciphers contem apenas algoritmos considerados fortes"
+echo -e "\n[125] Verifica se diretiva Ciphers contem algoritmo forte"
 (sshd_effective_config | grep -Eiq '^ciphers[[:space:]]+.*(chacha20|aes256).*' && echo "PASS" || echo "FAIL")
 
-echo -e "\n[126] Checa se diretiva MACs contem somente algoritmos seguros"
+echo -e "\n[126] Checa se diretiva MACs contem algoritmo seguro"
 (sshd_effective_config | grep -Eiq '^macs[[:space:]]+.*(hmac-sha2|umac).*' && echo "PASS" || echo "FAIL")
 
-echo -e "\n[127] Verifica se KexAlgorithms inclui apenas metodos fortes como curve25519 e DH robusto"
+echo -e "\n[127] Verifica se KexAlgorithms inclui metodo forte"
 (sshd_effective_config | grep -Eiq '^kexalgorithms[[:space:]]+.*(curve25519|diffie-hellman-group-exchange-sha256).*' && echo "PASS" || echo "FAIL")
 
-echo -e "\n[128] Checa se Ciphers e KexAlgorithms priorizam suites modernas"
+echo -e "\n[128] Checa se Ciphers ou KexAlgorithms contem suite moderna"
 (sshd_effective_config | grep -Eiq '^(ciphers|kexalgorithms)[[:space:]]+.*(chacha20|curve25519).*' && echo "PASS" || echo "FAIL")
 
 echo -e "\n[129] Verifica se ha diretivas ForceCommand ou ChrootDirectory configuradas para contas especificas"
@@ -548,8 +548,8 @@ grep -Eq 'pam_wheel\.so.*group=(sudo|wheel)' /etc/pam.d/su && echo "PASS" || ech
 echo -e "\n[161] Verificar se há ao menos um mecanismo de log ativo"
 ( service_active_any rsyslog systemd-journald && echo "PASS" || echo "FAIL" )
 
-echo -e "\n[162] Verificar configuração de persistência"
-grep -q '^Storage=persistent' /etc/systemd/journald.conf && echo "PASS" || echo "FAIL"
+echo -e "\n[162] Verificar persistência do systemd-journald"
+(grep -REiq '^[[:space:]]*Storage[[:space:]]*=[[:space:]]*persistent\b' /etc/systemd/journald.conf /etc/systemd/journald.conf.d/*.conf 2>/dev/null && echo "PASS" || echo "FAIL")
 
 echo -e "\n[163] Verificar presença e status do rsyslog"
 ( pkg_installed rsyslog && systemctl is-active rsyslog &>/dev/null ) && echo "PASS" || echo "FAIL"
