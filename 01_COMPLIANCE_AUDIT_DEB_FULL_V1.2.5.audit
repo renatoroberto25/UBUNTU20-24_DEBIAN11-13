@@ -3,10 +3,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "001, Bloqueio cramfs, Alta"
-  info        : "Reduz superfície de ataque removendo suporte a filesystem legado raramente necessário"
-  solution    : "Bloquear módulo via modprobe.d e remover se carregado"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  info        : "Verificar se módulo cramfs está bloqueado"
+  solution    : "Bloquear módulo cramfs persistentemente via modprobe.d e remover se carregado."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(modinfo cramfs &>/dev/null && modprobe --showconfig | grep -Pq '\"'\"'\\b(install|blacklist)\\h+cramfs\\b'\"'\"' && ! lsmod | grep -q cramfs) || (! modinfo cramfs &>/dev/null) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -14,10 +14,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "002, Bloqueio squashfs, Alta"
-  info        : "Reduz superfície de ataque associada a arquivos comprimidos montados indevidamente"
-  solution    : "Bloquear módulo via modprobe.d e remover se carregado"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  info        : "Verificar se módulo squashfs está bloqueado"
+  solution    : "Bloquear módulo squashfs persistentemente via modprobe.d e remover se carregado."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(modinfo squashfs &>/dev/null && modprobe --showconfig | grep -Pq '\"'\"'\\b(install|blacklist)\\h+squashfs\\b'\"'\"' && ! lsmod | grep -q squashfs) || (! modinfo squashfs &>/dev/null) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -25,10 +25,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "003, Bloqueio udf, Média"
-  info        : "Evita uso de mídias ópticas como vetor de execução ou exfiltração de dados"
-  solution    : "Bloquear módulo via modprobe.d e remover se carregado"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  info        : "Verificar se módulo udf está bloqueado"
+  solution    : "Bloquear módulo udf persistentemente via modprobe.d e remover se carregado."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(modinfo udf &>/dev/null && modprobe --showconfig | grep -Pq '\"'\"'\\b(install|blacklist)\\h+udf\\b'\"'\"' && ! lsmod | grep -q udf) || (! modinfo udf &>/dev/null) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -36,10 +36,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "004, Bloqueio hfs, Alta"
-  info        : "Remove suporte a filesystem Apple antigo que não é necessário em servidores Linux"
-  solution    : "Bloquear módulo via modprobe.d e remover se carregado"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  info        : "Verificar se módulo hfs está bloqueado"
+  solution    : "Bloquear módulo hfs persistentemente via modprobe.d e remover se carregado."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(modinfo hfs &>/dev/null && modprobe --showconfig | grep -Pq '\"'\"'\\b(install|blacklist)\\h+hfs\\b'\"'\"' && ! lsmod | grep -q hfs) || (! modinfo hfs &>/dev/null) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -47,10 +47,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "005, Bloqueio hfsplus, Alta"
-  info        : "Remove suporte a filesystem Apple moderno que não agrega em ambiente de servidor"
-  solution    : "Bloquear módulo via modprobe.d e remover se carregado"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  info        : "Verificar se módulo hfsplus está bloqueado"
+  solution    : "Bloquear módulo hfsplus persistentemente via modprobe.d e remover se carregado."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(modinfo hfsplus &>/dev/null && modprobe --showconfig | grep -Pq '\"'\"'\\b(install|blacklist)\\h+hfsplus\\b'\"'\"' && ! lsmod | grep -q hfsplus) || (! modinfo hfsplus &>/dev/null) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -58,10 +58,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "006, Bloqueio jffs2, Alta"
-  info        : "Elimina suporte a filesystem embarcado pouco usado e potencialmente mal auditado"
-  solution    : "Bloquear módulo via modprobe.d e remover se carregado"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  info        : "Verificar se módulo jffs2 está bloqueado"
+  solution    : "Bloquear módulo jffs2 persistentemente via modprobe.d e remover se carregado."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(modinfo jffs2 &>/dev/null && modprobe --showconfig | grep -Pq '\"'\"'\\b(install|blacklist)\\h+jffs2\\b'\"'\"' && ! lsmod | grep -q jffs2) || (! modinfo jffs2 &>/dev/null) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -69,10 +69,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "007, Bloqueio freevxfs, Alta"
-  info        : "Remove filesystem obsoleto pouco testado em cenários modernos de produção"
-  solution    : "Bloquear módulo via modprobe.d e remover se carregado"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  info        : "Verificar se módulo freevxfs está bloqueado"
+  solution    : "Bloquear módulo freevxfs persistentemente via modprobe.d e remover se carregado."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(modinfo freevxfs &>/dev/null && modprobe --showconfig | grep -Pq '\"'\"'\\b(install|blacklist)\\h+freevxfs\\b'\"'\"' && ! lsmod | grep -q freevxfs) || (! modinfo freevxfs &>/dev/null) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -80,10 +80,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "008, Desabilitar overlayfs quando nao for requisito, Média"
-  info        : "Overlayfs pode ser abusado para esconder camadas de arquivos"
-  solution    : "Aplicar blacklist para overlay em hosts que nao usam containers ou overlays"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  info        : "Checa se overlay nao esta carregado e se ha regra de bloqueio"
+  solution    : "Desabilitar o modulo overlayfs"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(modinfo overlay &>/dev/null && modprobe --showconfig | grep -Pq '\"'\"'\\b(install|blacklist)\\h+overlay\\b'\"'\"' && ! lsmod | grep -q overlay) || (! modinfo overlay &>/dev/null) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -91,10 +91,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "009, Bloqueio usb_storage, Alta"
-  info        : "Impede que dispositivos USB sejam usados para copiar ou trazer dados maliciosos"
-  solution    : "Bloquear módulo via modprobe.d e remover se carregado"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  info        : "Verificar se usb_storage está bloqueado"
+  solution    : "Bloquear módulo usb_storage persistentemente."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(modinfo usb-storage &>/dev/null && modprobe --showconfig | grep -Pq '\"'\"'\\b(install|blacklist)\\h+usb_storage\\b'\"'\"' && ! lsmod | grep -q usb_storage) || (! modinfo usb-storage &>/dev/null) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -102,10 +102,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "010, Desabilitar modulo DCCP, Alta"
-  info        : "Protocolo pouco usado adiciona codigo de rede desnecessario"
-  solution    : "Adicionar entradas de blacklist e install neutro para dccp"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  info        : "Confere se dccp nao esta carregado e se existe regra de bloqueio"
+  solution    : "Desabilitar o modulo dccp"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(modinfo dccp &>/dev/null && modprobe --showconfig | grep -Pq '\"'\"'\\b(install|blacklist)\\h+dccp\\b'\"'\"' && ! lsmod | grep -q dccp) || (! modinfo dccp &>/dev/null) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -113,10 +113,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "011, Desabilitar modulo SCTP quando nao requerido, Alta"
-  info        : "Protocolo complexo aumenta superficie de ataque em ambientes que nao o usam"
-  solution    : "Configurar blacklist para sctp exceto onde for requisito de aplicacao"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  info        : "Checa se sctp nao esta carregado e se esta bloqueado em modprobe"
+  solution    : "Desabilitar o modulo sctp"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(modinfo sctp &>/dev/null && modprobe --showconfig | grep -Pq '\"'\"'\\b(install|blacklist)\\h+sctp\\b'\"'\"' && ! lsmod | grep -q sctp) || (! modinfo sctp &>/dev/null) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -124,10 +124,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "012, Desabilitar modulo RDS, Alta"
-  info        : "Remove suporte a transporte RDS raramente necessario"
-  solution    : "Aplicar blacklist e install neutro para rds"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  info        : "Valida que rds nao esta ativo e esta proibido em modprobe"
+  solution    : "Desabilitar o modulo rds"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(modinfo rds &>/dev/null && modprobe --showconfig | grep -Pq '\"'\"'\\b(install|blacklist)\\h+rds\\b'\"'\"' && ! lsmod | grep -q rds) || (! modinfo rds &>/dev/null) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -135,10 +135,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "013, Desabilitar modulo TIPC, Alta"
-  info        : "Evita exposicao de protocolo de cluster pouco utilizado"
-  solution    : "Adicionar entradas de blacklist e install neutro para tipc"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  info        : "Checa se tipc nao esta carregado e se ha bloqueio configurado"
+  solution    : "Desabilitar o modulo tipc"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(modinfo tipc &>/dev/null && modprobe --showconfig | grep -Pq '\"'\"'\\b(install|blacklist)\\h+tipc\\b'\"'\"' && ! lsmod | grep -q tipc) || (! modinfo tipc &>/dev/null) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -146,10 +146,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "014, Core dumps restritos, Alta"
-  info        : "Restringe a geração de core dumps para evitar vazamento de informações sensíveis"
-  solution    : "Configurar sysctl para restringir a geração de core dumps"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.kernel.org/doc/html/latest/admin-guide/sysctl/fs.html"
+  info        : "Verifica limite de core e valor de fs suid dumpable igual a zero"
+  solution    : "Restringir core dumps em especial de binarios setuid"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '([ \"$(ulimit -c)\" = \"0\" ] && sysctl -n fs.suid_dumpable | grep -q '\"'\"'^0$'\"'\"') && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -157,10 +157,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "015, SUID dump off, Alta"
-  info        : "Evita que processos SUID gerem dumps com conteúdo sensível gravado em disco"
-  solution    : "Configurar sysctl persistente"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.kernel.org/doc/html/latest/admin-guide/sysctl/fs.html"
+  info        : "Verificar valor de fs.suid_dumpable"
+  solution    : "Configurar fs.suid_dumpable=0 persistentemente."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(sysctl -n fs.suid_dumpable | grep -q '\"'\"'^0$'\"'\"') && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -168,10 +168,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "016, NX XD ativo, Alta"
-  info        : "Garante que a execução de código em áreas de memória não é permitida"
-  solution    : "Verificar se o suporte a NX/XD está ativado no kernel"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html"
+  info        : "Checa suporte a nx na cpu e mensagem de ativacao no dmesg"
+  solution    : "Habilitar NX ou XD no hardware e no kernel"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(grep -q '\"'\"'nx'\"'\"' /proc/cpuinfo && dmesg | grep -qi '\"'\"'NX.*active'\"'\"') && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -179,10 +179,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "017, ASLR habilitado, Média"
-  info        : "Randomização de espaço de memória dificulta exploits baseados em endereço fixo"
-  solution    : "Configurar sysctl kernel randomize va space igual a dois(habilitar ASLR)"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.kernel.org/doc/html/latest/admin-guide/sysctl/kernel.html"
+  info        : "Verifica kernel randomize va space igual a dois"
+  solution    : "Habilitar ASLR completo para espaco de enderecamento"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(sysctl -n kernel.randomize_va_space | grep -q '\"'\"'^2$'\"'\"') && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -190,10 +190,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "018, ASLR completo, Média"
-  info        : "Dificulta exploração de vulnerabilidades que dependem de previsibilidade de endereços"
-  solution    : "Configurar sysctl persistente"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.kernel.org/doc/html/latest/admin-guide/sysctl/kernel.html"
+  info        : "Verificar randomize_va_space"
+  solution    : "Configurar ASLR completo via sysctl persistente."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(sysctl -n kernel.randomize_va_space | grep -q '\"'\"'^2$'\"'\"') && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -201,10 +201,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "019, perf event restrito, Alta"
-  info        : "Perf counters podem ser usados para side channel e coleta de informacao de kernel"
-  solution    : "Ajustar sysctl kernel perf event paranoid para valor dois ou tres"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.kernel.org/doc/html/latest/admin-guide/sysctl/kernel.html"
+  info        : "Verifica kernel perf event paranoid em nivel mais restritivo"
+  solution    : "Restringir perf event para usuarios nao privilegiados"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(sysctl -n kernel.perf_event_paranoid | grep -q '\"'\"'^[2-3]$'\"'\"') && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -212,10 +212,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "020, perf_event restrito, Média"
-  info        : "Restringe uso abusivo de contadores de performance para inferir dados sensíveis"
-  solution    : "Configurar sysctl persistente"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.kernel.org/doc/html/latest/admin-guide/sysctl/kernel.html"
+  info        : "Verificar perf_event_paranoid"
+  solution    : "Configurar perf_event_paranoid restritivo via sysctl persistente."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(sysctl -n kernel.perf_event_paranoid | grep -q '\"'\"'^[2-3]$'\"'\"') && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -223,10 +223,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "021, dmesg restrito, Alta"
-  info        : "Impede que usuários não privilegiados acessem informações internas do kernel"
-  solution    : "Configurar sysctl persistente"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.kernel.org/doc/html/latest/admin-guide/sysctl/kernel.html"
+  info        : "Verificar dmesg_restrict"
+  solution    : "Configurar dmesg_restrict=1 via sysctl persistente."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(sysctl -n kernel.dmesg_restrict | grep -q '\"'\"'^1$'\"'\"') && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -234,10 +234,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "022, protected symlinks, Alta"
-  info        : "Evita a criação de symlinks que possam ser usados para acessar arquivos fora do diretório permitido"
-  solution    : "Configurar sysctl fs.protected_symlinks para valor 1"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.kernel.org/doc/html/latest/admin-guide/sysctl/fs.html"
+  info        : "Checa fs protected symlinks igual a um"
+  solution    : "Ativar protecao de symlinks em diretorios sensiveis"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(sysctl -n fs.protected_symlinks | grep -q '\"'\"'^1$'\"'\"') && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -245,10 +245,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "023, Symlinks protegidos, Alta"
-  info        : "Mitiga ataques baseados em symlink em diretórios compartilhados"
-  solution    : "Configurar sysctl persistente"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.kernel.org/doc/html/latest/admin-guide/sysctl/fs.html"
+  info        : "Verificar protected_symlinks"
+  solution    : "Configurar fs.protected_symlinks=1 persistentemente."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(sysctl -n fs.protected_symlinks | grep -q '\"'\"'^1$'\"'\"') && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -256,10 +256,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "024, Hardlinks protegidos, Alta"
-  info        : "Mitiga abuso de hardlinks para burlar controles de permissões"
-  solution    : "Configurar sysctl persistente"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.kernel.org/doc/html/latest/admin-guide/sysctl/fs.html"
+  info        : "Verificar protected_hardlinks"
+  solution    : "Configurar fs.protected_hardlinks=1 persistentemente."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(sysctl -n fs.protected_hardlinks | grep -q '\"'\"'^1$'\"'\"') && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -267,10 +267,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "025, Particao dedicada para tmp, Média"
-  info        : "Garante que o diretório /tmp tenha sua própria partição para evitar uso excessivo de espaço em disco"
-  solution    : "Configurar uma partição dedicada para /tmp"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verifica se existe montagem especifica para tmp via findmnt"
+  solution    : "Usar particao ou ponto dedicado para tmp"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(findmnt -kn /tmp >/dev/null && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -278,10 +278,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "026, Particao dedicada para dev shm, Média"
-  info        : "Garante que o diretório /dev/shm tenha sua própria partição para evitar uso excessivo de espaço em disco"
-  solution    : "Configurar uma partição dedicada para /dev/shm"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Checa montagem propria para dev shm"
+  solution    : "Usar particao dedicada para dev shm"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(findmnt -kn /dev/shm >/dev/null && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -289,10 +289,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "027, Particao dedicada para var, Alta"
-  info        : "Garante que o diretório /var tenha sua própria partição para evitar uso excessivo de espaço em disco"
-  solution    : "Configurar uma partição dedicada para /var"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verifica montagem independente para var"
+  solution    : "Usar particao dedicada para var"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(findmnt -kn /var >/dev/null && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -300,10 +300,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "028, Particao dedicada para var tmp, Alta"
-  info        : "Garante que o diretório /var/tmp tenha sua própria partição para evitar uso excessivo de espaço em disco"
-  solution    : "Configurar uma partição dedicada para /var/tmp"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Checa se var tmp possui montagem propria"
+  solution    : "Usar particao dedicada para var tmp"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(findmnt -kn /var/tmp >/dev/null && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -311,10 +311,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "029, Particao dedicada para var log, Alta"
-  info        : "Separar logs protege sistema de enchimento de disco"
-  solution    : "Criar particao separada para var log e ajustar roteamento de logs"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Confere montagem especifica para var log"
+  solution    : "Usar particao dedicada para var log"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(findmnt -kn /var/log >/dev/null && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -322,10 +322,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "030, Particao dedicada para var log audit, Média"
-  info        : "Garante que o diretório /var/log/audit tenha sua própria partição para evitar uso excessivo de espaço em disco"
-  solution    : "Configurar uma partição dedicada para /var/log/audit"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verifica se var log audit tem montagem independente"
+  solution    : "Usar particao dedicada para var log audit"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(findmnt -kn /var/log/audit >/dev/null && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -333,10 +333,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "031, Particao dedicada para home, Alta"
-  info        : "Garante que o diretório /home tenha sua própria partição para evitar uso excessivo de espaço em disco"
-  solution    : "Configurar uma partição dedicada para /home"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Checa montagem independente para home"
+  solution    : "Usar particao dedicada para home"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(findmnt -kn /home >/dev/null && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -344,10 +344,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "032, Particao dedicada para historico, Alta"
-  info        : "Garante que o diretório /historico tenha sua própria partição para evitar uso excessivo de espaço em disco"
-  solution    : "Configurar uma partição dedicada para /historico"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verifica se existe montagem especifica para historico"
+  solution    : "Usar particao dedicada para historico"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(findmnt -kn /historico >/dev/null && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -355,10 +355,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "033, Particao dedicada para crash, Alta"
-  info        : "Garante que o diretório /crash tenha sua própria partição para evitar uso excessivo de espaço em disco"
-  solution    : "Configurar uma partição dedicada para /crash"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Confere montagem dedicada para crash"
+  solution    : "Usar particao dedicada para crash"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(findmnt -kn /crash >/dev/null && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -366,10 +366,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "034, Particao dedicada para UNIX, Média"
-  info        : "Garante que o diretório /UNIX tenha sua própria partição para evitar uso excessivo de espaço em disco"
-  solution    : "Configurar uma partição dedicada para /UNIX"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verifica se ha montagem propria para UNIX"
+  solution    : "Usar particao dedicada para UNIX"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(findmnt -kn /UNIX >/dev/null && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -377,10 +377,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "035, Nodev removíveis, Baixa"
-  info        : "Reduz risco de execução ou uso indevido de dispositivos externos"
-  solution    : "Ajustar opções nodev,nosuid,noexec para mídias removíveis."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar opções de montagem para mídias removíveis"
+  solution    : "Ajustar opções nodev nosuid noexec para mídias removíveis no fstab."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'fstab_path_has_opts() { local path_re=\"$1\"; shift; local entry found opt entries; entries=\"$(grep -Ehv '\"'\"'^[[:space:]]*#|^[[:space:]]*$'\"'\"' /etc/fstab 2>/dev/null | awk -v p=\"$path_re\" '\"'\"'$2 ~ p {print $4}'\"'\"')\" || return 1; [ -n \"$entries\" ] || return 1; while read -r entry; do [ -n \"$entry\" ] || continue; found=1; for opt in \"$@\"; do grep -qw \"$opt\" <<< \"$entry\" || return 1; done; done <<< \"$entries\"; [ \"${found:-0}\" -eq 1 ]; }; (fstab_path_has_opts '\"'\"'^(/media|/run/media)'\"'\"' nodev nosuid noexec && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -388,10 +388,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "036, Nodev partições críticas, Baixa"
-  info        : "Impede criação de dispositivos ou elevação via SUID em partições sensíveis"
-  solution    : "Ajustar opções nodev,nosuid,noexec."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar opções de montagem críticas"
+  solution    : "Ajustar opções nodev nosuid para partições críticas."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'fstab_path_has_opts() { local path_re=\"$1\"; shift; local entry found opt entries; entries=\"$(grep -Ehv '\"'\"'^[[:space:]]*#|^[[:space:]]*$'\"'\"' /etc/fstab 2>/dev/null | awk -v p=\"$path_re\" '\"'\"'$2 ~ p {print $4}'\"'\"')\" || return 1; [ -n \"$entries\" ] || return 1; while read -r entry; do [ -n \"$entry\" ] || continue; found=1; for opt in \"$@\"; do grep -qw \"$opt\" <<< \"$entry\" || return 1; done; done <<< \"$entries\"; [ \"${found:-0}\" -eq 1 ]; }; (fstab_path_has_opts '\"'\"'^/(var|tmp|dev/shm|var/tmp|var/log|var/log/audit|home)$'\"'\"' nodev nosuid && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -399,10 +399,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "037, Opcoes de montagem seguras em tmp, Alta"
-  info        : "Aplicar opcoes seguras em tmp"
+  info        : "Checa se tmp possui opcoes nodev nosuid e noexec"
   solution    : "Aplicar opcoes seguras em tmp"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'mount_has_opts() { local mountpoint=\"$1\"; shift; local opts opt; opts=\"$(findmnt -n -o OPTIONS --target \"$mountpoint\" 2>/dev/null)\" || return 1; for opt in \"$@\"; do grep -qw \"$opt\" <<< \"$opts\" || return 1; done; }; (mount_has_opts /tmp nodev nosuid noexec && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -410,10 +410,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "038, Opcoes de montagem seguras em dev shm, Alta"
-  info        : "Aplicar opcoes seguras em dev shm"
+  info        : "Verifica nodev nosuid noexec na montagem de dev shm"
   solution    : "Aplicar opcoes seguras em dev shm"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'mount_has_opts() { local mountpoint=\"$1\"; shift; local opts opt; opts=\"$(findmnt -n -o OPTIONS --target \"$mountpoint\" 2>/dev/null)\" || return 1; for opt in \"$@\"; do grep -qw \"$opt\" <<< \"$opts\" || return 1; done; }; (mount_has_opts /dev/shm nodev nosuid noexec && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -421,10 +421,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "039, Opcoes de montagem seguras em var tmp, Média"
-  info        : "Aplicar opcoes seguras em var tmp"
+  info        : "Checa opcoes nodev nosuid ou noexec em var tmp"
   solution    : "Aplicar opcoes seguras em var tmp"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'mount_has_opts() { local mountpoint=\"$1\"; shift; local opts opt; opts=\"$(findmnt -n -o OPTIONS --target \"$mountpoint\" 2>/dev/null)\" || return 1; for opt in \"$@\"; do grep -qw \"$opt\" <<< \"$opts\" || return 1; done; }; (mount_has_opts /var/tmp nodev nosuid noexec && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -432,10 +432,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "040, Segurança /var/log, Alta"
-  info        : "Impede uso indevido de dispositivos ou binários SUID em diretório de logs"
-  solution    : "Ajustar opções nodev e nosuid."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar opções de montagem de /var/log"
+  solution    : "Configurar /var/log com nodev nosuid."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'mount_has_opts() { local mountpoint=\"$1\"; shift; local opts opt; opts=\"$(findmnt -n -o OPTIONS --target \"$mountpoint\" 2>/dev/null)\" || return 1; for opt in \"$@\"; do grep -qw \"$opt\" <<< \"$opts\" || return 1; done; }; (mount_has_opts /var/log nodev nosuid && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -443,10 +443,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "041, Segurança audit log, Alta"
-  info        : "Protege diretório de auditoria contra execução indevida"
-  solution    : "Ajustar opções nodev e nosuid."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar opções de montagem de /var/log/audit"
+  solution    : "Configurar /var/log/audit com nodev nosuid."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'mount_has_opts() { local mountpoint=\"$1\"; shift; local opts opt; opts=\"$(findmnt -n -o OPTIONS --target \"$mountpoint\" 2>/dev/null)\" || return 1; for opt in \"$@\"; do grep -qw \"$opt\" <<< \"$opts\" || return 1; done; }; (mount_has_opts /var/log/audit nodev nosuid && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -454,10 +454,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "042, Segurança /home, Alta"
-  info        : "Reduz possibilidade de criação de dispositivos em diretórios de usuários"
-  solution    : "Ajustar opções nodev."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar opções de montagem de /home"
+  solution    : "Configurar /home com nodev quando aplicável."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(findmnt -n /home | grep -qw nodev && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -465,10 +465,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "043, Opcoes de montagem seguras em midias removiveis, Média"
-  info        : "Aplicar opcoes seguras em midias removiveis"
+  info        : "Verifica se midias removiveis estao definidas com opcoes seguras em fstab"
   solution    : "Aplicar opcoes seguras em midias removiveis"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'fstab_path_has_opts() { local path_re=\"$1\"; shift; local entry found opt entries; entries=\"$(grep -Ehv '\"'\"'^[[:space:]]*#|^[[:space:]]*$'\"'\"' /etc/fstab 2>/dev/null | awk -v p=\"$path_re\" '\"'\"'$2 ~ p {print $4}'\"'\"')\" || return 1; [ -n \"$entries\" ] || return 1; while read -r entry; do [ -n \"$entry\" ] || continue; found=1; for opt in \"$@\"; do grep -qw \"$opt\" <<< \"$entry\" || return 1; done; done <<< \"$entries\"; [ \"${found:-0}\" -eq 1 ]; }; (fstab_path_has_opts '\"'\"'^(/media|/run/media)'\"'\"' nodev nosuid noexec && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -476,10 +476,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "044, Sticky world-writable, Alta"
-  info        : "Impede exclusão de arquivos por usuários não proprietários em diretórios compartilhados"
-  solution    : "Aplicar opcoes seguras em midias removiveis"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar sticky bit em diretórios world writable"
+  solution    : "Aplicar sticky bit em diretórios world writable locais."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(find / -xdev -type d -perm -0002 ! -perm -1000 2>/dev/null | grep . && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -487,10 +487,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "045, Sticky /tmp, Baixa"
-  info        : "Protege arquivos temporários contra exclusão indevida por outros usuários"
+  info        : "Verificar sticky bit em /tmp"
   solution    : "Aplicar sticky bit em /tmp."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(stat -c \"%A\" /tmp | grep -q '\"'\"'t'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -498,10 +498,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "046, Sticky /var/tmp, Média"
-  info        : "Garante proteção semelhante ao /tmp para área temporária persistente"
+  info        : "Verificar sticky bit em /var/tmp"
   solution    : "Aplicar sticky bit em /var/tmp."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(stat -c \"%A\" /var/tmp | grep -q '\"'\"'t'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -509,10 +509,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "047, Sticky /dev/shm, Alta"
-  info        : "Protege memória compartilhada contra manipulação indevida quando exigido."
+  info        : "Verificar sticky bit em /dev/shm"
   solution    : "Aplicar sticky bit em /dev/shm quando aplicável."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(stat -c \"%A\" /dev/shm | grep -q '\"'\"'t'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -520,10 +520,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "048, Autofs desabilitado em servidores, Baixa"
-  info        : "Autofs pode montar recursos automaticamente aumentando superficie de ataque"
-  solution    : "Desabilitar e mascarar o servico autofs via systemctl"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verifica se o servico autofs esta desabilitado"
+  solution    : "Desabilitar autofs em servidores"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(systemctl is-enabled autofs &>/dev/null && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -531,32 +531,32 @@
 <custom_item>
   type        : CMD_EXEC
   description : "049, Senha de bootloader configurada, Alta"
-  info        : "Garante que o bootloader tenha uma senha configurada para evitar modificação não autorizada"
-  solution    : "Configurar senha no bootloader"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
-  cmd         : "bash -c 'grub_cfg_path() { if [ -f /boot/grub/grub.cfg ]; then echo /boot/grub/grub.cfg; elif [ -f /boot/grub2/grub.cfg ]; then echo /boot/grub2/grub.cfg; else echo \"\"; fi; }; GRUBCFG=\"$(grub_cfg_path)\"; if [ -n \"$GRUBCFG\" ]; then (grep -q '\"'\"'password_pbkdf2'\"'\"' \"$GRUBCFG\" 2>/dev/null && echo \"PASS\" || echo \"FAIL\"); else echo \"FAIL\"; fi'"
+  info        : "Verifica presenca de senha hash em grub cfg"
+  solution    : "Configurar senha de bootloader"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
+  cmd         : "bash -c 'grub_cfg_path() { if [ -f /boot/grub/grub.cfg ]; then echo /boot/grub/grub.cfg; elif [ -f /boot/grub2/grub.cfg ]; then echo /boot/grub2/grub.cfg; else echo '\"'\"''\"'\"'; fi; }; GRUBCFG=\"$(grub_cfg_path)\"; [ -n \"$GRUBCFG\" ] && grep -q '\"'\"'password_pbkdf2'\"'\"' \"$GRUBCFG\" 2>/dev/null && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
   description : "050, Permissoes seguras no arquivo do bootloader, Média"
-  info        : "Garante que o arquivo do bootloader tenha permissões seguras configuradas"
-  solution    : "Configurar permissões seguras no arquivo do bootloader"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
-  cmd         : "bash -c 'grub_cfg_path() { if [ -f /boot/grub/grub.cfg ]; then echo /boot/grub/grub.cfg; elif [ -f /boot/grub2/grub.cfg ]; then echo /boot/grub2/grub.cfg; else echo \"\"; fi; }; GRUBCFG=\"$(grub_cfg_path)\"; if [ -n \"$GRUBCFG\" ]; then (stat -Lc '\"'\"'%a %U %G'\"'\"' \"$GRUBCFG\" 2>/dev/null | grep -Eq '\"'\"'^(400|600) root root$'\"'\"' && echo \"PASS\" || echo \"FAIL\"); else echo \"FAIL\"; fi'"
+  info        : "Verifica permissoes de leitura e propriedade do grub cfg"
+  solution    : "Configurar permissoes seguras no arquivo do bootloader"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
+  cmd         : "bash -c 'grub_cfg_path() { if [ -f /boot/grub/grub.cfg ]; then echo /boot/grub/grub.cfg; elif [ -f /boot/grub2/grub.cfg ]; then echo /boot/grub2/grub.cfg; else echo '\"'\"''\"'\"'; fi; }; GRUBCFG=\"$(grub_cfg_path)\"; [ -n \"$GRUBCFG\" ] && stat -Lc '\"'\"'%a %U %G'\"'\"' \"$GRUBCFG\" 2>/dev/null | grep -Eq '\"'\"'^(400|600) root root$'\"'\"' && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
   description : "051, Single user mode com autenticacao, Média"
-  info        : "Garante que o modo de usuário único tenha autenticação configurada"
-  solution    : "Configurar autenticação no modo de usuário único"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Confere configuracao de autenticacao no systemd e emergency service"
+  solution    : "Exigir autenticacao no modo single user"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(grep -q '\"'\"'^ExecStart=-/bin/sh'\"'\"' /usr/lib/systemd/system/emergency.service && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -564,10 +564,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "056, Prelink removido, Alta"
-  info        : "Evita inconsistências com mecanismos modernos de proteção de memória."
+  info        : "Verificar se prelink está instalado"
   solution    : "Remover prelink quando presente."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; (pkg_installed prelink && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -575,10 +575,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "057, xinetd removido, Baixa"
-  info        : "Remove gerenciador de serviços legado potencialmente vulnerável."
+  info        : "Verificar presença de xinetd"
   solution    : "Desabilitar ou remover xinetd quando não requerido."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; (pkg_installed xinetd && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -586,10 +586,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "058, Time sync ativo, Alta"
-  info        : "Garante integridade temporal para logs e auditoria."
+  info        : "Verificar serviço de tempo ativo"
   solution    : "Habilitar serviço de sincronização de tempo aprovado."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'service_active_any() { local svc; for svc in \"$@\"; do systemctl is-active --quiet \"$svc\" 2>/dev/null && return 0; done; return 1; }; ( service_active_any chrony chronyd ntp ntpd ntpsec systemd-timesyncd ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -597,32 +597,32 @@
 <custom_item>
   type        : CMD_EXEC
   description : "059, Fontes NTP confiáveis, Baixa"
-  info        : "Evita manipulação de tempo por fontes não autorizadas."
+  info        : "Verificar servidores configurados"
   solution    : "Configurar fontes de tempo confiáveis."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
-  cmd         : "bash -c 'service_enabled() { systemctl is-enabled --quiet \"$1\" 2>/dev/null; }; service_enabled_any() { local svc; for svc in \"$@\"; do service_enabled \"$svc\" && return 0; done; return 1; }; pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; ( ! pkg_installed chrony || ( service_enabled_any chrony chronyd && grep -Eq '\"'\"'^[[:space:]]*(server|pool)[[:space:]]+'\"'\"' /etc/chrony/chrony.conf /etc/chrony.conf 2>/dev/null ) ) && echo \"PASS\" || echo \"FAIL\"'"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
+  cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; service_enabled() { systemctl is-enabled --quiet \"$1\" 2>/dev/null; }; service_enabled_any() { local svc; for svc in \"$@\"; do service_enabled \"$svc\" && return 0; done; return 1; }; ( ! pkg_installed chrony || ( service_enabled_any chrony chronyd && grep -Eq '\"'\"'^[[:space:]]*(server|pool)[[:space:]]+'\"'\"' /etc/chrony/chrony.conf /etc/chrony.conf 2>/dev/null ) ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
   description : "060, NTP no boot, Baixa"
-  info        : "Garante correção de tempo desde inicialização do sistema."
-  solution    : "Habilitar inicialização automática."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
-  cmd         : "bash -c 'service_enabled() { systemctl is-enabled --quiet \"$1\" 2>/dev/null; }; service_enabled_any() { local svc; for svc in \"$@\"; do service_enabled \"$svc\" && return 0; done; return 1; }; pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; pkg_any_installed() { local pkg; for pkg in \"$@\"; do pkg_installed \"$pkg\" && return 0; done; return 1; }; ( ! pkg_any_installed ntp ntpsec || ( service_enabled_any ntp ntpd ntpsec && grep -Eq '\"'\"'^[[:space:]]*(server|pool)[[:space:]]+'\"'\"' /etc/ntp.conf /etc/ntpsec/ntp.conf 2>/dev/null ) ) && echo \"PASS\" || echo \"FAIL\"'"
+  info        : "Verificar sincronização automática"
+  solution    : "Habilitar sincronização automática no boot."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
+  cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; pkg_any_installed() { local pkg; for pkg in \"$@\"; do pkg_installed \"$pkg\" && return 0; done; return 1; }; service_enabled() { systemctl is-enabled --quiet \"$1\" 2>/dev/null; }; service_enabled_any() { local svc; for svc in \"$@\"; do service_enabled \"$svc\" && return 0; done; return 1; }; ( ! pkg_any_installed ntp ntpsec || ( service_enabled_any ntp ntpd ntpsec && grep -Eq '\"'\"'^[[:space:]]*(server|pool)[[:space:]]+'\"'\"' /etc/ntp.conf /etc/ntpsec/ntp.conf 2>/dev/null ) ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
   description : "061, X11 removido, Alta"
-  info        : "Remove interface gráfica desnecessária em servidores."
+  info        : "Verificar presença de pacotes X11"
   solution    : "Remover componentes X11 quando não necessários."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; pkg_any_installed() { local pkg; for pkg in \"$@\"; do pkg_installed \"$pkg\" && return 0; done; return 1; }; (pkg_any_installed xserver-xorg-core xorg xserver-common gdm3 lightdm ubuntu-desktop kubuntu-desktop xubuntu-desktop && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -630,10 +630,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "062, Avahi desabilitado, Alta"
-  info        : "Evita divulgação automática de serviços na rede local."
+  info        : "Verificar status do avahi"
   solution    : "Desabilitar avahi quando não requerido."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; (pkg_installed avahi-daemon && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -641,10 +641,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "063, CUPS desabilitado, Baixa"
-  info        : "Remove serviço de impressão desnecessário em servidores."
+  info        : "Verificar status do CUPS"
   solution    : "Desabilitar CUPS quando não requerido."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; (pkg_installed cups && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -652,10 +652,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "064, DHCP server ausente, Alta"
-  info        : "Garante que o servidor DHCP não esteja instalado"
-  solution    : "Remover o pacote dhcp-server"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Checa se pacote dhcp server esta instalado"
+  solution    : "Remover servidor DHCP"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; pkg_any_installed() { local pkg; for pkg in \"$@\"; do pkg_installed \"$pkg\" && return 0; done; return 1; }; (pkg_any_installed isc-dhcp-server kea-dhcp4-server && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -663,10 +663,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "065, LDAP server ausente, Alta"
-  info        : "Garante que o servidor LDAP não esteja instalado"
-  solution    : "Remover o pacote openldap-servers"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verifica se openldap servers esta instalado"
+  solution    : "Remover servidor LDAP"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; (pkg_installed slapd && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -674,10 +674,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "066, DNS server ausente, Alta"
-  info        : "Garante que o servidor DNS não esteja instalado"
-  solution    : "Remover o pacote bind"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Checa se pacote bind esta instalado"
+  solution    : "Remover servidor DNS"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; (pkg_installed bind9 && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -685,10 +685,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "067, FTP server ausente, Alta"
-  info        : "Garante que o servidor FTP não esteja instalado"
-  solution    : "Remover o pacote vsftpd"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Confere presenca do pacote vsftpd"
+  solution    : "Remover servidor FTP"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; (pkg_installed vsftpd && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -696,10 +696,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "068, HTTP server ausente, Média"
-  info        : "Garante que o servidor HTTP não esteja instalado"
-  solution    : "Remover o pacote httpd"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verifica se httpd esta instalado"
+  solution    : "Remover servidor HTTP nao essencial"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; pkg_any_installed() { local pkg; for pkg in \"$@\"; do pkg_installed \"$pkg\" && return 0; done; return 1; }; (pkg_any_installed apache2 nginx lighttpd && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -707,10 +707,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "069, IMAP/POP removidos, Alta"
-  info        : "Evita exposição de protocolos de email não utilizados."
+  info        : "Verificar presença de serviços IMAP POP3"
   solution    : "Remover serviços IMAP/POP3 quando não aplicáveis."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; pkg_any_installed() { local pkg; for pkg in \"$@\"; do pkg_installed \"$pkg\" && return 0; done; return 1; }; (pkg_any_installed dovecot-imapd dovecot-pop3d && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -718,10 +718,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "070, Samba removido, Baixa"
-  info        : "Evita exposição de compartilhamentos SMB/CIFS quando não aplicáveis."
+  info        : "Verificar presença de Samba"
   solution    : "Remover Samba quando não aplicável."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; (pkg_installed samba && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -729,10 +729,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "071, Proxy removido, Alta"
-  info        : "Evita exposição de proxy HTTP não utilizado."
+  info        : "Verificar presença de proxy HTTP"
   solution    : "Remover proxy HTTP quando não aplicável."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; (pkg_installed squid && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -740,10 +740,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "072, SNMP desabilitado, Baixa"
-  info        : "Evita exposição de serviço de gerenciamento remoto quando não requerido."
+  info        : "Verificar status do SNMP"
   solution    : "Desabilitar SNMP quando não requerido."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; (pkg_installed snmpd && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -751,10 +751,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "073, NIS removido, Baixa"
-  info        : "Evita exposição de serviço NIS legado no ambiente."
+  info        : "Verificar presença de NIS"
   solution    : "Remover servidor NIS quando não aplicável."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/3"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; (pkg_installed nis && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -762,10 +762,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "074, Telnet removido, Alta"
-  info        : "Evita exposição de serviço de acesso remoto inseguro."
+  info        : "Verificar presença de telnetd"
   solution    : "Remover servidor Telnet."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; pkg_any_installed() { local pkg; for pkg in \"$@\"; do pkg_installed \"$pkg\" && return 0; done; return 1; }; (pkg_any_installed telnetd inetutils-telnetd && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -773,10 +773,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "075, MTA local-only, Baixa"
-  info        : "Reduz exposição do serviço de correio para conexões remotas desnecessárias."
+  info        : "Verificar configuração do MTA"
   solution    : "Configurar MTA para modo local only quando aplicável."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( [ ! -f /etc/postfix/main.cf ] || grep -Eq '\"'\"'^[[:space:]]*inet_interfaces[[:space:]]*=[[:space:]]*(localhost|loopback-only)\\b'\"'\"' /etc/postfix/main.cf 2>/dev/null ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -784,10 +784,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "076, NFS desabilitado, Alta"
-  info        : "Evita exposição de compartilhamentos NFS quando não aplicáveis."
+  info        : "Verificar presença de NFS server"
   solution    : "Desabilitar NFS server quando não aplicável."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(systemctl is-enabled nfs-server &>/dev/null && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -795,10 +795,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "077, rpcbind desabilitado, Média"
-  info        : "Evita exposição de serviço RPC quando não requerido."
+  info        : "Verificar status do rpcbind"
   solution    : "Desabilitar rpcbind quando não requerido."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(systemctl is-enabled rpcbind &>/dev/null && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -806,10 +806,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "078, rsync desabilitado, Alta"
-  info        : "Evita exposição de serviço de sincronização remota quando não requerido."
+  info        : "Verificar presença do rsync daemon"
   solution    : "Desabilitar rsync daemon quando não requerido."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(systemctl is-enabled rsyncd &>/dev/null && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -817,10 +817,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "079, Cliente NIS removido, Alta"
-  info        : "Evita uso de cliente NIS legado no ambiente."
+  info        : "Verificar presença do cliente NIS"
   solution    : "Remover cliente NIS."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/3"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; (pkg_installed nis && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -828,10 +828,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "080, Cliente rsh removido, Baixa"
-  info        : "Evita uso de cliente rsh inseguro no ambiente."
+  info        : "Verificar presença de rsh"
   solution    : "Remover cliente rsh."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; pkg_any_installed() { local pkg; for pkg in \"$@\"; do pkg_installed \"$pkg\" && return 0; done; return 1; }; (pkg_any_installed rsh-client rsh-redone-client && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -839,10 +839,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "081, Cliente talk removido, Alta"
-  info        : "Evita uso de cliente talk legado no ambiente."
+  info        : "Verificar presença de talk"
   solution    : "Remover cliente talk."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; (pkg_installed talk && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -850,10 +850,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "082, Cliente telnet removido, Alta"
-  info        : "Evita uso de cliente telnet inseguro no ambiente."
+  info        : "Verificar presença de cliente telnet"
   solution    : "Remover cliente telnet."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; pkg_any_installed() { local pkg; for pkg in \"$@\"; do pkg_installed \"$pkg\" && return 0; done; return 1; }; (pkg_any_installed telnet inetutils-telnet && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -861,10 +861,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "083, Cliente LDAP removido, Baixa"
-  info        : "Evita uso de cliente LDAP quando não requerido."
+  info        : "Verificar presença de cliente LDAP"
   solution    : "Remover cliente LDAP quando não requerido."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; (pkg_installed ldap-utils && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -872,10 +872,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "084, Serviços supérfluos, Média"
-  info        : "Evita exposição de serviços legados ou desnecessários no ambiente."
-  solution    : "Remover, desabilitar ou mascarar serviços não essenciais."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar serviços ativos não autorizados"
+  solution    : "Remover ou mascarar serviços não essenciais."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(systemctl list-unit-files --state=enabled 2>/dev/null | grep -Eq '\"'\"'^(avahi-daemon|cups|vsftpd|xinetd|tftpd-hpa|nis|rpcbind|slapd)\\.service'\"'\"' && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -883,10 +883,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "085, TFTP removido, Média"
-  info        : "Evita exposição de serviço TFTP inseguro no ambiente."
+  info        : "Verificar presença de TFTP"
   solution    : "Remover servidor TFTP."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; pkg_any_installed() { local pkg; for pkg in \"$@\"; do pkg_installed \"$pkg\" && return 0; done; return 1; }; (pkg_any_installed tftpd-hpa atftpd && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -894,32 +894,32 @@
 <custom_item>
   type        : CMD_EXEC
   description : "086, Polkit seguro, Alta"
-  info        : "Evita regras permissivas no PolicyKit fora do baseline aprovado."
+  info        : "Verificar regras do polkit"
   solution    : "Configurar polkit conforme baseline aprovado."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( grep -Ehv '\"'\"'^[[:space:]]*(//|#)'\"'\"' /etc/polkit-1/rules.d/*.rules 2>/dev/null | grep -Eq '\"'\"'polkit\\.Result\\.YES|[^[:alnum:]_]allow[^[:alnum:]_]'\"'\"' ) && echo \"FAIL\" || echo \"PASS\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
-  description : "087, gpgcheck ativo, Baixa"
-  info        : "Garante validação de assinatura de pacotes em todos os repositórios."
-  solution    : "Habilitar gpgcheck em todos os repositórios."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
-  cmd         : "bash -c '(find /etc/apt/sources.list /etc/apt/sources.list.d -type f -print0 2>/dev/null | xargs -0r grep -Ehv '\"'\"'^[[:space:]]*#'\"'\"' 2>/dev/null | grep -Eq '\"'\"'^[[:space:]]*deb[[:space:]]'\"'\"' && ! apt-config dump 2>/dev/null | grep -Eq '\"'\"'Acquire::AllowInsecureRepositories \"true\"|APT::Get::AllowUnauthenticated \"true\"'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
+  description : "087, Validação assinatura APT, Baixa"
+  info        : "Verificar ausência de trusted=yes e permissões APT inseguras"
+  solution    : "Garantir que os repositórios APT não usem trusted=yes e que o APT não permita fontes inseguras ou pacotes não autenticados."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
+  cmd         : "bash -c '(find /etc/apt/sources.list /etc/apt/sources.list.d -type f -print0 2>/dev/null | xargs -0r grep -Ehv '\"'\"'^[[:space:]]*(#|$)'\"'\"' 2>/dev/null | grep -Eiq '\"'\"'^[[:space:]]*deb[[:space:]]|^[[:space:]]*Types:[[:space:]]*.*\\bdeb\\b'\"'\"' && ! find /etc/apt/sources.list /etc/apt/sources.list.d -type f -print0 2>/dev/null | xargs -0r grep -Eiq '\"'\"'(^|[[:space:]\\[])trusted[[:space:]]*=[[:space:]]*yes|^[[:space:]]*Trusted:[[:space:]]*yes'\"'\"' && ! apt-config dump 2>/dev/null | grep -Eq '\"'\"'Acquire::AllowInsecureRepositories \"true\"|Acquire::AllowDowngradeToInsecureRepositories \"true\"|APT::Get::AllowUnauthenticated \"true\"'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
   description : "088, Patches aplicados, Alta"
-  info        : "Aplicar atualizações de segurança pendentes."
+  info        : "Verificar atualizações pendentes"
   solution    : "Aplicar atualizações de segurança pendentes."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(apt list --upgradable 2>/dev/null | grep -Eiq '\"'\"'security|ubuntu[[:alnum:].-]+-security|debian-security'\"'\"' && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -927,10 +927,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "089, Time sync único, Alta"
-  info        : "Evita conflito entre mecanismos simultâneos de sincronização de tempo."
+  info        : "Verificar serviços de tempo ativos"
   solution    : "Manter apenas um mecanismo de sincronização ativo."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'service_active_any() { local svc; for svc in \"$@\"; do systemctl is-active --quiet \"$svc\" 2>/dev/null && return 0; done; return 1; }; time_sync_active_count() { local count=0; service_active_any chrony chronyd && count=$((count + 1)); service_active_any ntp ntpd ntpsec && count=$((count + 1)); service_active_any systemd-timesyncd && count=$((count + 1)); echo \"$count\"; }; ([ \"$(time_sync_active_count)\" -eq 1 ] && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -938,21 +938,21 @@
 <custom_item>
   type        : CMD_EXEC
   description : "090, Cron/at restritos, Alta"
-  info        : "Restringir cron e at a usuários autorizados."
-  solution    : "Restringir acesso conforme política de usuários autorizados."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
-  cmd         : "bash -c '(stat -Lc '\"'\"'%a %U %G'\"'\"' /etc/cron.allow 2>/dev/null | grep -Eq '\"'\"'^640 root (root|crontab)$'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
+  info        : "Verificar allow-list de usuários para cron e at"
+  solution    : "Restringir o uso de cron e at por usuários locais."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
+  cmd         : "bash -c '(stat -Lc '\"'\"'%a %U %G'\"'\"' /etc/cron.allow 2>/dev/null | grep -Eq '\"'\"'^640 root (root|crontab)$'\"'\"' && [ ! -e /etc/cron.deny ] && { ! command -v at >/dev/null 2>&1 || { stat -Lc '\"'\"'%a %U %G'\"'\"' /etc/at.allow 2>/dev/null | grep -Eq '\"'\"'^640 root (root|daemon)$'\"'\"' && [ ! -e /etc/at.deny ]; }; } && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
   description : "091, IP forwarding desabilitado, Alta"
-  info        : "Desabilitar IP forwarding em hosts nao roteadores"
+  info        : "Confere sysctl de net ipv4 ip forward e net ipv6 conf all forwarding iguais a zero"
   solution    : "Desabilitar IP forwarding em hosts nao roteadores"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(sysctl -n net.ipv4.ip_forward 2>/dev/null | grep -q '\"'\"'^0$'\"'\"' && sysctl -n net.ipv6.conf.all.forwarding 2>/dev/null | grep -q '\"'\"'^0$'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -960,10 +960,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "092, Redirects desabilitados, Alta"
-  info        : "Impede redirecionamento malicioso de tráfego na rede."
+  info        : "Verificar configuração de redirects"
   solution    : "Desabilitar redirects de pacotes via sysctl persistente."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(sysctl -n net.ipv4.conf.all.send_redirects 2>/dev/null | grep -q '\"'\"'^0$'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -971,10 +971,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "093, Source-route bloqueado, Média"
-  info        : "Evita manipulação do caminho de pacotes por atacante."
+  info        : "Verificar parâmetros de source route"
   solution    : "Desabilitar source routed packets via sysctl persistente."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(sysctl -n net.ipv4.conf.all.accept_source_route 2>/dev/null | grep -q '\"'\"'^0$'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -982,10 +982,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "094, ICMP redirects off, Média"
-  info        : "Evita aceitação de redirecionamentos ICMP maliciosos."
+  info        : "Verificar ICMP redirects"
   solution    : "Desabilitar ICMP redirects via sysctl persistente."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(sysctl -n net.ipv4.conf.all.accept_redirects 2>/dev/null | grep -q '\"'\"'^0$'\"'\"' && sysctl -n net.ipv4.conf.all.secure_redirects 2>/dev/null | grep -q '\"'\"'^0$'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -993,10 +993,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "095, RP filter on, Alta"
-  info        : "Ajuda a bloquear spoofing de IP com validação de rota reversa."
+  info        : "Verificar rp_filter"
   solution    : "Habilitar reverse path filtering via sysctl persistente."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(sysctl -n net.ipv4.conf.all.rp_filter 2>/dev/null | grep -Eq '\"'\"'^[12]$'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1004,10 +1004,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "096, Ignore broadcast ICMP, Alta"
-  info        : "Reduz exposição a ataques via broadcast ICMP."
+  info        : "Verificar ignore_broadcasts"
   solution    : "Habilitar ignore broadcast ICMP via sysctl persistente."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(sysctl -n net.ipv4.icmp_echo_ignore_broadcasts 2>/dev/null | grep -q '\"'\"'^1$'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1015,10 +1015,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "097, Ignore bogus ICMP, Média"
-  info        : "Ignora respostas ICMP inválidas ou malformadas."
+  info        : "Verificar ignore_bogus_error_responses"
   solution    : "Habilitar ignore bogus ICMP responses via sysctl persistente."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(sysctl -n net.ipv4.icmp_ignore_bogus_error_responses 2>/dev/null | grep -q '\"'\"'^1$'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1026,10 +1026,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "098, Syncookies ativos, Alta"
-  info        : "Ajuda a mitigar ataques SYN flood."
+  info        : "Verificar tcp_syncookies"
   solution    : "Habilitar tcp_syncookies via sysctl persistente."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(sysctl -n net.ipv4.tcp_syncookies 2>/dev/null | grep -q '\"'\"'^1$'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1037,10 +1037,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "099, IPv6 desabilitado ou endurecido, Alta"
-  info        : "Garante que o IPv6 esteja desabilitado onde não for suportado ou aplicar politicas de firewall e roteamento equivalentes a IPv4"
-  solution    : "Desabilitar IPv6"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verifica sysctl net ipv6 conf all disable ipv6 igual a um"
+  solution    : "Desabilitar ou endurecer IPv6 conforme politica"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(sysctl -n net.ipv6.conf.all.disable_ipv6 2>/dev/null | grep -q '\"'\"'^1$'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1048,21 +1048,21 @@
 <custom_item>
   type        : CMD_EXEC
   description : "102, Wireless desabilitado, Baixa"
-  info        : "Reduz exposição de interfaces sem fio quando não necessárias."
+  info        : "Verificar interfaces wireless ou bluetooth ativas"
   solution    : "Desabilitar interfaces wireless ou bluetooth quando não necessárias."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
-  cmd         : "bash -c '(lsmod | grep -Eq '\"'\"'bluetooth|iwlwifi'\"'\"' && echo \"FAIL\" || echo \"PASS\")'"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
+  cmd         : "bash -c '( { find /sys/class/net -mindepth 2 -maxdepth 2 -name wireless -exec dirname {} \\; 2>/dev/null | while read -r d; do [ \"$(cat \"$d/operstate\" 2>/dev/null)\" = \"up\" ] && exit 0; done; exit 1; } || rfkill list 2>/dev/null | awk '\"'\"'BEGIN{RS=\"\"} /Bluetooth|Wireless|WLAN/ && /Soft blocked: no/ && /Hard blocked: no/{found=1} END{exit !found}'\"'\"' ) && echo \"FAIL\" || echo \"PASS\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
   description : "108, TLS mínimo 1.2+, Alta"
-  info        : "Exigir uso de TLS 1.2 ou superior para serviços e comunicações."
+  info        : "Verificar se políticas de criptografia bloqueiam TLS < 1."
   solution    : "Exigir uso de TLS 1.2 ou superior para serviços e comunicações."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(grep -REiq '\"'\"'MinProtocol[[:space:]]*=[[:space:]]*TLSv1\\.[23]|TLS.MinProtocol[[:space:]]*=[[:space:]]*TLSv1\\.[23]'\"'\"' /etc/ssl/openssl.cnf /etc/ssl/openssl.cnf.d /etc/ssl/openssl.cnf.d/* 2>/dev/null) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1070,10 +1070,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "109, Permissões SSH seguras, Baixa"
-  info        : "Protege arquivos e diretório do serviço SSH contra alteração indevida."
+  info        : "Verificar permissões de arquivos e diretório SSH"
   solution    : "Ajustar permissões de sshd_config e diretório /etc/ssh."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( stat -c %a /etc/ssh/sshd_config | grep -Eq '\"'\"'^(600|400)$'\"'\"' && [ \"$(stat -c %U:%G /etc/ssh)\" = \"root:root\" ] ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1081,10 +1081,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "110, Controle de acesso via Allow Deny, Média"
-  info        : "Configurar directivas Allow e Deny conforme politica"
+  info        : "Procura diretivas AllowUsers AllowGroups DenyUsers ou DenyGroups no sshd config"
   solution    : "Configurar directivas Allow e Deny conforme politica"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'sshd_effective_config() { if command -v sshd >/dev/null 2>&1; then sshd -T -C user=root,host=\"$(hostname 2>/dev/null || echo localhost)\",addr=127.0.0.1 2>/dev/null && return 0; fi; cat /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*.conf 2>/dev/null; }; (sshd_effective_config | grep -Eiq '\"'\"'^(allowusers|allowgroups|denyusers|denygroups)[[:space:]]+'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1092,10 +1092,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "111, SyslogFacility AUTHPRIV, Baixa"
-  info        : "Registra eventos SSH em facility apropriada para logs sensíveis."
+  info        : "Verificar parâmetro SyslogFacility"
   solution    : "Configurar SyslogFacility AUTHPRIV."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'sshd_effective_config() { if command -v sshd >/dev/null 2>&1; then sshd -T -C user=root,host=\"$(hostname 2>/dev/null || echo localhost)\",addr=127.0.0.1 2>/dev/null && return 0; fi; cat /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*.conf 2>/dev/null; }; (sshd_effective_config | grep -Eiq '\"'\"'^syslogfacility[[:space:]]+AUTHPRIV\\b'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1103,10 +1103,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "112, X11Forwarding off, Baixa"
-  info        : "Reduz exposição de encaminhamento gráfico via SSH quando não requerido."
+  info        : "Verificar parâmetro X11Forwarding"
   solution    : "Desabilitar X11Forwarding quando não requerido."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'sshd_effective_config() { if command -v sshd >/dev/null 2>&1; then sshd -T -C user=root,host=\"$(hostname 2>/dev/null || echo localhost)\",addr=127.0.0.1 2>/dev/null && return 0; fi; cat /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*.conf 2>/dev/null; }; (sshd_effective_config | grep -Eiq '\"'\"'^x11forwarding[[:space:]]+no\\b'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1114,10 +1114,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "113, MaxAuthTries restrito, Alta"
-  info        : "Limita tentativas de autenticação por conexão SSH."
+  info        : "Verificar valor de MaxAuthTries"
   solution    : "Configurar MaxAuthTries de forma restritiva."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'sshd_effective_config() { if command -v sshd >/dev/null 2>&1; then sshd -T -C user=root,host=\"$(hostname 2>/dev/null || echo localhost)\",addr=127.0.0.1 2>/dev/null && return 0; fi; cat /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*.conf 2>/dev/null; }; (sshd_effective_config | grep -Eiq '\"'\"'^maxauthtries[[:space:]]+[1-4]$'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1125,10 +1125,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "114, IgnoreRhosts yes, Alta"
-  info        : "Impede uso de mecanismos rhosts inseguros na autenticação SSH."
+  info        : "Verificar parâmetro IgnoreRhosts"
   solution    : "Configurar IgnoreRhosts yes."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'sshd_effective_config() { if command -v sshd >/dev/null 2>&1; then sshd -T -C user=root,host=\"$(hostname 2>/dev/null || echo localhost)\",addr=127.0.0.1 2>/dev/null && return 0; fi; cat /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*.conf 2>/dev/null; }; (sshd_effective_config | grep -Eiq '\"'\"'^ignorerhosts[[:space:]]+yes\\b'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1136,10 +1136,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "115, HostbasedAuth off, Baixa"
-  info        : "Evita autenticação baseada em host no SSH."
+  info        : "Verificar parâmetro HostbasedAuthentication"
   solution    : "Configurar HostbasedAuthentication no."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'sshd_effective_config() { if command -v sshd >/dev/null 2>&1; then sshd -T -C user=root,host=\"$(hostname 2>/dev/null || echo localhost)\",addr=127.0.0.1 2>/dev/null && return 0; fi; cat /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*.conf 2>/dev/null; }; (sshd_effective_config | grep -Eiq '\"'\"'^hostbasedauthentication[[:space:]]+no\\b'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1147,10 +1147,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "117, EmptyPasswords off, Alta"
-  info        : "Impede autenticação SSH com senha vazia."
+  info        : "Verificar parâmetro PermitEmptyPasswords"
   solution    : "Configurar PermitEmptyPasswords no."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'sshd_effective_config() { if command -v sshd >/dev/null 2>&1; then sshd -T -C user=root,host=\"$(hostname 2>/dev/null || echo localhost)\",addr=127.0.0.1 2>/dev/null && return 0; fi; cat /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*.conf 2>/dev/null; }; (sshd_effective_config | grep -Eiq '\"'\"'^permitemptypasswords[[:space:]]+no\\b'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1158,10 +1158,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "118, UserEnvironment off, Média"
-  info        : "Impede influência de variáveis de ambiente definidas pelo usuário na sessão SSH."
+  info        : "Verificar parâmetro PermitUserEnvironment"
   solution    : "Configurar PermitUserEnvironment no."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'sshd_effective_config() { if command -v sshd >/dev/null 2>&1; then sshd -T -C user=root,host=\"$(hostname 2>/dev/null || echo localhost)\",addr=127.0.0.1 2>/dev/null && return 0; fi; cat /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*.conf 2>/dev/null; }; (sshd_effective_config | grep -Eiq '\"'\"'^permituserenvironment[[:space:]]+no\\b'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1169,10 +1169,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "119, UsePAM on, Alta"
-  info        : "Integra o SSH à stack PAM definida pela política."
+  info        : "Verificar parâmetro UsePAM"
   solution    : "Configurar UsePAM yes."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'sshd_effective_config() { if command -v sshd >/dev/null 2>&1; then sshd -T -C user=root,host=\"$(hostname 2>/dev/null || echo localhost)\",addr=127.0.0.1 2>/dev/null && return 0; fi; cat /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*.conf 2>/dev/null; }; (sshd_effective_config | grep -Eiq '\"'\"'^usepam[[:space:]]+yes\\b'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1180,10 +1180,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "120, ClientAlive tunado, Baixa"
-  info        : "Encerra sessões inativas reduzindo risco de hijacking."
+  info        : "Verificar parâmetros ClientAlive"
   solution    : "Ajustar ClientAliveInterval e ClientAliveCountMax."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'sshd_effective_config() { if command -v sshd >/dev/null 2>&1; then sshd -T -C user=root,host=\"$(hostname 2>/dev/null || echo localhost)\",addr=127.0.0.1 2>/dev/null && return 0; fi; cat /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*.conf 2>/dev/null; }; (sshd_effective_config | grep -Eiq '\"'\"'^clientaliveinterval[[:space:]]+([1-9][0-9]|[1-2][0-9]{2}|300)$'\"'\"' && sshd_effective_config | grep -Eiq '\"'\"'^clientalivecountmax[[:space:]]+[1-3]$'\"'\"') && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1191,10 +1191,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "121, LoginGraceTime restrito, Alta"
-  info        : "Limita tempo disponível para autenticação reduzindo exposição a brute force."
+  info        : "Verificar parâmetro LoginGraceTime"
   solution    : "Configurar LoginGraceTime restritivo."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'sshd_effective_config() { if command -v sshd >/dev/null 2>&1; then sshd -T -C user=root,host=\"$(hostname 2>/dev/null || echo localhost)\",addr=127.0.0.1 2>/dev/null && return 0; fi; cat /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*.conf 2>/dev/null; }; (sshd_effective_config | grep -Eiq '\"'\"'^logingracetime[[:space:]]+([1-9][0-9]|[1-5][0-9]{2})s?$'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1202,10 +1202,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "122, MaxStartups restrito, Média"
-  info        : "Limita conexões simultâneas prevenindo exaustão de recursos."
+  info        : "Verificar parâmetros MaxStartups e MaxSessions"
   solution    : "Configurar MaxStartups e MaxSessions restritivos."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'sshd_effective_config() { if command -v sshd >/dev/null 2>&1; then sshd -T -C user=root,host=\"$(hostname 2>/dev/null || echo localhost)\",addr=127.0.0.1 2>/dev/null && return 0; fi; cat /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*.conf 2>/dev/null; }; (sshd_effective_config | grep -Eiq '\"'\"'^maxstartups[[:space:]]+.+$'\"'\"' && sshd_effective_config | grep -Eiq '\"'\"'^maxsessions[[:space:]]+[1-9]+'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1213,10 +1213,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "123, AllowTcpForwarding restrito, Alta"
-  info        : "Garante que o AllowTcpForwarding esteja desabilitado"
-  solution    : "Configurar AllowTcpForwarding no arquivo /etc/ssh/sshd_config"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Confere se AllowTcpForwarding esta definido como no ou restrito"
+  solution    : "Restringir AllowTcpForwarding"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'sshd_effective_config() { if command -v sshd >/dev/null 2>&1; then sshd -T -C user=root,host=\"$(hostname 2>/dev/null || echo localhost)\",addr=127.0.0.1 2>/dev/null && return 0; fi; cat /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*.conf 2>/dev/null; }; (sshd_effective_config | grep -Eiq '\"'\"'^allowtcpforwarding[[:space:]]+no\\b'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1224,54 +1224,54 @@
 <custom_item>
   type        : CMD_EXEC
   description : "124, Banner legal, Baixa"
-  info        : "Exibe aviso legal antes da autenticação conforme exigências regulatórias."
+  info        : "Verificar parâmetro Banner"
   solution    : "Configurar Banner legal quando exigido."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'sshd_effective_config() { if command -v sshd >/dev/null 2>&1; then sshd -T -C user=root,host=\"$(hostname 2>/dev/null || echo localhost)\",addr=127.0.0.1 2>/dev/null && return 0; fi; cat /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*.conf 2>/dev/null; }; ( sshd_effective_config | grep -Eiq '\"'\"'^banner[[:space:]]+\\S+'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
-  description : "125, Ciphers fortes apenas, Alta"
-  info        : "Aplicar lista de cifradores fortes"
-  solution    : "Aplicar lista de cifradores fortes"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  description : "125, Ciphers fortes presentes, Alta"
+  info        : "Verificar se diretiva Ciphers contem algoritmo forte"
+  solution    : "Configurar Ciphers com algoritmo forte aprovado."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'sshd_effective_config() { if command -v sshd >/dev/null 2>&1; then sshd -T -C user=root,host=\"$(hostname 2>/dev/null || echo localhost)\",addr=127.0.0.1 2>/dev/null && return 0; fi; cat /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*.conf 2>/dev/null; }; (sshd_effective_config | grep -Eiq '\"'\"'^ciphers[[:space:]]+.*(chacha20|aes256).*'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
-  description : "126, MACs fortes apenas, Alta"
-  info        : "Aplicar MACs fortes"
-  solution    : "Aplicar MACs fortes"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  description : "126, MACs fortes presentes, Alta"
+  info        : "Verificar se diretiva MACs contem algoritmo seguro"
+  solution    : "Configurar MACs com algoritmo seguro aprovado."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'sshd_effective_config() { if command -v sshd >/dev/null 2>&1; then sshd -T -C user=root,host=\"$(hostname 2>/dev/null || echo localhost)\",addr=127.0.0.1 2>/dev/null && return 0; fi; cat /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*.conf 2>/dev/null; }; (sshd_effective_config | grep -Eiq '\"'\"'^macs[[:space:]]+.*(hmac-sha2|umac).*'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
-  description : "127, KexAlgorithms fortes apenas, Alta"
-  info        : "Aplicar KexAlgorithms fortes"
-  solution    : "Aplicar KexAlgorithms fortes"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  description : "127, KexAlgorithms fortes presentes, Alta"
+  info        : "Verificar se KexAlgorithms inclui metodo forte"
+  solution    : "Configurar KexAlgorithms com metodo forte aprovado."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'sshd_effective_config() { if command -v sshd >/dev/null 2>&1; then sshd -T -C user=root,host=\"$(hostname 2>/dev/null || echo localhost)\",addr=127.0.0.1 2>/dev/null && return 0; fi; cat /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*.conf 2>/dev/null; }; (sshd_effective_config | grep -Eiq '\"'\"'^kexalgorithms[[:space:]]+.*(curve25519|diffie-hellman-group-exchange-sha256).*'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
-  description : "128, Preferencia por algoritmos modernos, Alta"
-  info        : "Priorizar algoritmos modernos"
-  solution    : "Priorizar algoritmos modernos"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  description : "128, Suites modernas presentes, Alta"
+  info        : "Verificar se Ciphers ou KexAlgorithms contem suite moderna"
+  solution    : "Configurar Ciphers ou KexAlgorithms com suite moderna aprovada."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'sshd_effective_config() { if command -v sshd >/dev/null 2>&1; then sshd -T -C user=root,host=\"$(hostname 2>/dev/null || echo localhost)\",addr=127.0.0.1 2>/dev/null && return 0; fi; cat /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*.conf 2>/dev/null; }; (sshd_effective_config | grep -Eiq '\"'\"'^(ciphers|kexalgorithms)[[:space:]]+.*(chacha20|curve25519).*'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1279,10 +1279,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "129, ForceCommand Chroot SSH, Alta"
-  info        : "Utilizar ForceCommand ou Chroot quando aplicavel"
+  info        : "Verifica se ha diretivas ForceCommand ou ChrootDirectory configuradas para contas especificas"
   solution    : "Utilizar ForceCommand ou Chroot quando aplicavel"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'sshd_effective_config() { if command -v sshd >/dev/null 2>&1; then sshd -T -C user=root,host=\"$(hostname 2>/dev/null || echo localhost)\",addr=127.0.0.1 2>/dev/null && return 0; fi; cat /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*.conf 2>/dev/null; }; (sshd_effective_config | grep -Eiq '\"'\"'^(forcecommand|chrootdirectory)[[:space:]]+'\"'\"' && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1290,21 +1290,21 @@
 <custom_item>
   type        : CMD_EXEC
   description : "130, PAM complexidade, Alta"
-  info        : "Garante aplicação de requisitos mínimos de robustez de senha."
+  info        : "Verificar presença do módulo de complexidade na stack PAM"
   solution    : "Incluir módulo de complexidade na stack PAM."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
-  cmd         : "bash -c 'grep -Eq '\"'\"'pam_pwquality\\.so'\"'\"' /etc/pam.d/*auth && echo \"PASS\" || echo \"FAIL\"'"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
+  cmd         : "bash -c 'grep -Eq '\"'\"'pam_pwquality\\.so'\"'\"' /etc/pam.d/*auth /etc/pam.d/common-password 2>/dev/null && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
   description : "131, pwquality configurado, Alta"
-  info        : "Define critérios técnicos mínimos para criação de senhas seguras."
+  info        : "Verificar parâmetros do pam_pwquality"
   solution    : "Configurar pam_pwquality conforme baseline."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( grep -Eq '\"'\"'pam_pwquality\\.so'\"'\"' /etc/pam.d/common-password 2>/dev/null && grep -Psiq '\"'\"'^\\s*minlen\\s*=\\s*(1[4-9]|[2-9][0-9]+)\\b'\"'\"' /etc/security/pwquality.conf /etc/security/pwquality.conf.d/*.conf 2>/dev/null && grep -Psiq '\"'\"'^\\s*minclass\\s*=\\s*[4-9]\\b'\"'\"' /etc/security/pwquality.conf /etc/security/pwquality.conf.d/*.conf 2>/dev/null ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1312,10 +1312,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "132, pam faillock habilitado, Alta"
-  info        : "Garante que o pam_faillock esteja habilitado"
-  solution    : "Configurar pam_faillock no arquivo /etc/pam.d/common-auth e /etc/pam.d/common-account"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verifica uso de pam faillock nas pilhas de autenticacao"
+  solution    : "Habilitar pam faillock para bloqueio de conta"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(grep -Eq '\"'\"'pam_faillock\\.so'\"'\"' /etc/pam.d/common-auth /etc/pam.d/common-account 2>/dev/null) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1323,10 +1323,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "133, pam tally2 habilitado, Alta"
-  info        : "Garante que o pam_tally2 esteja inexistente"
-  solution    : "Configurar pam_tally2 no arquivo /etc/pam.d/common-auth e /etc/pam.d/common-account"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Checa referencias a pam tally2 nas pilhas de autenticacao"
+  solution    : "Habilitar pam tally2 quando aplicavel"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '! grep -Eq '\"'\"'pam_tally2\\.so'\"'\"' /etc/pam.d/*auth && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1334,10 +1334,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "134, pwhistory configurado, Alta"
-  info        : "Evita reutilização de senhas previamente utilizadas."
+  info        : "Verificar configuração de pwhistory"
   solution    : "Configurar pam_pwhistory."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(grep -Eq '\"'\"'pam_pwhistory\\.so'\"'\"' /etc/pam.d/common-password 2>/dev/null) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1345,10 +1345,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "135, Senha mínima, Alta"
-  info        : "Aumenta entropia mínima exigida para contas locais."
+  info        : "Verificar parâmetro de tamanho mínimo"
   solution    : "Definir tamanho mínimo de senha."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'grep -Psiq '\"'\"'^\\s*minlen\\s*=\\s*(1[4-9]|[2-9][0-9]+)'\"'\"' /etc/security/pwquality.conf* && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1356,10 +1356,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "136, Complexidade mínima, Alta"
-  info        : "Exige combinação de classes de caracteres reduzindo previsibilidade."
+  info        : "Verificar requisitos de complexidade"
   solution    : "Configurar complexidade mínima de senha."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'grep -Psiq '\"'\"'^\\s*minclass\\s*=\\s*[4-9]'\"'\"' /etc/security/pwquality.conf* && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1367,10 +1367,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "137, Sem repetição/sequência, Baixa"
-  info        : "Impede uso de padrões triviais repetitivos ou sequenciais."
+  info        : "Verificar parâmetros de repetição e sequência"
   solution    : "Configurar limites de repetição e sequência."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'grep -Psiq '\"'\"'^\\s*maxrepeat\\s*=\\s*3\\b'\"'\"'   /etc/security/pwquality.conf* && grep -Psiq '\"'\"'^\\s*maxsequence\\s*=\\s*3\\b'\"'\"' /etc/security/pwquality.conf* && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1378,10 +1378,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "138, Dicionário ativo, Baixa"
-  info        : "Evita uso de palavras comuns facilmente descobertas."
+  info        : "Verificar parâmetro de verificação de dicionário"
   solution    : "Habilitar verificação de dicionário quando aplicável."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '! grep -Psiq '\"'\"'^\\s*dictcheck\\s*=\\s*0\\b'\"'\"' /etc/security/pwquality.conf* && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1389,21 +1389,21 @@
 <custom_item>
   type        : CMD_EXEC
   description : "139, Hash forte, Alta"
-  info        : "Protege senhas armazenadas contra ataques offline."
+  info        : "Verificar algoritmo configurado"
   solution    : "Configurar algoritmo de hashing forte."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
-  cmd         : "bash -c 'grep -Eq '\"'\"'pam_unix\\.so.*(sha512|yescrypt)'\"'\"' /etc/pam.d/*auth && echo \"PASS\" || echo \"FAIL\"'"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
+  cmd         : "bash -c 'grep -Eq '\"'\"'pam_unix\\.so.*(sha512|yescrypt)'\"'\"' /etc/pam.d/*auth /etc/pam.d/common-password 2>/dev/null && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
   description : "140, Histórico de senhas, Alta"
-  info        : "Evita reuso imediato de credenciais antigas."
+  info        : "Verificar parâmetro de histórico"
   solution    : "Configurar histórico de senha."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(grep -Eq '\"'\"'pam_pwhistory\\.so.*remember=([5-9]|[1-9][0-9]+)'\"'\"' /etc/pam.d/common-password 2>/dev/null) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1411,21 +1411,21 @@
 <custom_item>
   type        : CMD_EXEC
   description : "141, Bloqueio por tentativas invalidas, Alta"
-  info        : "Configurar bloqueio por tentativas invalidas"
+  info        : "Verifica parametro deny em faillock conf"
   solution    : "Configurar bloqueio por tentativas invalidas"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
-  cmd         : "bash -c 'grep -Pi '\"'\"'^\\s*deny\\s*=\\s*([5-9]|[1-9][0-9]+)'\"'\"' /etc/security/faillock.conf && echo \"PASS\" || echo \"FAIL\"'"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
+  cmd         : "bash -c 'grep -Piq '\"'\"'^\\s*deny\\s*=\\s*[1-5]\\s*$'\"'\"' /etc/security/faillock.conf 2>/dev/null && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
   description : "142, Tempo desbloqueio, Baixa"
-  info        : "Define período de bloqueio adequado equilibrando segurança e usabilidade."
+  info        : "Verificar tempo de desbloqueio"
   solution    : "Configurar tempo de desbloqueio conforme política."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'grep -Pi '\"'\"'^\\s*unlock_time\\s*=\\s*(9[0-9]{2}|[1-9][0-9]{3,})\\b'\"'\"' /etc/security/faillock.conf && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1433,10 +1433,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "143, PASS_MAX_DAYS, Alta"
-  info        : "Força renovação periódica de credenciais."
+  info        : "Verificar PASS_MAX_DAYS"
   solution    : "Configurar PASS_MAX_DAYS."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'val=$(awk '\"'\"'$1==\"PASS_MAX_DAYS\"{print $2; exit}'\"'\"' /etc/login.defs); [[ \"$val\" =~ ^[0-9]+$ ]] && [[ \"$val\" -le 365 ]] && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1444,10 +1444,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "144, PASS_MIN_DAYS, Baixa"
-  info        : "Evita trocas sucessivas de senha para burlar histórico."
+  info        : "Verificar PASS_MIN_DAYS"
   solution    : "Configurar PASS_MIN_DAYS."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'grep -Eq '\"'\"'^\\s*PASS_MIN_DAYS\\s+[1-9][0-9]*'\"'\"' /etc/login.defs && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1455,10 +1455,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "145, PASS_WARN_AGE, Baixa"
-  info        : "Notifica usuários antes da expiração evitando bloqueios inesperados."
+  info        : "Verificar PASS_WARN_AGE"
   solution    : "Configurar PASS_WARN_AGE."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'grep -Eq '\"'\"'^\\s*PASS_WARN_AGE\\s+([7-9]|[1-9][0-9]+)'\"'\"' /etc/login.defs && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1466,10 +1466,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "146, INACTIVE ajustado, Alta"
-  info        : "Define inativação automática de contas locais após expiração da senha."
+  info        : "Verificar parâmetro INACTIVE"
   solution    : "Configurar parâmetro INACTIVE para contas locais."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'awk -F: '\"'\"'$2~/^\\$/ && ($7==\"\" || $7<30){exit 1}'\"'\"' /etc/shadow && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1477,10 +1477,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "147, Corrigir datas senha, Baixa"
-  info        : "Evita contas locais ativas com data de última troca de senha no futuro."
+  info        : "Verificar inconsistências de data"
   solution    : "Corrigir datas inconsistentes de troca de senha."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'awk -F: '\"'\"'$2~/^\\$/{if($3==\"\"||$3==0) exit 1} END{exit 0}'\"'\"' /etc/shadow && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1488,10 +1488,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "148, UID 0 exclusivo, Alta"
-  info        : "Evita existência de contas privilegiadas adicionais com UID 0."
+  info        : "Verificar contas com UID 0"
   solution    : "Garantir apenas root com UID 0."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'awk -F: '\"'\"'($3==0 && $1!=\"root\"){exit 1}'\"'\"' /etc/passwd && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1499,10 +1499,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "149, GID 0 exclusivo, Alta"
-  info        : "Evita existência de grupos privilegiados adicionais com GID 0."
+  info        : "Verificar grupos com GID 0"
   solution    : "Garantir apenas grupo root com GID 0."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'awk -F: '\"'\"'($3==0 && $1!=\"root\"){exit 1}'\"'\"' /etc/group && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1510,10 +1510,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "150, Contas sistema bloqueadas, Alta"
-  info        : "Evita login interativo em contas de sistema."
+  info        : "Verificar shells de contas de sistema"
   solution    : "Bloquear contas de sistema com shell inválido."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'awk -F: '\"'\"'($3<1000 && $1!=\"root\" && $7 ~ /(bash|sh|zsh)$/){exit 1}'\"'\"' /etc/passwd && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1521,10 +1521,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "151, Shells válidos, Baixa"
-  info        : "Evita exposição de shells não aprovados no sistema."
+  info        : "Verificar conteúdo de /etc/shells"
   solution    : "Remover shells inválidos de /etc/shells."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'grep -qE '\"'\"'^(\\/usr)?\\/sbin\\/nologin$'\"'\"' /etc/shells && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1532,10 +1532,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "152, PATH root seguro, Alta"
-  info        : "Evita uso de diretório corrente no PATH do root."
+  info        : "Verificar variável PATH do root"
   solution    : "Ajustar PATH do root removendo diretórios inseguros."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(grep -Rqs '\"'\"'PATH=.*\\/usr/local/sbin.*\\/usr/sbin.*\\/sbin'\"'\"' /root/.profile /root/.bashrc /etc/profile /etc/profile.d 2>/dev/null) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1543,10 +1543,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "153, Umask restritiva, Alta"
-  info        : "Define criação padrão de arquivos e diretórios com permissões mais restritivas."
+  info        : "Verificar valor de umask padrão"
   solution    : "Configurar umask restritiva padrão."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'grep -Rqs '\"'\"'umask 027'\"'\"' /etc/profile /etc/bash.bashrc /etc/profile.d 2>/dev/null && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1554,10 +1554,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "154, Timeout shell, Baixa"
-  info        : "Encerra sessões inativas de shell reduzindo exposição por abandono de terminal."
+  info        : "Verificar variável de timeout"
   solution    : "Configurar timeout de shell."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'grep -Rqs '\"'\"'TMOUT=900'\"'\"' /etc/profile /etc/bash.bashrc /etc/profile.d 2>/dev/null && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1565,10 +1565,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "155, Sudo restrito, Alta"
-  info        : "Centraliza privilégio administrativo em grupo autorizado."
+  info        : "Verificar configuração do sudoers"
   solution    : "Restringir administração privilegiada via sudo."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'grep -RqsE '\"'\"'^%.*ALL=\\(ALL\\)'\"'\"' /etc/sudoers /etc/sudoers.d 2>/dev/null && echo \"FAIL\" || echo \"PASS\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1576,10 +1576,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "156, Sudo tty, Alta"
-  info        : "Associa execução privilegiada a terminal interativo."
+  info        : "Verificar parâmetro requiretty ou equivalente"
   solution    : "Configurar sudo para uso de pseudo tty."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'grep -Rqs '\"'\"'use_pty'\"'\"' /etc/sudoers /etc/sudoers.d && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1587,10 +1587,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "157, Sudo logging, Alta"
-  info        : "Registra uso de sudo em arquivo dedicado para auditoria."
+  info        : "Verificar configuração de log do sudo"
   solution    : "Habilitar logging de sudo."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'grep -Rqs '\"'\"'logfile='\"'\"' /etc/sudoers /etc/sudoers.d && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1598,10 +1598,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "158, Reautenticacao nao desabilitada, Média"
-  info        : "Garantir que reautenticacao nao esteja desabilitada"
+  info        : "Verifica ausencia de Defaults authenticate desabilitado em sudoers"
   solution    : "Garantir que reautenticacao nao esteja desabilitada"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'grep -Rqs '\"'\"'!authenticate'\"'\"' /etc/sudoers /etc/sudoers.d && echo \"FAIL\" || echo \"PASS\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1609,10 +1609,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "159, Sudo timeout, Média"
-  info        : "Limita tempo de reaproveitamento de credencial sudo."
+  info        : "Verificar configuração de timeout"
   solution    : "Configurar timeout de autenticação sudo."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'grep -Rqs '\"'\"'timestamp_timeout=5'\"'\"' /etc/sudoers /etc/sudoers.d && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1620,10 +1620,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "160, su restrito, Alta"
-  info        : "Restringe elevação via su a grupo autorizado."
+  info        : "Verificar configuração do su e grupo permitido"
   solution    : "Restringir uso de su a grupo autorizado."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'grep -Eq '\"'\"'pam_wheel\\.so.*group=(sudo|wheel)'\"'\"' /etc/pam.d/su && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1631,32 +1631,32 @@
 <custom_item>
   type        : CMD_EXEC
   description : "161, Arquitetura logs, Baixa"
-  info        : "Mantém mecanismo de logs habilitado conforme arquitetura aprovada."
-  solution    : "Ajustar arquitetura de logs evitando duplicidade."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar se rsyslog ou systemd-journald está ativo"
+  solution    : "Garantir ao menos um mecanismo de log ativo."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'service_active_any() { local svc; for svc in \"$@\"; do systemctl is-active --quiet \"$svc\" 2>/dev/null && return 0; done; return 1; }; ( service_active_any rsyslog systemd-journald && echo \"PASS\" || echo \"FAIL\" )'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
-  description : "162, Journald persistente, Alta"
-  info        : "Mantém persistência de logs locais no journald."
-  solution    : "Configurar journald com persistência."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
-  cmd         : "bash -c 'grep -q '\"'\"'^Storage=persistent'\"'\"' /etc/systemd/journald.conf && echo \"PASS\" || echo \"FAIL\"'"
+  description : "162, Journald persistente, Média"
+  info        : "Verificar Storage=persistent em journald.conf ou drop-ins"
+  solution    : "Garantir que systemd-journald armazene logs de forma persistente."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
+  cmd         : "bash -c '(grep -REiq '\"'\"'^[[:space:]]*Storage[[:space:]]*=[[:space:]]*persistent\\b'\"'\"' /etc/systemd/journald.conf /etc/systemd/journald.conf.d/*.conf 2>/dev/null && echo \"PASS\" || echo \"FAIL\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
   description : "163, rsyslog ativo, Baixa"
-  info        : "Garante serviço rsyslog habilitado para coleta e encaminhamento de logs."
-  solution    : "Instalar e ativar rsyslog."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar presença e status do rsyslog"
+  solution    : "Instalar e ativar rsyslog quando requerido."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; ( pkg_installed rsyslog && systemctl is-active rsyslog &>/dev/null ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1664,10 +1664,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "164, Rotação logs, Alta"
-  info        : "Mantém retenção e renovação periódica dos logs locais."
+  info        : "Verificar configuração de rotação"
   solution    : "Configurar rotação de logs."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( grep -Eq '\"'\"'rsyslog'\"'\"' /etc/logrotate.d/* 2>/dev/null ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1675,10 +1675,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "165, auditd instalado, Alta"
-  info        : "Garante serviço de auditoria habilitado no sistema."
+  info        : "Verificar presença e status do auditd"
   solution    : "Instalar e habilitar auditd."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; ( ( pkg_installed audit || pkg_installed auditd ) && systemctl is-active auditd &>/dev/null ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1686,10 +1686,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "166, auditd no boot, Alta"
-  info        : "Garante inicialização do auditd em fase adequada do boot."
-  solution    : "Garantir auditd antes de serviços críticos."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar ordem de inicialização"
+  solution    : "Garantir auditd inicializa antes de serviços críticos."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'grep -q '\"'\"'audit=1'\"'\"' /proc/cmdline && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1697,10 +1697,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "167, Tamanho máximo audit, Alta"
-  info        : "Define tamanho máximo do arquivo de auditoria antes de ação rotativa."
-  solution    : "Configurar max_log_file."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar parâmetro max_log_file"
+  solution    : "Configurar tamanho máximo de log de auditoria."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( grep -Eq '\"'\"'^\\s*max_log_file\\s*=\\s*[1-9]'\"'\"' /etc/audit/auditd.conf ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1708,10 +1708,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "168, Logs de auditoria nao excluidos automaticamente, Alta"
-  info        : "Evitar exclusao automatica de logs de auditoria"
+  info        : "Verifica max log file action em auditd conf para garantir keep logs ou rotate"
   solution    : "Evitar exclusao automatica de logs de auditoria"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( grep -Eq '\"'\"'^\\s*max_log_file_action\\s*=\\s*(keep_logs|rotate)'\"'\"' /etc/audit/auditd.conf ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1719,10 +1719,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "169, Auditoria data/hora, Alta"
-  info        : "Registra alterações relevantes de data e hora no sistema."
-  solution    : "Auditar alterações de data e hora."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar regras de auditoria de time change"
+  solution    : "Configurar auditoria de alteração de data e hora."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( auditctl -l 2>/dev/null | grep -Eq '\"'\"'adjtimex|settimeofday|clock_settime'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1730,10 +1730,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "170, Auditoria contas, Alta"
-  info        : "Registra alterações em arquivos críticos de contas e grupos."
-  solution    : "Auditar alterações de contas e grupos."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar regras de auditoria relacionadas a contas"
+  solution    : "Configurar auditoria de alteração de contas e grupos."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( auditctl -l 2>/dev/null | grep -Eq '\"'\"'/etc/(passwd|shadow|group|gshadow)'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1741,10 +1741,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "171, Auditoria rede, Média"
-  info        : "Registra alterações em arquivos críticos de configuração de rede."
-  solution    : "Auditar alterações de rede."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar regras de auditoria de rede"
+  solution    : "Configurar auditoria de alterações de rede."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( auditctl -l 2>/dev/null | grep -Eq '\"'\"'sethostname|setdomainname|/etc/hosts|/etc/hostname'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1752,10 +1752,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "173, Auditoria login, Alta"
-  info        : "Registra eventos de autenticação e sessão."
-  solution    : "Auditar eventos de login."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar regras de auditoria de login"
+  solution    : "Configurar auditoria de login e logout."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( auditctl -l 2>/dev/null | grep -Eq '\"'\"'/var/log/faillog|/var/log/lastlog|/var/run/utmp'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1763,10 +1763,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "174, Auditoria DAC, Baixa"
-  info        : "Registra mudanças relevantes de permissões e propriedades."
-  solution    : "Auditar mudanças de permissões."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar regras de auditoria DAC"
+  solution    : "Configurar auditoria de permissões DAC."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( auditctl -l 2>/dev/null | grep -Eq '\"'\"'chmod|chown|fchmod|fchown'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1774,10 +1774,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "175, Auditoria acesso negado, Alta"
-  info        : "Registra negações de acesso relevantes para investigação."
-  solution    : "Auditar EACCES e EPERM."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar regras de acesso negado"
+  solution    : "Configurar auditoria de tentativas de acesso não autorizado."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( auditctl -l 2>/dev/null | grep -Eq '\"'\"'EACCES|EPERM'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1785,10 +1785,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "176, Auditoria exec privilegiado, Alta"
-  info        : "Registra execuções de processos relevantes para rastreabilidade."
-  solution    : "Auditar execve."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar regras de execve privilegiado"
+  solution    : "Configurar auditoria de execuções privilegiadas."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( find / -xdev -perm -4000 -type f 2>/dev/null | while read -r f; do auditctl -l 2>/dev/null | grep -q \"$f\" || exit 1; done ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1796,10 +1796,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "177, Auditoria mount, Baixa"
-  info        : "Registra operações de montagem e desmontagem de sistemas de arquivos."
-  solution    : "Auditar mount."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar regras relacionadas a mount"
+  solution    : "Configurar auditoria de mount e unmount."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( auditctl -l 2>/dev/null | grep -Eq '\"'\"'mount|umount'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1807,10 +1807,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "178, Auditoria deleção, Baixa"
-  info        : "Registra remoções e renomeações relevantes de arquivos e diretórios."
-  solution    : "Auditar unlink/rename."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar regras de deleção"
+  solution    : "Configurar auditoria de deleção de arquivos."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( auditctl -l 2>/dev/null | grep -Eq '\"'\"'unlink|rename|rmdir|unlinkat|renameat'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1818,10 +1818,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "179, Auditoria módulos kernel, Alta"
-  info        : "Registra carga e remoção de módulos do kernel."
-  solution    : "Auditar init_module/delete_module."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar regras relacionadas a módulos"
+  solution    : "Configurar auditoria de carga e descarga de módulos de kernel."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( auditctl -l 2>/dev/null | grep -Eq '\"'\"'init_module|finit_module|delete_module'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1829,10 +1829,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "180, Auditoria sudo, Alta"
-  info        : "Registra alterações e uso relacionados à delegação administrativa."
-  solution    : "Auditar sudo e sudoers."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar regras de auditoria de sudo"
+  solution    : "Configurar auditoria de sudo e sudoers."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( auditctl -l 2>/dev/null | grep -Eq '\"'\"'/etc/sudoers|/etc/sudoers.d'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1840,10 +1840,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "181, Configuracao de auditoria imutavel, Alta"
-  info        : "Garante que a auditoria esteja imutável"
-  solution    : "Configurar auditoria imutável"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verifica se parametro e2 esta ativo em auditctl"
+  solution    : "Tornar configuracao de auditoria imutavel em producao"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( auditctl -s 2>/dev/null | grep -Eq '\"'\"'^[[:space:]]*enabled[[:space:]]+2\\b'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1851,10 +1851,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "182, AIDE instalado e inicializado, Alta"
-  info        : "Garantir AIDE instalado e base inicializada"
+  info        : "Verifica instalacao do pacote AIDE e existencia de banco de dados inicial"
   solution    : "Garantir AIDE instalado e base inicializada"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'pkg_installed() { dpkg-query -W -f='\"'\"'${Status}'\"'\"' \"$1\" 2>/dev/null | grep -q '\"'\"'install ok installed'\"'\"'; }; ( pkg_installed aide && [ -f /var/lib/aide/aide.db.gz ] ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1862,10 +1862,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "183, Verificação integridade, Alta"
-  info        : "Garante agendamento recorrente de verificação com AIDE."
+  info        : "Verificar agendamento configurado"
   solution    : "Agendar verificação periódica de integridade."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( grep -Ersq '\"'\"'aide(\\.wrapper)? .*(--check|--update|\\$AIDEARGS)'\"'\"' /etc/cron.* /etc/crontab /var/spool/cron 2>/dev/null || systemctl list-timers --all 2>/dev/null | grep -qi aide ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1873,10 +1873,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "184, Protecao dos binarios de auditoria, Alta"
-  info        : "Proteger binarios e ferramentas de auditoria"
+  info        : "Verifica permissoes e proprietario de binarios como auditctl aureport ausearch auditd"
   solution    : "Proteger binarios e ferramentas de auditoria"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( for b in auditctl aureport ausearch autrace auditd augenrules; do p=\"$(command -v \"$b\")\" || exit 1; stat -Lc \"%U %G\" \"$p\" | awk '\"'\"'{if($1!=\"root\" || $2!=\"root\") exit 1}'\"'\"' || exit 1; done ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1884,32 +1884,32 @@
 <custom_item>
   type        : CMD_EXEC
   description : "185, Permissões passwd, Alta"
-  info        : "Protege o arquivo principal de contas locais contra alteração indevida."
+  info        : "Verificar permissões de /etc/passwd"
   solution    : "Ajustar permissões de /etc/passwd."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
-  cmd         : "bash -c '( [ -f /etc/passwd ] && stat -Lc \"%a %u %g\" /etc/passwd | grep -Eq '\"'\"'^64[0-9] 0 0$'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
+  cmd         : "bash -c '( [ -f /etc/passwd ] && stat -Lc '\"'\"'%a %u %g'\"'\"' /etc/passwd | awk '\"'\"'{m=$1+0; exit !($2==0 && $3==0 && m<=644 && int(m/10)%10<5 && m%10<5)}'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
   description : "186, Permissões passwd-, Baixa"
-  info        : "Protege a cópia de segurança de contas locais contra alteração indevida."
+  info        : "Verificar permissões de /etc/passwd-"
   solution    : "Ajustar permissões de /etc/passwd-."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
-  cmd         : "bash -c '( [ -f /etc/passwd- ] && stat -Lc \"%a %u %g\" /etc/passwd- | grep -Eq '\"'\"'^64[0-9] 0 0$'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
+  cmd         : "bash -c '( [ -f /etc/passwd- ] && stat -Lc '\"'\"'%a %u %g'\"'\"' /etc/passwd- | awk '\"'\"'{m=$1+0; exit !($2==0 && $3==0 && m<=644 && int(m/10)%10<5 && m%10<5)}'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
   description : "187, Permissões shadow, Alta"
-  info        : "Protege o arquivo de senhas locais contra leitura ou alteração indevida."
+  info        : "Verificar permissões de /etc/shadow"
   solution    : "Ajustar permissões de /etc/shadow."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( [ -f /etc/shadow ] && stat -Lc \"%a %u %g\" /etc/shadow | grep -Eq '\"'\"'^0+ 0 0$'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1917,10 +1917,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "188, Permissões shadow-, Baixa"
-  info        : "Protege a cópia de segurança de senhas locais contra leitura ou alteração indevida."
+  info        : "Verificar permissões de /etc/shadow-"
   solution    : "Ajustar permissões de /etc/shadow-."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( [ -f /etc/shadow- ] && stat -Lc \"%a %u %g\" /etc/shadow- | grep -Eq '\"'\"'^0+ 0 0$'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1928,54 +1928,54 @@
 <custom_item>
   type        : CMD_EXEC
   description : "189, Permissões gshadow-, Baixa"
-  info        : "Protege a cópia de segurança de grupos sensíveis contra leitura ou alteração indevida."
+  info        : "Verificar permissões de /etc/gshadow-"
   solution    : "Ajustar permissões de /etc/gshadow-."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
-  cmd         : "bash -c '( [ -f /etc/gshadow- ] && stat -Lc \"%a %u %g\" /etc/gshadow- | grep -Eq '\"'\"'^(600|60[0-9]|[0-5][0-9]{2}) 0 0$'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
+  cmd         : "bash -c '( [ -f /etc/gshadow- ] && stat -Lc \"%a %u %g\" /etc/gshadow- | grep -Eq '\"'\"'^(0+|600|60[0-9]|[0-5][0-9]{2}) 0 0$'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
   description : "190, Permissões gshadow, Alta"
-  info        : "Protege o arquivo de grupos sensíveis contra leitura ou alteração indevida."
+  info        : "Verificar permissões de /etc/gshadow"
   solution    : "Ajustar permissões de /etc/gshadow."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
-  cmd         : "bash -c '( [ -f /etc/gshadow ] && stat -Lc \"%a %u %g\" /etc/gshadow | grep -Eq '\"'\"'^(600|60[0-9]|[0-5][0-9]{2}) 0 0$'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
+  cmd         : "bash -c '( [ -f /etc/gshadow ] && stat -Lc \"%a %u %g\" /etc/gshadow | grep -Eq '\"'\"'^(0+|600|60[0-9]|[0-5][0-9]{2}) 0 0$'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
   description : "191, Permissões group, Baixa"
-  info        : "Protege o arquivo principal de grupos locais contra alteração indevida."
+  info        : "Verificar permissões de /etc/group"
   solution    : "Ajustar permissões de /etc/group."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
-  cmd         : "bash -c '( [ -f /etc/group ] && stat -Lc \"%a %u %g\" /etc/group | grep -Eq '\"'\"'^64[0-9] 0 0$'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
+  cmd         : "bash -c '( [ -f /etc/group ] && stat -Lc '\"'\"'%a %u %g'\"'\"' /etc/group | awk '\"'\"'{m=$1+0; exit !($2==0 && $3==0 && m<=644 && int(m/10)%10<5 && m%10<5)}'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
   description : "192, Permissões group-, Baixa"
-  info        : "Protege a cópia de segurança de grupos locais contra alteração indevida."
+  info        : "Verificar permissões de /etc/group-"
   solution    : "Ajustar permissões de /etc/group-."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
-  cmd         : "bash -c '( [ -f /etc/group- ] && stat -Lc \"%a %u %g\" /etc/group- | grep -Eq '\"'\"'^64[0-9] 0 0$'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
+  cmd         : "bash -c '( [ -f /etc/group- ] && stat -Lc '\"'\"'%a %u %g'\"'\"' /etc/group- | awk '\"'\"'{m=$1+0; exit !($2==0 && $3==0 && m<=644 && int(m/10)%10<5 && m%10<5)}'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
   description : "193, nologin fora de etc shells, Baixa"
-  info        : "Garantir que nologin seja tratado de forma consistente"
+  info        : "Verifica se nologin aparece listado em etc shells"
   solution    : "Garantir que nologin seja tratado de forma consistente"
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c 'grep -qE '\"'\"'^(\\/usr)?\\/sbin\\/nologin$'\"'\"' /etc/shells && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1983,10 +1983,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "194, Proteger opasswd, Alta"
-  info        : "Protege o histórico de senhas locais contra leitura ou alteração indevida."
-  solution    : "Proteger /etc/security/opasswd."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar permissões de opasswd"
+  solution    : "Proteger /etc/security/opasswd contra acesso não autorizado."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( [ -f /etc/security/opasswd ] && stat -Lc \"%a %u %g\" /etc/security/opasswd | grep -Eq '\"'\"'^600 0 0$'\"'\"' ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -1994,21 +1994,21 @@
 <custom_item>
   type        : CMD_EXEC
   description : "195, Arquivos órfãos, Baixa"
-  info        : "Evita presença de arquivos locais sem proprietário válido."
-  solution    : "Corrigir arquivos órfãos."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
-  cmd         : "bash -c '( find / -xdev \\( -nouser -o -nogroup \\) 2>/dev/null | grep -q . ) && echo \"FAIL\" || echo \"PASS\"'"
+  info        : "Identificar arquivos sem owner válido"
+  solution    : "Corrigir arquivos órfãos sem owner válido."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
+  cmd         : "bash -c '( find / -xdev -nouser 2>/dev/null | grep -q . ) && echo \"FAIL\" || echo \"PASS\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
   description : "196, Sticky world-writable, Alta"
-  info        : "Impede exclusão indevida em diretórios compartilhados com escrita global."
+  info        : "Verificar sticky bit em diretórios world writable"
   solution    : "Garantir sticky bit em diretórios world writable."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '(find / -xdev -type d -perm -0002 ! -perm -1000 2>/dev/null | grep . && echo \"FAIL\" || echo \"PASS\")'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -2016,21 +2016,21 @@
 <custom_item>
   type        : CMD_EXEC
   description : "197, Arquivos sem grupo, Baixa"
-  info        : "Evita presença de arquivos locais sem owner ou grupo válido."
-  solution    : "Corrigir arquivos sem owner ou grupo."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
-  cmd         : "bash -c '( find / -xdev \\( -nouser -o -nogroup \\) 2>/dev/null | grep -q . ) && echo \"FAIL\" || echo \"PASS\"'"
+  info        : "Identificar arquivos sem grupo válido"
+  solution    : "Corrigir arquivos sem grupo válido."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
+  cmd         : "bash -c '( find / -xdev -nogroup 2>/dev/null | grep -q . ) && echo \"FAIL\" || echo \"PASS\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
 
 <custom_item>
   type        : CMD_EXEC
   description : "198, SUID SGID revisados, Alta"
-  info        : "Garante que SUID/SGID estejam configurados corretamente"
-  solution    : "Ajustar permissões de arquivos executáveis"
-  reference   : "Referência completa no Baseline HITSS."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Lista arquivos com bits SUID ou SGID definidos"
+  solution    : "Rever binarios SUID e SGID"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( find / -xdev \\( -perm -4000 -o -perm -2000 \\) 2>/dev/null | grep -Ev '\"'\"'^(/usr/bin/sudo|/usr/bin/su|/bin/su|/usr/bin/passwd|/usr/bin/chage|/usr/bin/chsh|/usr/bin/chfn|/usr/bin/newgrp|/usr/bin/gpasswd|/usr/sbin/unix_chkpwd|/usr/sbin/pam_timestamp_check|/usr/bin/mount|/usr/bin/umount|/usr/bin/fusermount|/usr/bin/pkexec|/usr/bin/crontab|/usr/bin/ssh-agent|/usr/bin/ksu|/usr/libexec/openssh/ssh-keysign|/usr/bin/ping|/usr/bin/ping6|/usr/bin/traceroute|/usr/bin/traceroute6)$'\"'\"' | grep -q . ) && echo \"FAIL\" || echo \"PASS\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -2038,10 +2038,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "199, Home ausente, Baixa"
-  info        : "Evita contas locais interativas sem diretório home válido."
-  solution    : "Verificar usuários sem diretório home."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar usuários sem diretório home"
+  solution    : "Verificar usuários sem diretório home"
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( awk -F: '\"'\"'$3>=1000 && $1!=\"nobody\"{print $6}'\"'\"' /etc/passwd | while read -r h; do [ -d \"$h\" ] || exit 1; done ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -2049,10 +2049,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "200, Ownership home, Alta"
-  info        : "Garante que cada diretório home pertença ao usuário esperado."
-  solution    : "Ajustar ownership dos diretórios home."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar ownership dos diretórios home"
+  solution    : "Ajustar ownership dos diretórios home para o respectivo usuário."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( awk -F: '\"'\"'$3>=1000 && $1!=\"nobody\"{print $1,$6}'\"'\"' /etc/passwd | while read -r u h; do [ -d \"$h\" ] && [ \"$(stat -Lc %U \"$h\")\" = \"$u\" ] || exit 1; done ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -2060,10 +2060,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "201, Permissões home, Alta"
-  info        : "Evita diretórios home com permissões excessivas."
-  solution    : "Ajustar permissões de home para 750."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar permissões dos diretórios home"
+  solution    : "Ajustar permissões de home para 750 ou mais restritivas."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( awk -F: '\"'\"'$3>=1000 && $1!=\"nobody\"{print $6}'\"'\"' /etc/passwd | while read -r h; do [ -d \"$h\" ] && [ \"$(stat -Lc %a \"$h\")\" -le 750 ] || exit 1; done ) && echo \"PASS\" || echo \"FAIL\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -2071,10 +2071,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "202, Dotfiles seguros, Baixa"
-  info        : "Evita exposição ou alteração indevida de arquivos ocultos em home."
-  solution    : "Ajustar permissões de dotfiles."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar permissões de dotfiles"
+  solution    : "Ajustar permissões de dotfiles removendo escrita indevida."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( while read -r h; do [ -d \"$h\" ] || continue; find \"$h\" -maxdepth 1 -type f -name \".*\" -perm /022 2>/dev/null; done < <(awk -F: '\"'\"'$3>=1000 && $1!=\"nobody\"{print $6}'\"'\"' /etc/passwd) | grep -q . ) && echo \"FAIL\" || echo \"PASS\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -2082,10 +2082,10 @@
 <custom_item>
   type        : CMD_EXEC
   description : "203, Arquivos trust legado, Alta"
-  info        : "Evita mecanismos legados inseguros em diretórios home."
-  solution    : "Remover arquivos .forward .netrc, .rhosts."
-  reference   : "Referência completa no Baseline HITSS para Debian."
-  see_also    : "https://www.debian.org/doc/manuals/securing-debian-manual/"
+  info        : "Verificar presença desses arquivos"
+  solution    : "Remover ou proteger arquivos forward  netrc e rhosts conforme política."
+  reference   : "BASELINE"
+  see_also    : "BASELINE_UBUNTU20-24_DEBIAN11-13.csv"
   cmd         : "bash -c '( while read -r h; do [ -d \"$h\" ] || continue; for f in \"$h/.forward\" \"$h/.netrc\" \"$h/.rhosts\"; do [ -e \"$f\" ] && echo \"$f\"; done; done < <(awk -F: '\"'\"'$3>=1000 && $1!=\"nobody\"{print $6}'\"'\"' /etc/passwd) | grep -q . ) && echo \"FAIL\" || echo \"PASS\"'"
   expect      : "(?i)^\s*pass\s*$"
 </custom_item>
@@ -2100,7 +2100,3 @@
   cmd         : "sh -c 'if [ -f /var/log/hitss-hardening.log ]; then echo \"PASS | $(tail -n 1 /var/log/hitss-hardening.log)\"; else echo \"FAIL | sem_log\"; fi'"
   expect      : "^PASS"
 </custom_item>
-
-
-
-</check_type>
