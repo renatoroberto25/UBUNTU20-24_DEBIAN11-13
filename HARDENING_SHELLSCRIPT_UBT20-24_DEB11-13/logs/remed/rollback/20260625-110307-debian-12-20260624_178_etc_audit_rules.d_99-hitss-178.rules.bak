@@ -1,0 +1,1 @@
+-a always,exit -F arch=b64 -S unlink,rename,rmdir,unlinkat,renameat -k delete

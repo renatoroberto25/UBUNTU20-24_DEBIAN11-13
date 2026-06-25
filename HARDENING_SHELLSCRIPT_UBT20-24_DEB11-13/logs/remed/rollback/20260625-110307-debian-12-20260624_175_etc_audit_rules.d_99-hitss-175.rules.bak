@@ -1,0 +1,2 @@
+-a always,exit -F arch=b64 -S open,openat,creat -F exit=-EACCES -k access
+-a always,exit -F arch=b64 -S open,openat,creat -F exit=-EPERM -k access

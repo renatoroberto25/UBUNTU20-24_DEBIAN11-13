@@ -1,0 +1,14 @@
+139|restore_file|/etc/login.defs|/home/vagrant/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/logs/remed/rollback/20260625-110235-debian-12-20260624_139_etc_login.defs.bak|
+162|restore_file|/etc/systemd/journald.conf|/home/vagrant/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/logs/remed/rollback/20260625-110235-debian-12-20260624_162_etc_systemd_journald.conf.bak|
+169|restore_file|/etc/audit/rules.d/99-hitss-169.rules|/home/vagrant/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/logs/remed/rollback/20260625-110235-debian-12-20260624_169_etc_audit_rules.d_99-hitss-169.rules.bak|
+170|restore_file|/etc/audit/rules.d/99-hitss-170.rules|/home/vagrant/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/logs/remed/rollback/20260625-110235-debian-12-20260624_170_etc_audit_rules.d_99-hitss-170.rules.bak|
+171|restore_file|/etc/audit/rules.d/99-hitss-171.rules|/home/vagrant/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/logs/remed/rollback/20260625-110235-debian-12-20260624_171_etc_audit_rules.d_99-hitss-171.rules.bak|
+173|restore_file|/etc/audit/rules.d/99-hitss-173.rules|/home/vagrant/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/logs/remed/rollback/20260625-110235-debian-12-20260624_173_etc_audit_rules.d_99-hitss-173.rules.bak|
+174|restore_file|/etc/audit/rules.d/99-hitss-174.rules|/home/vagrant/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/logs/remed/rollback/20260625-110235-debian-12-20260624_174_etc_audit_rules.d_99-hitss-174.rules.bak|
+175|restore_file|/etc/audit/rules.d/99-hitss-175.rules|/home/vagrant/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/logs/remed/rollback/20260625-110235-debian-12-20260624_175_etc_audit_rules.d_99-hitss-175.rules.bak|
+177|restore_file|/etc/audit/rules.d/99-hitss-177.rules|/home/vagrant/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/logs/remed/rollback/20260625-110235-debian-12-20260624_177_etc_audit_rules.d_99-hitss-177.rules.bak|
+178|restore_file|/etc/audit/rules.d/99-hitss-178.rules|/home/vagrant/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/logs/remed/rollback/20260625-110235-debian-12-20260624_178_etc_audit_rules.d_99-hitss-178.rules.bak|
+179|restore_file|/etc/audit/rules.d/99-hitss-179.rules|/home/vagrant/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/logs/remed/rollback/20260625-110235-debian-12-20260624_179_etc_audit_rules.d_99-hitss-179.rules.bak|
+180|restore_file|/etc/audit/rules.d/99-hitss-180.rules|/home/vagrant/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/logs/remed/rollback/20260625-110235-debian-12-20260624_180_etc_audit_rules.d_99-hitss-180.rules.bak|
+189|file_meta|/etc/gshadow-|root:root:0|
+190|file_meta|/etc/gshadow|root:root:0|

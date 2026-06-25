@@ -1,0 +1,1 @@
+-a always,exit -F arch=b64 -S chmod,chown,fchmod,fchown -k perm_mod
