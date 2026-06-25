@@ -1,0 +1,157 @@
+[87] repositórios APT: só procura linha deb tradicional; Debian/Ubuntu novos podem usar .sources deb822. Pode dar FAIL falso. [audit.sh (line 346)](/home/rsilva/GitHub/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/AUDIT_SH/audit.sh:346)
+
+echo -e "\n[87] Verificar configuração de repositórios"
+(find /etc/apt/sources.list /etc/apt/sources.list.d -type f -print0 2>/dev/null | xargs -0r grep -Ehv '^[[:space:]]*#' 2>/dev/null | grep -Eq '^[[:space:]]*deb[[:space:]]' && ! apt-config dump 2>/dev/null | grep -Eq 'Acquire::AllowInsecureRepositories "true"|APT::Get::AllowUnauthenticated "true"' && echo "PASS" || echo "FAIL")
+
+[90] cron e at: o texto diz cron e at, mas só valida /etc/cron.allow; ignora /etc/at.allow e /etc/at.deny. Pode dar PASS falso. [audit.sh (line 355)](/home/rsilva/GitHub/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/AUDIT_SH/audit.sh:355)
+
+echo -e "\n[90] Verificar listas de controle de cron e at"
+(stat -Lc '%a %U %G' /etc/cron.allow 2>/dev/null | grep -Eq '^640 root (root|crontab)$' && echo "PASS" || echo "FAIL")
+
+[102] wireless/bluetooth: usa módulo carregado (bluetooth|iwlwifi) como se fosse interface ativa. Módulo carregado não significa rádio ativo ou interface em uso. FAIL falso. [audit.sh (line 385)](/home/rsilva/GitHub/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/AUDIT_SH/audit.sh:385)
+
+echo -e "\n[102] Verificar interfaces wireless ou bluetooth ativas"
+(lsmod | grep -Eq 'bluetooth|iwlwifi' && echo "FAIL" || echo "PASS")
+
+[108] TLS mínimo: passa se achar qualquer MinProtocol = TLSv1.2/1.3, mas não garante que não há override fraco em outra seção/arquivo. Pode dar PASS falso. [audit.sh (line 388)](/home/rsilva/GitHub/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/AUDIT_SH/audit.sh:388)
+
+echo -e "\n[108] Verificar se políticas de criptografia bloqueiam TLS < 1."
+(grep -REiq 'MinProtocol[[:space:]]*=[[:space:]]*TLSv1\.[23]|TLS.MinProtocol[[:space:]]*=[[:space:]]*TLSv1\.[23]' /etc/ssl/openssl.cnf /etc/ssl/openssl.cnf.d /etc/ssl/openssl.cnf.d/* 2>/dev/null) && echo "PASS" || echo "FAIL"
+
+[125], [126], [127], [128] SSH crypto: só verifica se contém algoritmo forte; não verifica se contém algoritmo fraco junto. Pode dar PASS falso. [audit.sh (line 440)](/home/rsilva/GitHub/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/AUDIT_SH/audit.sh:440)
+
+echo -e "\n[125] Verifica se diretiva Ciphers contem apenas algoritmos considerados fortes"
+(sshd_effective_config | grep -Eiq '^ciphers[[:space:]]+.*(chacha20|aes256).*' && echo "PASS" || echo "FAIL")
+
+echo -e "\n[126] Checa se diretiva MACs contem somente algoritmos seguros"
+(sshd_effective_config | grep -Eiq '^macs[[:space:]]+.*(hmac-sha2|umac).*' && echo "PASS" || echo "FAIL")
+
+echo -e "\n[127] Verifica se KexAlgorithms inclui apenas metodos fortes como curve25519 e DH robusto"
+(sshd_effective_config | grep -Eiq '^kexalgorithms[[:space:]]+.*(curve25519|diffie-hellman-group-exchange-sha256).*' && echo "PASS" || echo "FAIL")
+
+echo -e "\n[128] Checa se Ciphers e KexAlgorithms priorizam suites modernas"
+(sshd_effective_config | grep -Eiq '^(ciphers|kexalgorithms)[[:space:]]+.*(chacha20|curve25519).*' && echo "PASS" || echo "FAIL")
+
+[130] pam_pwquality: procura em /etc/pam.d/*auth, mas em Debian/Ubuntu normalmente isso fica em common-password. FAIL falso. [audit.sh (line 455)](/home/rsilva/GitHub/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/AUDIT_SH/audit.sh:455)
+
+echo -e "\n[130] Verificar presença do módulo de complexidade na stack PAM"
+grep -Eq 'pam_pwquality\.so' /etc/pam.d/*auth && echo "PASS" || echo "FAIL"
+
+[139] algoritmo de hash: procura pam_unix com sha512|yescrypt em /etc/pam.d/*auth; também deveria olhar common-password. FAIL falso. [audit.sh (line 482)](/home/rsilva/GitHub/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/AUDIT_SH/audit.sh:482)
+
+echo -e "\n[139] Verificar algoritmo configurado"
+grep -Eq 'pam_unix\.so.*(sha512|yescrypt)' /etc/pam.d/*auth && echo "PASS" || echo "FAIL"
+
+[141] faillock deny: regex aceita deny >= 5; para lockout, número maior é menos restritivo. Assim deny=10 passa e deny=3 falha. Está invertido/errado. [audit.sh (line 488)](/home/rsilva/GitHub/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/AUDIT_SH/audit.sh:488)
+
+echo -e "\n[141] Verifica parametro deny em faillock conf"
+grep -Pi '^\s*deny\s*=\s*([5-9]|[1-9][0-9]+)' /etc/security/faillock.conf && echo "PASS" || echo "FAIL"
+
+[161] “coexistência de mecanismos redundantes”: passa se rsyslog OU journald estiver ativo. Isso não audita coexistência/redundância. A regra não mede o que diz. [audit.sh (line 548)](/home/rsilva/GitHub/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/AUDIT_SH/audit.sh:548)
+
+echo -e "\n[161] Verificar coexistência de mecanismos redundantes"
+( service_active_any rsyslog systemd-journald && echo "PASS" || echo "FAIL" )
+
+[162] journald persistente: exige exatamente Storage=persistent; falha com Storage = persistent e ignora drop-ins. FAIL falso. [audit.sh (line 551)](/home/rsilva/GitHub/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/AUDIT_SH/audit.sh:551)
+
+echo -e "\n[162] Verificar configuração de persistência"
+grep -q '^Storage=persistent' /etc/systemd/journald.conf && echo "PASS" || echo "FAIL"
+
+[185], [186], [191], [192] permissões passwd/group: regex ^64[0-9] aceita 646, 647, 649. Isso é PASS falso grave. [audit.sh (line 617)](/home/rsilva/GitHub/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/AUDIT_SH/audit.sh:617)
+
+echo -e "\n[185] Verificar permissões de /etc/passwd"
+( [ -f /etc/passwd ] && stat -Lc "%a %u %g" /etc/passwd | grep -Eq '^64[0-9] 0 0$' ) && echo "PASS" || echo "FAIL"
+
+echo -e "\n[186] Verificar permissões de /etc/passwd-"
+( [ -f /etc/passwd- ] && stat -Lc "%a %u %g" /etc/passwd- | grep -Eq '^64[0-9] 0 0$' ) && echo "PASS" || echo "FAIL"
+
+echo -e "\n[191] Verificar permissões de /etc/group"
+( [ -f /etc/group ] && stat -Lc "%a %u %g" /etc/group | grep -Eq '^64[0-9] 0 0$' ) && echo "PASS" || echo "FAIL"
+
+echo -e "\n[192] Verificar permissões de /etc/group-"
+( [ -f /etc/group- ] && stat -Lc "%a %u %g" /etc/group- | grep -Eq '^64[0-9] 0 0$' ) && echo "PASS" || echo "FAIL"
+
+[195] e [197]: são duplicados; ambos fazem exatamente find / -xdev \( -nouser -o -nogroup \). Um dos dois está semanticamente falso/redundante. [audit.sh (line 647)](/home/rsilva/GitHub/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/AUDIT_SH/audit.sh:647)
+Suspeitos Fortes
+[35] e [43]: removíveis em fstab; se não há mídia removível configurada, tende a FAIL, mas ausência pode ser aceitável. [audit.sh (line 191)](/home/rsilva/GitHub/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/AUDIT_SH/audit.sh:191)
+
+echo -e "\n[195] Identificar arquivos sem owner válido"
+( find / -xdev \( -nouser -o -nogroup \) 2>/dev/null | grep -q . ) && echo "FAIL" || echo "PASS"
+
+echo -e "\n[197] Identificar arquivos sem owner ou grupo"
+( find / -xdev \( -nouser -o -nogroup \) 2>/dev/null | grep -q . ) && echo "FAIL" || echo "PASS"
+
+echo -e "\n[35] Verificar opções de montagem para mídias removíveis"
+(fstab_path_has_opts '^(/media|/run/media)' nodev nosuid noexec && echo "PASS" || echo "FAIL")
+
+echo -e "\n[43] Verifica se midias removiveis estao definidas com opcoes seguras em fstab"
+(fstab_path_has_opts '^(/media|/run/media)' nodev nosuid noexec && echo "PASS" || echo "FAIL")
+
+#!/usr/bin/env bash
+set -u
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+. "$SCRIPT_DIR/lib.sh"
+
+run_id() {
+    local id="$1"
+
+    case "$id" in
+        025|026|027|028|029|030|031|032|033|034)
+            sem_auto "$id" "particionamento e ponto de montagem dependem da arquitetura do cliente"
+            ;;
+        035|036|037|038|039|040|041|042|043)
+            sem_auto "$id" "opcoes de montagem em fstab/mount dependem de janela e desenho operacional"
+            ;;
+        044)
+            sticky_world_writable_item "$id"
+            ;;
+        045)
+            chmod_item "$id" "1777" "/tmp"
+            ;;
+        046)
+            chmod_item "$id" "1777" "/var/tmp"
+            ;;
+        047)
+            chmod_item "$id" "1777" "/dev/shm"
+            ;;
+        *)
+            sem_auto "$id" "item fora do grupo Filesystem"
+            ;;
+    esac
+}
+
+if (( $# == 0 )); then
+    set -- 044 045 046 047
+fi
+
+for id in "$@"; do
+    run_id "$id"
+done
+
+
+[51]: olha só emergency.service em caminho específico; ignora rescue.service e variações. [audit.sh (line 247)](/home/rsilva/GitHub/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/AUDIT_SH/audit.sh:247)
+
+echo -e "\n[51] Confere configuracao de autenticacao no systemd e emergency service"
+(grep -q '^ExecStart=-/bin/sh' /usr/lib/systemd/system/emergency.service && echo "FAIL" || echo "PASS")
+
+[92], [93], [94]: só checam all, não default nem interfaces existentes. Pode dar PASS falso. [audit.sh (line 361)](/home/rsilva/GitHub/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/AUDIT_SH/audit.sh:361)
+
+echo -e "\n[92] Verificar configuração de redirects"
+(sysctl -n net.ipv4.conf.all.send_redirects 2>/dev/null | grep -q '^0$' && echo "PASS" || echo "FAIL")
+
+echo -e "\n[93] Verificar parâmetros de source route"
+(sysctl -n net.ipv4.conf.all.accept_source_route 2>/dev/null | grep -q '^0$' && echo "PASS" || echo "FAIL")
+
+echo -e "\n[94] Verificar ICMP redirects"
+(sysctl -n net.ipv4.conf.all.accept_redirects 2>/dev/null | grep -q '^0$' && sysctl -n net.ipv4.conf.all.secure_redirects 2>/dev/null | grep -q '^0$' && echo "PASS" || echo "FAIL")
+
+
+[169] a [180]: checks de auditd são muito genéricos por grep em auditctl -l; podem dar PASS por regra parcial/errada. [audit.sh (line 572)](/home/rsilva/GitHub/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/AUDIT_SH/audit.sh:572)
+
+echo -e "\n[169] Verificar regras de auditoria de time change"
+( auditctl -l 2>/dev/null | grep -Eq 'adjtimex|settimeofday|clock_settime' ) && echo "PASS" || echo "FAIL"
+
+
+echo -e "\n[180] Verificar regras de auditoria de sudo"
+( auditctl -l 2>/dev/null | grep -Eq '/etc/sudoers|/etc/sudoers.d' ) && echo "PASS" || echo "FAIL"
