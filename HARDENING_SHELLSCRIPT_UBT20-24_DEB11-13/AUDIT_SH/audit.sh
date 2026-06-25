@@ -383,7 +383,7 @@ echo -e "\n[99] Verifica sysctl net ipv6 conf all disable ipv6 igual a um"
 (sysctl -n net.ipv6.conf.all.disable_ipv6 2>/dev/null | grep -q '^1$' && echo "PASS" || echo "FAIL")
 
 echo -e "\n[102] Verificar interfaces wireless ou bluetooth ativas"
-(lsmod | grep -Eq 'bluetooth|iwlwifi' && echo "FAIL" || echo "PASS")
+( { find /sys/class/net -mindepth 2 -maxdepth 2 -name wireless -exec dirname {} \; 2>/dev/null | while read -r d; do [ "$(cat "$d/operstate" 2>/dev/null)" = "up" ] && exit 0; done; exit 1; } || rfkill list 2>/dev/null | awk 'BEGIN{RS=""} /Bluetooth|Wireless|WLAN/ && /Soft blocked: no/ && /Hard blocked: no/{found=1} END{exit !found}' ) && echo "FAIL" || echo "PASS"
 
 echo -e "\n[108] Verificar se políticas de criptografia bloqueiam TLS < 1."
 (grep -REiq 'MinProtocol[[:space:]]*=[[:space:]]*TLSv1\.[23]|TLS.MinProtocol[[:space:]]*=[[:space:]]*TLSv1\.[23]' /etc/ssl/openssl.cnf /etc/ssl/openssl.cnf.d /etc/ssl/openssl.cnf.d/* 2>/dev/null) && echo "PASS" || echo "FAIL"
@@ -453,7 +453,7 @@ echo -e "\n[129] Verifica se ha diretivas ForceCommand ou ChrootDirectory config
 (sshd_effective_config | grep -Eiq '^(forcecommand|chrootdirectory)[[:space:]]+' && echo "PASS" || echo "FAIL")
 
 echo -e "\n[130] Verificar presença do módulo de complexidade na stack PAM"
-grep -Eq 'pam_pwquality\.so' /etc/pam.d/*auth && echo "PASS" || echo "FAIL"
+grep -Eq 'pam_pwquality\.so' /etc/pam.d/*auth /etc/pam.d/common-password 2>/dev/null && echo "PASS" || echo "FAIL"
 
 echo -e "\n[131] Verificar parâmetros do pam_pwquality"
 ( grep -Eq 'pam_pwquality\.so' /etc/pam.d/common-password 2>/dev/null && grep -Psiq '^\s*minlen\s*=\s*(1[4-9]|[2-9][0-9]+)\b' /etc/security/pwquality.conf /etc/security/pwquality.conf.d/*.conf 2>/dev/null && grep -Psiq '^\s*minclass\s*=\s*[4-9]\b' /etc/security/pwquality.conf /etc/security/pwquality.conf.d/*.conf 2>/dev/null ) && echo "PASS" || echo "FAIL"
@@ -480,13 +480,13 @@ echo -e "\n[138] Verificar parâmetro de verificação de dicionário"
 ! grep -Psiq '^\s*dictcheck\s*=\s*0\b' /etc/security/pwquality.conf* && echo "PASS" || echo "FAIL"
 
 echo -e "\n[139] Verificar algoritmo configurado"
-grep -Eq 'pam_unix\.so.*(sha512|yescrypt)' /etc/pam.d/*auth && echo "PASS" || echo "FAIL"
+grep -Eq 'pam_unix\.so.*(sha512|yescrypt)' /etc/pam.d/*auth /etc/pam.d/common-password 2>/dev/null && echo "PASS" || echo "FAIL"
 
 echo -e "\n[140] Verificar parâmetro de histórico"
 (grep -Eq 'pam_pwhistory\.so.*remember=([5-9]|[1-9][0-9]+)' /etc/pam.d/common-password 2>/dev/null) && echo "PASS" || echo "FAIL"
 
 echo -e "\n[141] Verifica parametro deny em faillock conf"
-grep -Pi '^\s*deny\s*=\s*([5-9]|[1-9][0-9]+)' /etc/security/faillock.conf && echo "PASS" || echo "FAIL"
+grep -Piq '^\s*deny\s*=\s*[1-5]\s*$' /etc/security/faillock.conf 2>/dev/null && echo "PASS" || echo "FAIL"
 
 echo -e "\n[142] Verificar tempo de desbloqueio"
 grep -Pi '^\s*unlock_time\s*=\s*(9[0-9]{2}|[1-9][0-9]{3,})\b' /etc/security/faillock.conf && echo "PASS" || echo "FAIL"
@@ -545,7 +545,7 @@ grep -Rqs 'timestamp_timeout=5' /etc/sudoers /etc/sudoers.d && echo "PASS" || ec
 echo -e "\n[160] Verificar configuração do su e grupo permitido"
 grep -Eq 'pam_wheel\.so.*group=(sudo|wheel)' /etc/pam.d/su && echo "PASS" || echo "FAIL"
 
-echo -e "\n[161] Verificar coexistência de mecanismos redundantes"
+echo -e "\n[161] Verificar se há ao menos um mecanismo de log ativo"
 ( service_active_any rsyslog systemd-journald && echo "PASS" || echo "FAIL" )
 
 echo -e "\n[162] Verificar configuração de persistência"
@@ -615,10 +615,10 @@ echo -e "\n[184] Verifica permissoes e proprietario de binarios como auditctl au
 ( for b in auditctl aureport ausearch autrace auditd augenrules; do p="$(command -v "$b")" || exit 1; stat -Lc "%U %G" "$p" | awk '{if($1!="root" || $2!="root") exit 1}' || exit 1; done ) && echo "PASS" || echo "FAIL"
 
 echo -e "\n[185] Verificar permissões de /etc/passwd"
-( [ -f /etc/passwd ] && stat -Lc "%a %u %g" /etc/passwd | grep -Eq '^64[0-9] 0 0$' ) && echo "PASS" || echo "FAIL"
+( [ -f /etc/passwd ] && stat -Lc '%a %u %g' /etc/passwd | awk '{m=$1+0; exit !($2==0 && $3==0 && m<=644 && int(m/10)%10<5 && m%10<5)}' ) && echo "PASS" || echo "FAIL"
 
 echo -e "\n[186] Verificar permissões de /etc/passwd-"
-( [ -f /etc/passwd- ] && stat -Lc "%a %u %g" /etc/passwd- | grep -Eq '^64[0-9] 0 0$' ) && echo "PASS" || echo "FAIL"
+( [ -f /etc/passwd- ] && stat -Lc '%a %u %g' /etc/passwd- | awk '{m=$1+0; exit !($2==0 && $3==0 && m<=644 && int(m/10)%10<5 && m%10<5)}' ) && echo "PASS" || echo "FAIL"
 
 echo -e "\n[187] Verificar permissões de /etc/shadow"
 ( [ -f /etc/shadow ] && stat -Lc "%a %u %g" /etc/shadow | grep -Eq '^0+ 0 0$' ) && echo "PASS" || echo "FAIL"
@@ -633,10 +633,10 @@ echo -e "\n[190] Verificar permissões de /etc/gshadow"
 ( [ -f /etc/gshadow ] && stat -Lc "%a %u %g" /etc/gshadow | grep -Eq '^(600|60[0-9]|[0-5][0-9]{2}) 0 0$' ) && echo "PASS" || echo "FAIL"
 
 echo -e "\n[191] Verificar permissões de /etc/group"
-( [ -f /etc/group ] && stat -Lc "%a %u %g" /etc/group | grep -Eq '^64[0-9] 0 0$' ) && echo "PASS" || echo "FAIL"
+( [ -f /etc/group ] && stat -Lc '%a %u %g' /etc/group | awk '{m=$1+0; exit !($2==0 && $3==0 && m<=644 && int(m/10)%10<5 && m%10<5)}' ) && echo "PASS" || echo "FAIL"
 
 echo -e "\n[192] Verificar permissões de /etc/group-"
-( [ -f /etc/group- ] && stat -Lc "%a %u %g" /etc/group- | grep -Eq '^64[0-9] 0 0$' ) && echo "PASS" || echo "FAIL"
+( [ -f /etc/group- ] && stat -Lc '%a %u %g' /etc/group- | awk '{m=$1+0; exit !($2==0 && $3==0 && m<=644 && int(m/10)%10<5 && m%10<5)}' ) && echo "PASS" || echo "FAIL"
 
 echo -e "\n[193] Verifica se nologin aparece listado em etc shells"
 grep -qE '^(\/usr)?\/sbin\/nologin$' /etc/shells && echo "PASS" || echo "FAIL"
@@ -645,13 +645,13 @@ echo -e "\n[194] Verificar permissões de opasswd"
 ( [ -f /etc/security/opasswd ] && stat -Lc "%a %u %g" /etc/security/opasswd | grep -Eq '^600 0 0$' ) && echo "PASS" || echo "FAIL"
 
 echo -e "\n[195] Identificar arquivos sem owner válido"
-( find / -xdev \( -nouser -o -nogroup \) 2>/dev/null | grep -q . ) && echo "FAIL" || echo "PASS"
+( find / -xdev -nouser 2>/dev/null | grep -q . ) && echo "FAIL" || echo "PASS"
 
 echo -e "\n[196] Verificar sticky bit em diretórios world writable"
 (find / -xdev -type d -perm -0002 ! -perm -1000 2>/dev/null | grep . && echo "FAIL" || echo "PASS")
 
-echo -e "\n[197] Identificar arquivos sem owner ou grupo"
-( find / -xdev \( -nouser -o -nogroup \) 2>/dev/null | grep -q . ) && echo "FAIL" || echo "PASS"
+echo -e "\n[197] Identificar arquivos sem grupo válido"
+( find / -xdev -nogroup 2>/dev/null | grep -q . ) && echo "FAIL" || echo "PASS"
 
 echo -e "\n[198] Lista arquivos com bits SUID ou SGID definidos"
 ( find / -xdev \( -perm -4000 -o -perm -2000 \) 2>/dev/null | grep -Ev '^(/usr/bin/sudo|/usr/bin/su|/bin/su|/usr/bin/passwd|/usr/bin/chage|/usr/bin/chsh|/usr/bin/chfn|/usr/bin/newgrp|/usr/bin/gpasswd|/usr/sbin/unix_chkpwd|/usr/sbin/pam_timestamp_check|/usr/bin/mount|/usr/bin/umount|/usr/bin/fusermount|/usr/bin/pkexec|/usr/bin/crontab|/usr/bin/ssh-agent|/usr/bin/ksu|/usr/libexec/openssh/ssh-keysign|/usr/bin/ping|/usr/bin/ping6|/usr/bin/traceroute|/usr/bin/traceroute6)$' | grep -q . ) && echo "FAIL" || echo "PASS"
