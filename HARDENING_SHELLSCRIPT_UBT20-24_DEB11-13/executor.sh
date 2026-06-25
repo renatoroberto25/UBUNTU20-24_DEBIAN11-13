@@ -432,11 +432,25 @@ run_remed() {
     echo "Antes FAIL: $pre_fail | Depois FAIL: $post_fail | Corrigidos: $fixed_count"
 }
 
+run_with_stamp() {
+    local action="$1"
+    shift
+    local rc
+
+    hitss_stamp "$action" "START"
+    set +e
+    "$@"
+    rc=$?
+    set -e
+    hitss_stamp "$action" "END rc=$rc"
+    return "$rc"
+}
+
 case "${1:-menu}" in
-    audit)   run_audit ;;
-    remed)   run_remed ;;
-    report)  report_unfixed ;;
-    rollback) run_rollback "${2:-}" ;;
+    audit)   run_with_stamp "EXECUTOR_AUDIT" run_audit ;;
+    remed)   run_with_stamp "EXECUTOR_REMED" run_remed ;;
+    report)  run_with_stamp "EXECUTOR_REPORT" report_unfixed ;;
+    rollback) run_with_stamp "EXECUTOR_ROLLBACK" run_rollback "${2:-}" ;;
     menu)
         echo "1) Audit"
         echo "2) Remed"
@@ -444,10 +458,10 @@ case "${1:-menu}" in
         echo "4) Rollback"
         read -rp "Escolha: " opt
         case "$opt" in
-            1) run_audit ;;
-            2) run_remed ;;
-            3) report_unfixed ;;
-            4) run_rollback ;;
+            1) run_with_stamp "EXECUTOR_AUDIT" run_audit ;;
+            2) run_with_stamp "EXECUTOR_REMED" run_remed ;;
+            3) run_with_stamp "EXECUTOR_REPORT" report_unfixed ;;
+            4) run_with_stamp "EXECUTOR_ROLLBACK" run_rollback ;;
             *) exit 1 ;;
         esac
         ;;
