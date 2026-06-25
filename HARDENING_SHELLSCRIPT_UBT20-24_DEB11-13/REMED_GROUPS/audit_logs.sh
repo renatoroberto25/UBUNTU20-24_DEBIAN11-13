@@ -8,12 +8,26 @@ write_audit_rule() {
     local id="$1"
     local content="$2"
     local path="/etc/audit/rules.d/99-hitss-$id.rules"
+    local key
 
     require_root "$id" || return 1
+    if ! command -v augenrules >/dev/null 2>&1 || ! command -v auditctl >/dev/null 2>&1; then
+        sem_auto "$id" "auditd/augenrules ausente; regra nao pode ser ativada automaticamente"
+        return 0
+    fi
     mkdir -p /etc/audit/rules.d
     write_file_mode_item "$id" "$path" 640 "$content" || return 1
-    command -v augenrules >/dev/null 2>&1 && augenrules --load >/dev/null 2>&1 || true
-    emit "$id" "OK" "regra de auditoria aplicada em $path"
+    if ! augenrules --load >/dev/null 2>&1; then
+        emit "$id" "FAIL" "regra escrita, mas nao foi possivel carregar via augenrules"
+        return 1
+    fi
+    key="$(printf '%s\n' "$content" | sed -n -E 's/.*-k[[:space:]]+([^[:space:]]+).*/\1/p' | head -n 1)"
+    if [ -n "$key" ] && auditctl -l 2>/dev/null | grep -Eq "(-k[[:space:]]+$key|key=$key)"; then
+        emit "$id" "OK" "regra de auditoria ativa em auditctl"
+        return 0
+    fi
+    emit "$id" "FAIL" "regra escrita, mas nao aparece ativa em auditctl"
+    return 1
 }
 
 set_auditd_option() {

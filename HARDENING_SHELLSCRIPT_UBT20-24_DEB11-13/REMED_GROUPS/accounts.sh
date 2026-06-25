@@ -53,14 +53,13 @@ run_id() {
     local id="$1"
 
     case "$id" in
-        130|131|132|133|134)
+        130|131|132|133|134|139)
             sem_auto "$id" "alteracao de stack PAM deve seguir padrao aprovado do cliente"
             ;;
         135) set_pwquality_multi "$id" "minlen 14" ;;
         136) set_pwquality_multi "$id" "minclass 4" ;;
         137) set_pwquality_multi "$id" "maxrepeat 3" "maxsequence 3" ;;
         138) set_pwquality_multi "$id" "dictcheck 1" ;;
-        139) set_login_defs_option "$id" "ENCRYPT_METHOD" "yescrypt" ;;
         140) sem_auto "$id" "historico de senhas depende da stack PAM/pwhistory aprovada" ;;
         141) set_faillock_option "$id" "deny" "5" ;;
         142) set_faillock_option "$id" "unlock_time" "900" ;;
@@ -82,7 +81,7 @@ export TMOUT" "timeout de shell configurado" ;;
 }
 
 if (( $# == 0 )); then
-    set -- 135 136 137 138 139 141 142 143 144 145 151 153 154
+    set -- 135 136 137 138 141 142 143 144 145 151 153 154
 fi
 
 for id in "$@"; do
