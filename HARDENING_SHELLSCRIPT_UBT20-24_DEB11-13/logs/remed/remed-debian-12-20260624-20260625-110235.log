@@ -1,0 +1,70 @@
+>> kernel.sh 008 011
+[008] SEM_AUTO | overlayfs depende de requisito de uso, containers e arquitetura
+[011] SEM_AUTO | SCTP depende de requisito de rede/aplicacao
+>> filesystem.sh 025 027 028 029 030 031 032 033 034 035 036 037 038 039 040 041 042 043
+[025] SEM_AUTO | particionamento e ponto de montagem dependem da arquitetura do cliente
+[027] SEM_AUTO | particionamento e ponto de montagem dependem da arquitetura do cliente
+[028] SEM_AUTO | particionamento e ponto de montagem dependem da arquitetura do cliente
+[029] SEM_AUTO | particionamento e ponto de montagem dependem da arquitetura do cliente
+[030] SEM_AUTO | particionamento e ponto de montagem dependem da arquitetura do cliente
+[031] SEM_AUTO | particionamento e ponto de montagem dependem da arquitetura do cliente
+[032] SEM_AUTO | particionamento e ponto de montagem dependem da arquitetura do cliente
+[033] SEM_AUTO | particionamento e ponto de montagem dependem da arquitetura do cliente
+[034] SEM_AUTO | particionamento e ponto de montagem dependem da arquitetura do cliente
+[035] SEM_AUTO | opcoes de montagem em fstab/mount dependem de janela e desenho operacional
+[036] SEM_AUTO | opcoes de montagem em fstab/mount dependem de janela e desenho operacional
+[037] SEM_AUTO | opcoes de montagem em fstab/mount dependem de janela e desenho operacional
+[038] SEM_AUTO | opcoes de montagem em fstab/mount dependem de janela e desenho operacional
+[039] SEM_AUTO | opcoes de montagem em fstab/mount dependem de janela e desenho operacional
+[040] SEM_AUTO | opcoes de montagem em fstab/mount dependem de janela e desenho operacional
+[041] SEM_AUTO | opcoes de montagem em fstab/mount dependem de janela e desenho operacional
+[042] SEM_AUTO | opcoes de montagem em fstab/mount dependem de janela e desenho operacional
+[043] SEM_AUTO | opcoes de montagem em fstab/mount dependem de janela e desenho operacional
+>> boot.sh 049
+[049] SEM_AUTO | senha de bootloader exige definicao/fornecimento de segredo pelo cliente
+>> system.sh 058 082 089
+[058] SEM_AUTO | ativar time sync exige escolha do mecanismo aprovado
+[082] SEM_AUTO | remocao de cliente/pacote depende de uso aprovado pelo cliente
+[089] SEM_AUTO | time sync unico exige escolha do mecanismo a manter
+>> tls.sh 108
+[108] SEM_AUTO | TLS minimo 1.2 depende dos servicos, bibliotecas e compatibilidade do cliente
+>> ssh.sh 110
+[110] SEM_AUTO | Allow/DenyUsers ou Allow/DenyGroups dependem da politica de acesso do cliente
+>> accounts.sh 130 131 132 134 139 140 146
+[130] SEM_AUTO | alteracao de stack PAM deve seguir padrao aprovado do cliente
+[131] SEM_AUTO | alteracao de stack PAM deve seguir padrao aprovado do cliente
+[132] SEM_AUTO | alteracao de stack PAM deve seguir padrao aprovado do cliente
+[134] SEM_AUTO | alteracao de stack PAM deve seguir padrao aprovado do cliente
+[139] OK | ENCRYPT_METHOD yescrypt
+[140] SEM_AUTO | historico de senhas depende da stack PAM/pwhistory aprovada
+[146] SEM_AUTO | INACTIVE em contas existentes altera ciclo de vida de usuarios
+>> audit_logs.sh 162 163 164 165 166 167 168 169 170 171 173 174 175 176 177 178 179 180 181
+[162] OK | journald persistente configurado
+[163] SEM_AUTO | rsyslog envolve pacote/servico requerido pelo cliente
+[164] SEM_AUTO | rotacao de logs exige politica de retencao do cliente
+[165] SEM_AUTO | instalar auditd e habilitar servico depende de pacote/janela
+[166] SEM_AUTO | auditd no boot envolve parametro de boot e janela de mudanca
+[167] SEM_AUTO | /etc/audit/auditd.conf ausente; auditd nao parece instalado
+[168] SEM_AUTO | /etc/audit/auditd.conf ausente; auditd nao parece instalado
+[169] OK | regra de auditoria aplicada em /etc/audit/rules.d/99-hitss-169.rules
+[170] OK | regra de auditoria aplicada em /etc/audit/rules.d/99-hitss-170.rules
+[171] OK | regra de auditoria aplicada em /etc/audit/rules.d/99-hitss-171.rules
+[173] OK | regra de auditoria aplicada em /etc/audit/rules.d/99-hitss-173.rules
+[174] OK | regra de auditoria aplicada em /etc/audit/rules.d/99-hitss-174.rules
+[175] OK | regra de auditoria aplicada em /etc/audit/rules.d/99-hitss-175.rules
+[176] SEM_AUTO | execucoes privilegiadas exigem descoberta de binarios SUID/SGID no host
+[177] OK | regra de auditoria aplicada em /etc/audit/rules.d/99-hitss-177.rules
+[178] OK | regra de auditoria aplicada em /etc/audit/rules.d/99-hitss-178.rules
+[179] OK | regra de auditoria aplicada em /etc/audit/rules.d/99-hitss-179.rules
+[180] OK | regra de auditoria aplicada em /etc/audit/rules.d/99-hitss-180.rules
+[181] SEM_AUTO | audit immutable so deve ser aplicado em producao apos aprovar/revisar regras
+>> integrity.sh 182 184
+[182] SEM_AUTO | instalar/inicializar AIDE envolve pacote e baseline inicial
+[184] SEM_AUTO | binarios de auditoria nao encontrados
+>> permissions.sh 189 190 195 197 198
+[189] OK | chown root:root chmod 000 /etc/gshadow-
+[190] OK | chown root:root chmod 000 /etc/gshadow
+[195] SEM_AUTO | arquivos orfaos exigem decisao sobre owner correto
+[197] SEM_AUTO | arquivos sem grupo exigem decisao sobre grupo correto
+[198] SEM_AUTO | SUID/SGID exige revisao e aprovacao por binario
+Rollback manifest: /home/vagrant/UBUNTU20-24_DEBIAN11-13/HARDENING_SHELLSCRIPT_UBT20-24_DEB11-13/logs/remed/rollback/rollback-20260625-110235-debian-12-20260624.manifest
