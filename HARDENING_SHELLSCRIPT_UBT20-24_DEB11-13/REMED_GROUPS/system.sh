@@ -24,9 +24,24 @@ enforce_apt_signature_checks() {
     local content
 
     content='Acquire::AllowInsecureRepositories "false";
+Acquire::AllowDowngradeToInsecureRepositories "false";
 APT::Get::AllowUnauthenticated "false";'
     write_file_item "$id" "$file" "$content" || return 1
+    sanitize_apt_trusted_sources "$id" || return 1
     emit "$id" "OK" "APT configurado para rejeitar repositorios inseguros"
+}
+
+sanitize_apt_trusted_sources() {
+    local id="$1"
+    local src
+
+    require_root "$id" || return 1
+    while IFS= read -r -d '' src; do
+        if grep -Eiq '(^|[[:space:]\[])trusted[[:space:]]*=[[:space:]]*yes|^[[:space:]]*Trusted:[[:space:]]*yes' "$src"; then
+            backup_file "$id" "$src"
+            sed -i -E 's/([[:space:]\[]trusted[[:space:]]*=[[:space:]]*)yes/\1no/Ig; s/^([[:space:]]*Trusted:[[:space:]]*)yes[[:space:]]*$/\1no/I' "$src"
+        fi
+    done < <(find /etc/apt/sources.list /etc/apt/sources.list.d -type f -print0 2>/dev/null)
 }
 
 restrict_cron_at() {
