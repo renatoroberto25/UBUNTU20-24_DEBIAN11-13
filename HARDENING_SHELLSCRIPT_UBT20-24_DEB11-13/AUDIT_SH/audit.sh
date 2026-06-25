@@ -627,10 +627,10 @@ echo -e "\n[188] Verificar permissões de /etc/shadow-"
 ( [ -f /etc/shadow- ] && stat -Lc "%a %u %g" /etc/shadow- | grep -Eq '^0+ 0 0$' ) && echo "PASS" || echo "FAIL"
 
 echo -e "\n[189] Verificar permissões de /etc/gshadow-"
-( [ -f /etc/gshadow- ] && stat -Lc "%a %u %g" /etc/gshadow- | grep -Eq '^(600|60[0-9]|[0-5][0-9]{2}) 0 0$' ) && echo "PASS" || echo "FAIL"
+( [ -f /etc/gshadow- ] && stat -Lc "%a %u %g" /etc/gshadow- | grep -Eq '^(0+|600|60[0-9]|[0-5][0-9]{2}) 0 0$' ) && echo "PASS" || echo "FAIL"
 
 echo -e "\n[190] Verificar permissões de /etc/gshadow"
-( [ -f /etc/gshadow ] && stat -Lc "%a %u %g" /etc/gshadow | grep -Eq '^(600|60[0-9]|[0-5][0-9]{2}) 0 0$' ) && echo "PASS" || echo "FAIL"
+( [ -f /etc/gshadow ] && stat -Lc "%a %u %g" /etc/gshadow | grep -Eq '^(0+|600|60[0-9]|[0-5][0-9]{2}) 0 0$' ) && echo "PASS" || echo "FAIL"
 
 echo -e "\n[191] Verificar permissões de /etc/group"
 ( [ -f /etc/group ] && stat -Lc '%a %u %g' /etc/group | awk '{m=$1+0; exit !($2==0 && $3==0 && m<=644 && int(m/10)%10<5 && m%10<5)}' ) && echo "PASS" || echo "FAIL"
