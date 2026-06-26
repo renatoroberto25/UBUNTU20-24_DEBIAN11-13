@@ -1,0 +1,193 @@
+Contexto:
+Projeto Debian 11+ / Ubuntu 16+.
+O baseline exige auditd e política PAM. Não tratar ausência de auditd/libpam como "sem_auto".
+Esses componentes devem ser instalados e habilitados pela remediação.
+
+Objetivo:
+Alterar os módulos accounts.sh e audit_logs.sh para remediar automaticamente os IDs abaixo:
+
+PAM:
+130 - instalar libpam-pwquality e garantir pam_pwquality
+131 - configurar /etc/security/pwquality.conf
+134 - garantir pam_pwhistory
+140 - configurar remember >= 5
+
+AUDITD:
+165 - instalar e habilitar auditd
+167 - configurar max_log_file
+168 - configurar max_log_file_action
+169 - regra audit time-change
+170 - regra audit contas/grupos
+171 - regra audit rede/hostname
+173 - regra audit login/logout
+174 - regra audit DAC
+175 - regra audit acesso negado
+177 - regra audit mount
+178 - regra audit deleção
+179 - regra audit kernel modules
+180 - regra audit sudoers
+
+Critério:
+- Não usar sem_auto nesses IDs.
+- Se pacote ausente, instalar.
+- Se serviço ausente/parado, habilitar e iniciar.
+- Escrever arquivos idempotentes em /etc/audit/rules.d/99-hitss-<id>.rules.
+- Carregar regras com augenrules --load.
+- Validar com auditctl -l.
+- Manter estilo atual do projeto: set -u, lib.sh, run_id, emit, require_root, write_file_mode_item, set_kv_item.
+Ajustes esperados em accounts.sh
+1. IDs 130, 131, 134 e 140 não podem cair em sem_auto.
+
+2. Criar função install_pam_quality_stack:
+   - apt-get update
+   - apt-get install -y libpam-pwquality libpam-pwquality-common, se existir
+   - garantir pam_pwquality.so em /etc/pam.d/common-password
+   - preferir pam-auth-update se disponível
+   - fallback seguro: inserir linha antes de pam_unix.so
+
+3. Criar função ensure_pwhistory:
+   - instalar pacote necessário se aplicável
+   - garantir pam_pwhistory.so em /etc/pam.d/common-password
+   - configurar remember=5
+   - manter use_authtok
+
+4. ID 131 deve configurar:
+   /etc/security/pwquality.conf:
+   minlen = 14
+   minclass = 4
+   maxrepeat = 3
+   maxsequence = 3
+   dictcheck = 1
+
+5. ID 140 deve garantir:
+   pam_pwhistory.so remember=5
+
+Prompt curto pro Codex:
+
+No accounts.sh, substitua sem_auto dos IDs 130, 131, 134 e 140 por remediação real.
+
+Requisitos:
+- 130 instala libpam-pwquality e garante pam_pwquality.so em /etc/pam.d/common-password.
+- 131 configura /etc/security/pwquality.conf com minlen=14, minclass=4, maxrepeat=3, maxsequence=3, dictcheck=1.
+- 134 garante pam_pwhistory.so em /etc/pam.d/common-password.
+- 140 garante pam_pwhistory.so com remember=5 e use_authtok.
+- Usar funções do lib.sh quando existirem: require_root, set_kv_item, emit, backup_file.
+- Manter idempotência.
+- Não duplicar linhas PAM.
+- Validar sintaxe bash.
+Ajustes esperados em audit_logs.sh
+1. ID 165 deve instalar e habilitar auditd:
+   apt-get update
+   apt-get install -y auditd audispd-plugins
+   systemctl enable --now auditd
+
+2. ID 167:
+   /etc/audit/auditd.conf
+   max_log_file = 64
+
+3. ID 168:
+   /etc/audit/auditd.conf
+   max_log_file_action = keep_logs
+
+4. IDs 169-180:
+   escrever rules em /etc/audit/rules.d/99-hitss-<id>.rules
+   chmod 0640
+   chown root:root
+   augenrules --load
+   auditctl -l para validar
+
+5. Não depender de auditd previamente instalado.
+   A própria função write_audit_rule deve chamar ensure_auditd_stack antes.
+
+6. Não ativar immutable ainda se não pedido.
+   ID 181 pode continuar separado para rodar por último.
+
+Prompt curto pro Codex:
+
+No audit_logs.sh, transforme os IDs 165, 167, 168, 169, 170, 171, 173, 174, 175, 177, 178, 179 e 180 em remediação automática real.
+
+Requisitos:
+- Criar ensure_auditd_stack(id):
+  apt-get update, apt-get install -y auditd audispd-plugins, systemctl enable --now auditd.
+- set_auditd_option deve chamar ensure_auditd_stack antes de editar /etc/audit/auditd.conf.
+- write_audit_rule deve chamar ensure_auditd_stack antes de verificar augenrules/auditctl.
+- Escrever regras em /etc/audit/rules.d/99-hitss-<id>.rules.
+- chmod 0640 e root:root.
+- Rodar augenrules --load.
+- Validar presença da key com auditctl -l.
+- Não usar sem_auto nesses IDs.
+- Manter estilo atual: set -u, lib.sh, run_id, emit, require_root, write_file_mode_item, set_kv_item.
+- Atualizar default para incluir 165 antes dos demais.
+Regras audit sugeridas
+169 - time-change:
+-a always,exit -F arch=b64 -S adjtimex,settimeofday,clock_settime -k time-change
+-a always,exit -F arch=b32 -S adjtimex,settimeofday,clock_settime -k time-change
+-w /etc/localtime -p wa -k time-change
+
+170 - identity:
+-w /etc/group -p wa -k identity
+-w /etc/passwd -p wa -k identity
+-w /etc/gshadow -p wa -k identity
+-w /etc/shadow -p wa -k identity
+-w /etc/security/opasswd -p wa -k identity
+
+171 - system-locale/network:
+-a always,exit -F arch=b64 -S sethostname,setdomainname -k system-locale
+-a always,exit -F arch=b32 -S sethostname,setdomainname -k system-locale
+-w /etc/issue -p wa -k system-locale
+-w /etc/issue.net -p wa -k system-locale
+-w /etc/hosts -p wa -k system-locale
+-w /etc/hostname -p wa -k system-locale
+-w /etc/networks -p wa -k system-locale
+
+173 - logins/session:
+-w /var/log/faillog -p wa -k logins
+-w /var/log/lastlog -p wa -k logins
+-w /var/log/tallylog -p wa -k logins
+-w /var/run/utmp -p wa -k session
+-w /var/log/wtmp -p wa -k session
+-w /var/log/btmp -p wa -k session
+
+174 - perm_mod:
+-a always,exit -F arch=b64 -S chmod,fchmod,fchmodat,chown,fchown,fchownat,lchown,setxattr,lsetxattr,fsetxattr,removexattr,lremovexattr,fremovexattr -k perm_mod
+-a always,exit -F arch=b32 -S chmod,fchmod,fchmodat,chown,fchown,fchownat,lchown,setxattr,lsetxattr,fsetxattr,removexattr,lremovexattr,fremovexattr -k perm_mod
+
+175 - access:
+-a always,exit -F arch=b64 -S creat,open,openat,open_by_handle_at,truncate,ftruncate -F exit=-EACCES -k access
+-a always,exit -F arch=b64 -S creat,open,openat,open_by_handle_at,truncate,ftruncate -F exit=-EPERM -k access
+-a always,exit -F arch=b32 -S creat,open,openat,open_by_handle_at,truncate,ftruncate -F exit=-EACCES -k access
+-a always,exit -F arch=b32 -S creat,open,openat,open_by_handle_at,truncate,ftruncate -F exit=-EPERM -k access
+
+177 - mounts:
+-a always,exit -F arch=b64 -S mount,umount2 -k mounts
+-a always,exit -F arch=b32 -S mount,umount2 -k mounts
+
+178 - delete:
+-a always,exit -F arch=b64 -S unlink,unlinkat,rename,renameat,rmdir -k delete
+-a always,exit -F arch=b32 -S unlink,unlinkat,rename,renameat,rmdir -k delete
+
+179 - modules:
+-w /sbin/insmod -p x -k modules
+-w /sbin/rmmod -p x -k modules
+-w /sbin/modprobe -p x -k modules
+-a always,exit -F arch=b64 -S init_module,finit_module,delete_module -k modules
+-a always,exit -F arch=b32 -S init_module,finit_module,delete_module -k modules
+
+180 - scope/sudoers:
+-w /etc/sudoers -p wa -k scope
+-w /etc/sudoers.d -p wa -k scope
+Observação para deixar explícita no Codex
+Não quero discutir se auditd existe ou não.
+O baseline exige auditd.
+Se não existir, a remediação instala.
+Se não estiver ativo, habilita.
+Se regras não existirem, cria.
+Se auditctl/augenrules não existirem, isso é falha de remediação, não sem_auto.
+Ordem correta do default
+165 167 168 169 170 171 173 174 175 177 178 179 180
+
+O 181 eu deixaria fora do default normal e criaria modo separado:
+
+./audit_logs.sh 181
+
+Porque -e 2 trava alteração de regras até reboot. Ele é core, mas deve ser último passo.

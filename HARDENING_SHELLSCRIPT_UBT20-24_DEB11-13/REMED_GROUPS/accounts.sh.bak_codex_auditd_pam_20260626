@@ -7,83 +7,6 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PWQUALITY="/etc/security/pwquality.conf"
 FAILLOCK="/etc/security/faillock.conf"
 LOGIN_DEFS="/etc/login.defs"
-COMMON_PASSWORD="/etc/pam.d/common-password"
-
-ensure_pam_line() {
-    local id="$1"
-    local module="$2"
-    local control="$3"
-    local opts="$4"
-    local tmp
-
-    require_root "$id" || return 1
-    if [ ! -f "$COMMON_PASSWORD" ]; then
-        emit "$id" "FAIL" "$COMMON_PASSWORD ausente"
-        return 1
-    fi
-    backup_file "$id" "$COMMON_PASSWORD"
-    tmp="$(mktemp)"
-    awk -v module="$module" -v control="$control" -v opts="$opts" '
-        BEGIN { done = 0; line = "password " control " " module " " opts }
-        $0 ~ "^[[:space:]]*password[[:space:]].*" module {
-            if (!done) { print line; done = 1 }
-            next
-        }
-        !done && $0 ~ "^[[:space:]]*password[[:space:]].*pam_unix\\.so" {
-            print line; done = 1
-        }
-        { print }
-        END { if (!done) print line }
-    ' "$COMMON_PASSWORD" > "$tmp" || {
-        rm -f "$tmp"
-        emit "$id" "FAIL" "falha ao preparar PAM"
-        return 1
-    }
-    cat "$tmp" > "$COMMON_PASSWORD"
-    rm -f "$tmp"
-}
-
-apt_install() {
-    local id="$1"
-    shift
-
-    require_root "$id" || return 1
-    if ! command -v apt-get >/dev/null 2>&1; then
-        emit "$id" "FAIL" "apt-get ausente"
-        return 1
-    fi
-    apt-get update >/dev/null 2>&1 || {
-        emit "$id" "FAIL" "apt-get update falhou"
-        return 1
-    }
-    apt-get install -y "$@" >/dev/null 2>&1 || {
-        emit "$id" "FAIL" "apt-get install falhou"
-        return 1
-    }
-}
-
-install_pam_quality_stack() {
-    local id="$1"
-    local packages="libpam-pwquality"
-
-    if apt-cache show libpam-pwquality-common >/dev/null 2>&1; then
-        packages="$packages libpam-pwquality-common"
-    fi
-    apt_install "$id" $packages || return 1
-    if command -v pam-auth-update >/dev/null 2>&1; then
-        pam-auth-update --package --enable pwquality >/dev/null 2>&1 || true
-    fi
-    ensure_pam_line "$id" "pam_pwquality.so" "requisite" "retry=3" || return 1
-    emit "$id" "OK" "pam_pwquality habilitado"
-}
-
-ensure_pwhistory() {
-    local id="$1"
-
-    apt_install "$id" "libpam-modules" || return 1
-    ensure_pam_line "$id" "pam_pwhistory.so" "required" "remember=5 use_authtok" || return 1
-    emit "$id" "OK" "pam_pwhistory remember=5 habilitado"
-}
 
 set_pwquality_multi() {
     local id="$1"
@@ -130,17 +53,14 @@ run_id() {
     local id="$1"
 
     case "$id" in
-        130) install_pam_quality_stack "$id" ;;
-        131) set_pwquality_multi "$id" "minlen 14" "minclass 4" "maxrepeat 3" "maxsequence 3" "dictcheck 1" ;;
-        132|133|139)
+        130|131|132|133|134|139)
             sem_auto "$id" "alteracao de stack PAM deve seguir padrao aprovado do cliente"
             ;;
-        134) ensure_pwhistory "$id" ;;
         135) set_pwquality_multi "$id" "minlen 14" ;;
         136) set_pwquality_multi "$id" "minclass 4" ;;
         137) set_pwquality_multi "$id" "maxrepeat 3" "maxsequence 3" ;;
         138) set_pwquality_multi "$id" "dictcheck 1" ;;
-        140) ensure_pwhistory "$id" ;;
+        140) sem_auto "$id" "historico de senhas depende da stack PAM/pwhistory aprovada" ;;
         141) set_faillock_option "$id" "deny" "5" ;;
         142) set_faillock_option "$id" "unlock_time" "900" ;;
         143) set_login_defs_option "$id" "PASS_MAX_DAYS" "365" ;;
