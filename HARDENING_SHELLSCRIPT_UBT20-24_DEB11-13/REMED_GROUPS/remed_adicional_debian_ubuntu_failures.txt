@@ -1,0 +1,337 @@
+#!/usr/bin/env bash
+#TESTE PARA VMS APENAS
+set -u
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+if [ -f "$SCRIPT_DIR/lib.sh" ]; then
+    # shellcheck source=/dev/null
+    . "$SCRIPT_DIR/lib.sh"
+fi
+
+if ! declare -F emit >/dev/null 2>&1; then
+    emit() {
+        local id="$1"
+        local status="$2"
+        local msg="$3"
+        printf '[%s] %s - %s\n' "$id" "$status" "$msg"
+    }
+fi
+
+if ! declare -F sem_auto >/dev/null 2>&1; then
+    sem_auto() {
+        local id="$1"
+        local msg="$2"
+        emit "$id" "MANUAL" "$msg"
+    }
+fi
+
+if ! declare -F require_root >/dev/null 2>&1; then
+    require_root() {
+        local id="$1"
+        if [ "$(id -u)" -ne 0 ]; then
+            emit "$id" "FAIL" "executar como root"
+            return 1
+        fi
+        return 0
+    }
+fi
+
+if ! declare -F backup_file >/dev/null 2>&1; then
+    backup_file() {
+        local id="$1"
+        local file="$2"
+        local backup_dir="/var/backups/hitss-hardening"
+        local stamp
+
+        [ -e "$file" ] || return 0
+        stamp="$(date +%Y%m%d%H%M%S)"
+        mkdir -p "$backup_dir"
+        cp -a "$file" "$backup_dir/${id}_$(basename "$file").$stamp.bak"
+    }
+fi
+
+write_file_mode_local() {
+    local id="$1"
+    local path="$2"
+    local mode="$3"
+    local content="$4"
+
+    require_root "$id" || return 1
+    mkdir -p "$(dirname "$path")"
+    [ -e "$path" ] && backup_file "$id" "$path"
+    printf '%s\n' "$content" > "$path"
+    chown root:root "$path"
+    chmod "$mode" "$path"
+}
+
+package_installed() {
+    dpkg-query -W -f='${Status}' "$1" 2>/dev/null | grep -q 'install ok installed'
+}
+
+apt_install_pkg() {
+    local id="$1"
+    local pkg="$2"
+
+    require_root "$id" || return 1
+    if package_installed "$pkg"; then
+        return 0
+    fi
+    DEBIAN_FRONTEND=noninteractive apt-get update >/dev/null 2>&1 || true
+    if DEBIAN_FRONTEND=noninteractive apt-get install -y "$pkg" >/dev/null 2>&1; then
+        return 0
+    fi
+    emit "$id" "FAIL" "falha ao instalar pacote $pkg"
+    return 1
+}
+
+apt_purge_pkg() {
+    local id="$1"
+    local pkg="$2"
+
+    require_root "$id" || return 1
+    if ! package_installed "$pkg"; then
+        return 0
+    fi
+    if DEBIAN_FRONTEND=noninteractive apt-get purge -y "$pkg" >/dev/null 2>&1; then
+        DEBIAN_FRONTEND=noninteractive apt-get autoremove -y >/dev/null 2>&1 || true
+        return 0
+    fi
+    emit "$id" "FAIL" "falha ao remover pacote $pkg"
+    return 1
+}
+
+unit_exists() {
+    systemctl list-unit-files "$1" >/dev/null 2>&1
+}
+
+disable_unit_now() {
+    local unit="$1"
+
+    if unit_exists "$unit"; then
+        systemctl stop "$unit" >/dev/null 2>&1 || true
+        systemctl disable "$unit" >/dev/null 2>&1 || true
+        systemctl mask "$unit" >/dev/null 2>&1 || true
+    fi
+}
+
+block_loaded_module() {
+    local id="$1"
+    local module="$2"
+    local conf="/etc/modprobe.d/99-hitss-${id}-${module}.conf"
+    local modprobe_name="$module"
+
+    require_root "$id" || return 1
+    write_file_mode_local "$id" "$conf" 644 "install $modprobe_name /bin/false
+blacklist $modprobe_name" || return 1
+    if lsmod | awk '{print $1}' | grep -qx "$module"; then
+        modprobe -r "$module" >/dev/null 2>&1 || rmmod "$module" >/dev/null 2>&1 || true
+    fi
+    if lsmod | awk '{print $1}' | grep -qx "$module"; then
+        emit "$id" "WARN" "$module bloqueado para proximo boot, mas ainda carregado"
+        return 0
+    fi
+    emit "$id" "OK" "$module bloqueado e descarregado quando possivel"
+}
+
+configure_chrony_only() {
+    local id="$1"
+
+    require_root "$id" || return 1
+    apt_install_pkg "$id" "chrony" || return 1
+    systemctl unmask chrony.service >/dev/null 2>&1 || true
+    systemctl enable --now chrony.service >/dev/null 2>&1 || true
+    disable_unit_now ntp.service
+    disable_unit_now ntpd.service
+    disable_unit_now systemd-timesyncd.service
+    if systemctl is-active --quiet chrony.service; then
+        emit "$id" "OK" "chrony instalado e unico servico de tempo habilitado"
+        return 0
+    fi
+    emit "$id" "FAIL" "chrony instalado, mas servico nao ficou ativo"
+    return 1
+}
+
+purge_packages() {
+    local id="$1"
+    shift
+    local pkg
+    local failed=0
+
+    require_root "$id" || return 1
+    for pkg in "$@"; do
+        apt_purge_pkg "$id" "$pkg" || failed=1
+    done
+    if [ "$failed" -eq 0 ]; then
+        emit "$id" "OK" "pacotes removidos: $*"
+        return 0
+    fi
+    emit "$id" "FAIL" "falha parcial ao remover: $*"
+    return 1
+}
+
+disable_unauthorized_services() {
+    local id="$1"
+
+    require_root "$id" || return 1
+    disable_unit_now avahi-daemon.service
+    disable_unit_now avahi-daemon.socket
+    disable_unit_now snmpd.service
+    emit "$id" "OK" "avahi/snmpd desabilitados e mascarados quando presentes"
+}
+
+set_sysctl_persistent() {
+    local id="$1"
+    local key="$2"
+    local value="$3"
+    local file="/etc/sysctl.d/99-hitss-additional.conf"
+
+    require_root "$id" || return 1
+    mkdir -p /etc/sysctl.d
+    [ -e "$file" ] || touch "$file"
+    backup_file "$id" "$file"
+    if grep -Eq "^[[:space:]]*${key//./\.}[[:space:]]*=" "$file"; then
+        sed -i -E "s|^[[:space:]]*${key//./\.}[[:space:]]*=.*|$key = $value|" "$file"
+    else
+        printf '%s = %s\n' "$key" "$value" >> "$file"
+    fi
+    sysctl -w "$key=$value" >/dev/null 2>&1 || true
+}
+
+fix_ip_forwarding() {
+    local id="$1"
+
+    require_root "$id" || return 1
+    set_sysctl_persistent "$id" "net.ipv4.ip_forward" "0" || return 1
+    set_sysctl_persistent "$id" "net.ipv6.conf.all.forwarding" "0" || true
+    set_sysctl_persistent "$id" "net.ipv6.conf.default.forwarding" "0" || true
+    emit "$id" "OK" "ip forwarding desabilitado"
+}
+
+configure_openssl_min_tls() {
+    local id="$1"
+    local file="/etc/ssl/openssl.cnf"
+    local include_dir="/etc/ssl/openssl.cnf.d"
+    local include_file="$include_dir/99-hitss-min-tls.cnf"
+
+    require_root "$id" || return 1
+    if [ ! -f "$file" ]; then
+        sem_auto "$id" "$file ausente"
+        return 0
+    fi
+    mkdir -p "$include_dir"
+    backup_file "$id" "$file"
+    if ! grep -Eq '^[[:space:]]*openssl_conf[[:space:]]*=' "$file"; then
+        printf '\nopenssl_conf = default_conf\n' >> "$file"
+    fi
+    write_file_mode_local "$id" "$include_file" 644 '[default_conf]
+ssl_conf = ssl_sect
+
+[ssl_sect]
+system_default = system_default_sect
+
+[system_default_sect]
+MinProtocol = TLSv1.2
+CipherString = DEFAULT@SECLEVEL=2' || return 1
+    if ! grep -Eq "^[[:space:]]*\.include[[:space:]]+$include_file" "$file"; then
+        printf '\n.include %s\n' "$include_file" >> "$file"
+    fi
+    emit "$id" "OK" "OpenSSL configurado com MinProtocol TLSv1.2"
+}
+
+set_users_inactive_days() {
+    local id="$1"
+    local user changed=0
+
+    require_root "$id" || return 1
+    while IFS=: read -r user _; do
+        chage -I 30 "$user" >/dev/null 2>&1 && changed=1 || true
+    done < <(awk -F: '$2 ~ /^\$/ {print $1 ":" $2}' /etc/shadow)
+    if [ "$changed" -eq 1 ]; then
+        emit "$id" "OK" "INACTIVE=30 aplicado aos usuarios com senha valida"
+        return 0
+    fi
+    sem_auto "$id" "nenhuma conta local com senha valida encontrada"
+}
+
+remove_sudo_no_authenticate() {
+    local id="$1"
+    local file tmp changed=0 invalid=0
+
+    require_root "$id" || return 1
+    for file in /etc/sudoers /etc/sudoers.d/*; do
+        [ -f "$file" ] || continue
+        grep -Eq '![[:space:]]*authenticate|!authenticate' "$file" || continue
+        backup_file "$id" "$file"
+        tmp="$(mktemp)"
+        sed -E '/![[:space:]]*authenticate|!authenticate/s/^/# HITSS_REMOVED_158 /' "$file" > "$tmp"
+        cat "$tmp" > "$file"
+        rm -f "$tmp"
+        changed=1
+    done
+    if command -v visudo >/dev/null 2>&1; then
+        if ! visudo -cf /etc/sudoers >/dev/null 2>&1; then
+            invalid=1
+        fi
+    fi
+    if [ "$invalid" -eq 1 ]; then
+        emit "$id" "FAIL" "sudoers invalido apos remover !authenticate; restaurar backup"
+        return 1
+    fi
+    if [ "$changed" -eq 1 ]; then
+        emit "$id" "OK" "linhas !authenticate comentadas em sudoers/drop-ins"
+    else
+        emit "$id" "OK" "nenhum !authenticate encontrado"
+    fi
+}
+
+remove_extra_suid_sgid_bits() {
+    local id="$1"
+    local path changed=0
+    local allow_re='^(/usr/bin/sudo|/usr/bin/su|/bin/su|/usr/bin/passwd|/usr/bin/chage|/usr/bin/chsh|/usr/bin/chfn|/usr/bin/newgrp|/usr/bin/gpasswd|/usr/sbin/unix_chkpwd|/usr/sbin/pam_timestamp_check|/usr/bin/mount|/usr/bin/umount|/usr/bin/fusermount|/usr/bin/fusermount3|/usr/bin/pkexec|/usr/bin/crontab|/usr/bin/ssh-agent|/usr/bin/ksu|/usr/lib/openssh/ssh-keysign|/usr/libexec/openssh/ssh-keysign|/usr/bin/ping|/bin/ping|/usr/bin/ping6|/bin/ping6|/usr/bin/traceroute|/usr/bin/traceroute6)$'
+
+    require_root "$id" || return 1
+    while IFS= read -r path; do
+        [ -e "$path" ] || continue
+        if printf '%s\n' "$path" | grep -Eq "$allow_re"; then
+            continue
+        fi
+        backup_file "$id" "$path"
+        chmod ug-s "$path" 2>/dev/null || true
+        printf '[%s] REMOVED_SUID_SGID - %s\n' "$id" "$path"
+        changed=1
+    done < <(find / -xdev \( -perm -4000 -o -perm -2000 \) -type f 2>/dev/null)
+    if [ "$changed" -eq 1 ]; then
+        emit "$id" "OK" "bits SUID/SGID removidos de binarios fora da allow-list"
+    else
+        emit "$id" "OK" "nenhum SUID/SGID extra encontrado"
+    fi
+}
+
+run_id() {
+    local id="$1"
+
+    case "$id" in
+        008) block_loaded_module "$id" "overlay" ;;
+        011) block_loaded_module "$id" "sctp" ;;
+        058) configure_chrony_only "$id" ;;
+        062) purge_packages "$id" avahi-daemon ;;
+        072) purge_packages "$id" snmpd ;;
+        082) purge_packages "$id" telnet inetutils-telnet ;;
+        084) disable_unauthorized_services "$id" ;;
+        089) configure_chrony_only "$id" ;;
+        091) fix_ip_forwarding "$id" ;;
+        108) configure_openssl_min_tls "$id" ;;
+        146) set_users_inactive_days "$id" ;;
+        158) remove_sudo_no_authenticate "$id" ;;
+        198) remove_extra_suid_sgid_bits "$id" ;;
+        *) sem_auto "$id" "item fora da remediacao adicional" ;;
+    esac
+}
+
+if (( $# == 0 )); then
+    set -- 008 011 058 062 072 082 084 089 091 108 146 158 198
+fi
+
+for id in "$@"; do
+    run_id "$id"
+done
