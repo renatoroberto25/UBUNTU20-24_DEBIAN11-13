@@ -1,0 +1,1983 @@
+<check_type:"Unix">
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "1, Bloqueio cramfs, Alta"
+  info        : "Reduz superfície de ataque removendo suporte a filesystem legado raramente necessário"
+  solution    : "Bloquear módulo via modprobe.d e remover se carregado"
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  cmd         : "modprobe -n -v cramfs"
+  expect      : "^install[[:space:]]+/bin/(true|false)"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "2, Bloqueio squashfs, Alta"
+  info        : "Reduz superfície de ataque associada a arquivos comprimidos montados indevidamente"
+  solution    : "Bloquear módulo via modprobe.d e remover se carregado"
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  cmd         : "modprobe -n -v squashfs"
+  expect      : "^install[[:space:]]+/bin/(true|false)"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "3, Bloqueio udf"
+  info        : "Evita uso de mídias ópticas como vetor de execução ou exfiltração de dados"
+  solution    : "Bloquear módulo via modprobe.d e remover se carregado"
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  cmd         : "modprobe -n -v udf"
+  expect      : "^install[[:space:]]+/bin/(true|false)"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "4, Bloqueio hfs, Alta"
+  info        : "Remove suporte a filesystem Apple antigo que não é necessário em servidores Linux"
+  solution    : "Bloquear módulo via modprobe.d e remover se carregado"
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  cmd         : "modprobe -n -v hfs"
+  expect      : "FATAL: Module hfs not found|^install[[:space:]]+/bin/(true|false)"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "5, Bloqueio hfsplus, Alta"
+  info        : "Remove suporte a filesystem Apple moderno que não agrega em ambiente de servidor"
+  solution    : "Bloquear módulo via modprobe.d e remover se carregado"
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  cmd         : "modprobe -n -v hfsplus"
+  expect      : "FATAL: Module hfsplus not found|^install[[:space:]]+/bin/(true|false)"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "6, Bloqueio jffs2, Alta"
+  info        : "Elimina suporte a filesystem embarcado pouco usado e potencialmente mal auditado"
+  solution    : "Bloquear módulo via modprobe.d e remover se carregado"
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  cmd         : "modprobe -n -v jffs2"
+  expect      : "FATAL: Module jffs2 not found|^install[[:space:]]+/bin/(true|false)"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "7, Bloqueio freevxfs, Alta"
+  info        : "Remove filesystem obsoleto pouco testado em cenários modernos de produção"
+  solution    : "Bloquear módulo via modprobe.d e remover se carregado"
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  cmd         : "modprobe -n -v freevxfs"
+  expect      : "FATAL: Module freevxfs not found|^install[[:space:]]+/bin/(true|false)"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "8, Desabilitar o modulo overlayfs, Média"
+  info        : "Overlayfs pode ser abusado para esconder camadas de arquivos"
+  solution    : "Aplicar blacklist para overlay em hosts que nao usam containers ou overlays"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  cmd         : "sh -c 'if modinfo overlay >/dev/null 2>&1; then modprobe -n -v overlay | grep -Eq \"install\\s+|blacklist\" && ! lsmod | grep -qw overlay && echo PASS || echo FAIL; else echo PASS; fi'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "9, Bloqueio usb_storage, Alta"
+  info        : "Impede que dispositivos USB sejam usados para copiar ou trazer dados maliciosos"
+  solution    : "Bloquear módulo via modprobe.d e remover se carregado"
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  cmd         : "modprobe -n -v usb_storage"
+  expect      : "^install[[:space:]]+/bin/(true|false)"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "10, Bloqueio DCCP,Alta"
+  info        : "Protocolo pouco usado adiciona codigo de rede desnecessario"
+  solution    : "Adicionar entradas de blacklist e install neutro para dccp"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  cmd         : "sh -c 'if modinfo dccp >/dev/null 2>&1; then modprobe -n -v dccp | grep -Eq \"install\\s+|blacklist\" && ! lsmod | grep -qw dccp && echo PASS || echo FAIL; else echo PASS; fi'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "11, Bloqueio SCTP,Alta"
+  info        : "Protocolo complexo aumenta superficie de ataque em ambientes que nao o usam"
+  solution    : "Configurar blacklist para sctp exceto onde for requisito de aplicacao"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  cmd         : "sh -c 'if modinfo sctp >/dev/null 2>&1; then modprobe -n -v sctp | grep -Eq \"install\\s+|blacklist\" && ! lsmod | grep -qw sctp && echo PASS || echo FAIL; else echo PASS; fi'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "12, Bloqueio RDS,Alta"
+  info        : "Remove suporte a transporte RDS raramente necessario"
+  solution    : "Aplicar blacklist e install neutro para rds"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  cmd         : "sh -c 'if modinfo rds >/dev/null 2>&1; then modprobe -n -v rds | grep -Eq \"install\\s+|blacklist\" && ! lsmod | grep -qw rds && echo PASS || echo FAIL; else echo PASS; fi'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "13, Bloqueio TIPC,Alta"
+  info        : "Evita exposicao de protocolo de cluster pouco utilizado"
+  solution    : "Adicionar entradas de blacklist e install neutro para tipc"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+  cmd         : "sh -c 'if modinfo tipc >/dev/null 2>&1; then modprobe -n -v tipc | grep -Eq \"install\\s+|blacklist\" && ! lsmod | grep -qw tipc && echo PASS || echo FAIL; else echo PASS; fi'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "14, Core dumps restritos,Alta"
+  info        : "Restringe a geração de core dumps para evitar vazamento de informações sensíveis"
+  solution    : "Configurar sysctl para restringir a geração de core dumps"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://www.kernel.org/doc/html/latest/admin-guide/sysctl/fs.html"
+  cmd         : "sh -c 'sysctl -n fs.suid_dumpable 2>/dev/null | grep -qx 0 && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "15, SUID dump off, Alta"
+  info        : "Evita que processos SUID gerem dumps com conteúdo sensível gravado em disco"
+  solution    : "Configurar sysctl persistente"
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://www.kernel.org/doc/html/latest/admin-guide/sysctl/fs.html"
+  cmd         : "sysctl -n fs.suid_dumpable"
+  expect      : "^0$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "16, NX/XD ativo,Alta"
+  info        : "Garante que a execução de código em áreas de memória não é permitida"
+  solution    : "Verificar se o suporte a NX/XD está ativado no kernel"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html"
+  cmd         : "sh -c 'grep -qw nx /proc/cpuinfo && dmesg 2>/dev/null | grep -qi \"nx.*active\" && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "17, ASLR habilitado,Média"
+  info        : "Randomização de espaço de memória dificulta exploits baseados em endereço fixo"
+  solution    : "Configurar sysctl kernel randomize va space igual a dois(habilitar ASLR)"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://www.kernel.org/doc/html/latest/admin-guide/sysctl/kernel.html"
+  cmd         : "sh -c 'sysctl -n kernel.randomize_va_space 2>/dev/null | grep -qx 2 && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "18,	ASLR completo, Média"
+  info        : "Dificulta exploração de vulnerabilidades que dependem de previsibilidade de endereços"
+  solution    : "Configurar sysctl persistente"
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://www.kernel.org/doc/html/latest/admin-guide/sysctl/kernel.html"
+  cmd         : "sysctl -n kernel.randomize_va_space"
+  expect      : "^2$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "19, perf_event restrito,Média"
+  info        : "Perf counters podem ser usados para side channel e coleta de informacao de kernel"
+  solution    : "Ajustar sysctl kernel perf event paranoid para valor dois ou tres"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://www.kernel.org/doc/html/latest/admin-guide/sysctl/kernel.html"
+  cmd         : "sh -c 'sysctl -n kernel.perf_event_paranoid 2>/dev/null | grep -Eq \"^[23]$\" && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "20,	perf_event restrito, Média"
+  info        : "Restringe uso abusivo de contadores de performance para inferir dados sensíveis"
+  solution    : "Configurar sysctl persistente"
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://www.kernel.org/doc/html/latest/admin-guide/sysctl/kernel.html"
+  cmd         : "sysctl -n kernel.perf_event_paranoid"
+  expect      : "^[23]$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "21,	dmesg restrito, Alta"
+  info        : "Impede que usuários não privilegiados acessem informações internas do kernel"
+  solution    : "Configurar sysctl persistente"
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://www.kernel.org/doc/html/latest/admin-guide/sysctl/kernel.html"
+  cmd         : "sysctl -n kernel.dmesg_restrict"
+  expect      : "^1$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "22, Symlinks protegidos,Alta"
+  info        : "Evita a criação de symlinks que possam ser usados para acessar arquivos fora do diretório permitido"
+  solution    : "Configurar sysctl fs.protected_symlinks para valor 1"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://www.kernel.org/doc/html/latest/admin-guide/sysctl/fs.html"
+  cmd         : "sh -c 'sysctl -n fs.protected_symlinks 2>/dev/null | grep -qx 1 && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "23,	Symlinks protegidos, Alta"
+  info        : "Mitiga ataques baseados em symlink em diretórios compartilhados"
+  solution    : "Configurar sysctl persistente"
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://www.kernel.org/doc/html/latest/admin-guide/sysctl/fs.html"
+  cmd         : "sysctl -n fs.protected_symlinks"
+  expect      : "^1$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "24,	Hardlinks protegidos, Alta"
+  info        : "Mitiga abuso de hardlinks para burlar controles de permissões"
+  solution    : "Configurar sysctl persistente"
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://www.kernel.org/doc/html/latest/admin-guide/sysctl/fs.html"
+  cmd         : "sysctl -n fs.protected_hardlinks"
+  expect      : "^1$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "25, Partição dedicada para /tmp,Média"
+  info        : "Garante que o diretório /tmp tenha sua própria partição para evitar uso excessivo de espaço em disco"
+  solution    : "Configurar uma partição dedicada para /tmp"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://access.redhat.com/solutions/223643"
+  cmd         : "sh -c 'findmnt -rn /tmp >/dev/null 2>&1 && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "26, Partição dedicada para 26 /dev/shm,Média"
+  info        : "Garante que o diretório /dev/shm tenha sua própria partição para evitar uso excessivo de espaço em disco"
+  solution    : "Configurar uma partição dedicada para /dev/shm"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://access.redhat.com/solutions/223643"
+  cmd         : "sh -c 'findmnt -rn /dev/shm >/dev/null 2>&1 && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "27, Partição dedicada para /var,Alta"
+  info        : "Garante que o diretório /var tenha sua própria partição para evitar uso excessivo de espaço em disco"
+  solution    : "Configurar uma partição dedicada para /var"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://access.redhat.com/solutions/223643"
+  cmd         : "sh -c 'findmnt -rn /var >/dev/null 2>&1 && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "28, Partição dedicada para /var/tmp,Alta"
+  info        : "Garante que o diretório /var/tmp tenha sua própria partição para evitar uso excessivo de espaço em disco"
+  solution    : "Configurar uma partição dedicada para /var/tmp"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://access.redhat.com/solutions/223643"
+  cmd         : "sh -c 'findmnt -rn /var/tmp >/dev/null 2>&1 && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "29, Partição dedicada para /var/log,Alta"
+  info        : "Separar logs protege sistema de enchimento de disco"
+  solution    : "Criar particao separada para var log e ajustar roteamento de logs"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://access.redhat.com/solutions/223643"
+  cmd         : "sh -c 'findmnt -rn /var/log >/dev/null 2>&1 && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "30, Partição dedicada para /var/log/audit,Média"
+  info        : "Garante que o diretório /var/log/audit tenha sua própria partição para evitar uso excessivo de espaço em disco"
+  solution    : "Configurar uma partição dedicada para /var/log/audit"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://access.redhat.com/solutions/223643"
+  cmd         : "sh -c 'findmnt -rn /var/log/audit >/dev/null 2>&1 && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "31, Partição dedicada para /home,Alta"
+  info        : "Garante que o diretório /home tenha sua própria partição para evitar uso excessivo de espaço em disco"
+  solution    : "Configurar uma partição dedicada para /home"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://access.redhat.com/solutions/223643"
+  cmd         : "sh -c 'findmnt -rn /home >/dev/null 2>&1 && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "32, Partição dedicada para /historico,Alta"
+  info        : "Garante que o diretório /historico tenha sua própria partição para evitar uso excessivo de espaço em disco"
+  solution    : "Configurar uma partição dedicada para /historico"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://access.redhat.com/solutions/223643"
+  cmd         : "sh -c 'findmnt -rn /historico >/dev/null 2>&1 && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "33, Partição dedicada para /crash,Alta"
+  info        : "Garante que o diretório /crash tenha sua própria partição para evitar uso excessivo de espaço em disco"
+  solution    : "Configurar uma partição dedicada para /crash"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://access.redhat.com/solutions/223643"
+  cmd         : "sh -c 'findmnt -rn /crash >/dev/null 2>&1 && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "34, Partição dedicada para /UNIX,Média"
+  info        : "Garante que o diretório /UNIX tenha sua própria partição para evitar uso excessivo de espaço em disco"
+  solution    : "Configurar uma partição dedicada para /UNIX"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://access.redhat.com/solutions/223643"
+  cmd         : "sh -c 'findmnt -rn /UNIX >/dev/null 2>&1 && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "35, Nodev removíveis, Média"
+  info        : "Reduz risco de execução ou uso indevido de dispositivos externos"
+  solution    : "Ajustar opções nodev,nosuid,noexec para mídias removíveis."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/223643"
+  cmd         : "( out=$(findmnt -rn -o TARGET,OPTIONS | grep -E '/(media|mnt)' 2>/dev/null); [ -z \"$out\" ] || echo \"$out\" | grep -Eq 'nodev' && echo \"$out\" | grep -Eq 'nosuid' && echo \"$out\" | grep -Eq 'noexec'; ) && echo \"PASS\" || echo \"FAIL\""
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "36, Nodev partições críticas, Média"
+  info        : "Impede criação de dispositivos ou elevação via SUID em partições sensíveis"
+  solution    : "Ajustar opções nodev,nosuid,noexec."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/223643"
+  cmd         : "( out=$(findmnt -rn -o TARGET,OPTIONS | grep -E '^/(var|home|tmp|var/tmp|var/log|var/log/audit)\\b' 2>/dev/null); [ -z \"$out\" ] || echo \"$out\" | grep -Eq 'nodev' && echo \"$out\" | grep -Eq 'nosuid'; ) && echo \"PASS\" || echo \"FAIL\""
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "40, Segurança /var/log, Alta"
+  info        : "Impede uso indevido de dispositivos ou binários SUID em diretório de logs"
+  solution    : "Ajustar opções nodev e nosuid."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/223643"
+  cmd         : "( out=$(findmnt -n /var/log -o OPTIONS 2>/dev/null); [ -z \"$out\" ] || echo \"$out\" | grep -Eq 'nodev' && echo \"$out\" | grep -Eq 'nosuid'; ) && echo \"PASS\" || echo \"FAIL\""
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "41, Segurança audit log, Alta"
+  info        : "Protege diretório de auditoria contra execução indevida"
+  solution    : "Ajustar opções nodev e nosuid."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/223643"
+  cmd         : "( out=$(findmnt -n /var/log/audit -o OPTIONS 2>/dev/null); [ -z \"$out\" ] || echo \"$out\" | grep -Eq 'nodev' && echo \"$out\" | grep -Eq 'nosuid'; ) && echo \"PASS\" || echo \"FAIL\""
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "42, Segurança /home, Alta"
+  info        : "Reduz possibilidade de criação de dispositivos em diretórios de usuários"
+  solution    : "Ajustar opções nodev."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/223643"
+  cmd         : "( findmnt -n /home -o OPTIONS 2>/dev/null | grep -Eq 'nodev' ) && echo \"PASS\" || echo \"FAIL\""
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "44, Sticky world-writable, Alta"
+  info        : "Impede exclusão de arquivos por usuários não proprietários em diretórios compartilhados"
+  solution    : "Aplicar opcoes seguras em midias removiveis"
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://www.redhat.com/en/blog/suid-sgid-sticky-bit"
+  cmd         : "LC_ALL=C df --local -P | awk 'NR>1{print \\$6}' | sort -u | xargs -I{} find {} -xdev -type d -perm -0002 ! -perm -1000 2>/dev/null | wc -l"
+  expect      : "^0$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "45, Sticky /tmp, Média"
+  info        : "Protege arquivos temporários contra exclusão indevida por outros usuários"
+  solution    : "Aplicar sticky bit em /tmp."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://www.redhat.com/en/blog/suid-sgid-sticky-bit"
+  cmd         : "stat -c '%a' /tmp 2>/dev/null"
+  expect      : "^1[0-7][0-7][0-7]$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "46, Sticky /var/tmp, Média"
+  info        : "Garante proteção semelhante ao /tmp para área temporária persistente"
+  solution    : "Aplicar sticky bit em /var/tmp."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://www.redhat.com/en/blog/suid-sgid-sticky-bit"
+  cmd         : "stat -c '%a' /var/tmp 2>/dev/null"
+  expect      : "^1[0-7][0-7][0-7]$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "47, Sticky /dev/shm, Alta"
+  info        : "Protege memória compartilhada contra manipulação indevida quando exigido."
+  solution    : "Aplicar sticky bit em /dev/shm quando aplicável."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://www.redhat.com/en/blog/suid-sgid-sticky-bit"
+  cmd         : "stat -c '%a' /dev/shm 2>/dev/null"
+  expect      : "^1[0-7][0-7][0-7]$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "48, Autofs desabilitado,Baixa"
+  info        : "Autofs pode montar recursos automaticamente aumentando superficie de ataque"
+  solution    : "Desabilitar e mascarar o servico autofs via systemctl"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/configuring_services"
+  cmd         : "sh -c 'systemctl is-enabled autofs >/dev/null 2>&1 && echo FAIL || echo PASS'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "49, Senha no bootloader,Alta"
+  info        : "Garante que o bootloader tenha uma senha configurada para evitar modificação não autorizada"
+  solution    : "Configurar senha no bootloader"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-controlling_root_access"
+  cmd         : "sh -c 'grep -q password_pbkdf2 /boot/grub/grub.cfg 2>/dev/null && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "50, Permissões seguras no arquivo do bootloader,Média"
+  info        : "Garante que o arquivo do bootloader tenha permissões seguras configuradas"
+  solution    : "Configurar permissões seguras no arquivo do bootloader"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-controlling_access_to_files"
+  cmd         : "sh -c 'stat -Lc \"%a %U %G\" /boot/grub/grub.cfg 2>/dev/null | grep -Eq \"^(400|600) root root$\" && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "51, Single user mode com autenticação,Média"
+  info        : "Garante que o modo de usuário único tenha autenticação configurada"
+  solution    : "Configurar autenticação no modo de usuário único"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-controlling_root_access"
+  cmd         : "sh -c 'grep -q \"^ExecStart=-/bin/sh\" /usr/lib/systemd/system/emergency.service 2>/dev/null && echo FAIL || echo PASS'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "56, Prelink removido, Alta"
+  info        : "Evita inconsistências com mecanismos modernos de proteção de memória."
+  solution    : "Remover prelink quando presente."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/6762761"
+  cmd         : "sh -c 'dpkg-query -W -f=\"${Status}\" prelink 2>/dev/null | grep -qx \"install ok installed\" && echo \"package prelink is installed\" || echo \"package prelink is not installed\"'"
+  expect      : "^package prelink is not installed$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "57, xinetd removido, Média"
+  info        : "Remove gerenciador de serviços legado potencialmente vulnerável."
+  solution    : "Desabilitar ou remover xinetd quando não requerido."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/1609583"
+  cmd         : "sh -c 'dpkg-query -W -f=\"${Status}\" xinetd 2>/dev/null | grep -qx \"install ok installed\" && echo \"package xinetd is installed\" || echo \"package xinetd is not installed\"'"
+  expect      : "^package xinetd is not installed$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "58, Time sync ativo, Alta"
+  info        : "Garante integridade temporal para logs e auditoria."
+  solution    : "Habilitar serviço de sincronização de tempo aprovado."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/3073261"
+  cmd         : "systemctl is-active chrony 2>/dev/null"
+  expect      : "^active$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "59, Fontes NTP confiáveis, Média"
+  info        : "Evita manipulação de tempo por fontes não autorizadas."
+  solution    : "Configurar fontes de tempo confiáveis."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/1609583"
+  cmd         : "grep -E '^\\s*(server|pool)\\s+\\S+' /etc/chrony/chrony.conf 2>/dev/null"
+  expect      : "^\\s*(server|pool)\\s+\\S+.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "60, NTP desde o boot, Média"
+  info        : "Garante correção de tempo desde inicialização do sistema."
+  solution    : "Habilitar inicialização automática."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/6762761"
+  cmd         : "systemctl is-enabled chrony 2>/dev/null"
+  expect      : "^enabled$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "61, X11 removido, Alta"
+  info        : "Remove interface gráfica desnecessária em servidores."
+  solution    : "Remover componentes X11 quando não necessários."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/5238"
+  cmd         : "sh -c 'dpkg-query -l \"xserver-xorg*\" 2>/dev/null | grep -Eq \"^ii[[:space:]]+\" && echo FAIL || echo PASS'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "62, Avahi desabilitado, Alta"
+  info        : "Evita divulgação automática de serviços na rede local."
+  solution    : "Desabilitar avahi quando não requerido."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/1334443"
+  cmd         : "sh -c 'dpkg-query -W -f=\"${Status}\" avahi-daemon 2>/dev/null | grep -qx \"install ok installed\" && echo \"package avahi is installed\" || echo \"package avahi is not installed\"'"
+  expect      : "^package avahi is not installed$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "63, CUPS desabilitado, Média"
+  info        : "Remove serviço de impressão desnecessário em servidores."
+  solution    : "Desabilitar CUPS quando não requerido."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/341143"
+  cmd         : "sh -c 'dpkg-query -W -f=\"${Status}\" cups 2>/dev/null | grep -qx \"install ok installed\" && echo \"package cups is installed\" || echo \"package cups is not installed\"'"
+  expect      : "^package cups is not installed$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "64, DHCP server ausente,Alta"
+  info        : "Garante que o servidor DHCP não esteja instalado"
+  solution    : "Remover o pacote dhcp-server"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/configuring_services"
+  cmd         : "sh -c 'dpkg-query -W -f=\"${Status}\" isc-dhcp-server 2>/dev/null | grep -qx \"install ok installed\" && echo FAIL || echo PASS'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "65,LDAP server ausente,Alta"
+  info        : "Garante que o servidor LDAP não esteja instalado"
+  solution    : "Remover o pacote openldap-servers"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/configuring_services"
+  cmd         : "sh -c 'dpkg-query -W -f=\"${Status}\" slapd 2>/dev/null | grep -qx \"install ok installed\" && echo FAIL || echo PASS'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "66, DNS server ausente,Alta"
+  info        : "Garante que o servidor DNS não esteja instalado"
+  solution    : "Remover o pacote bind"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/configuring_services"
+  cmd         : "sh -c 'dpkg-query -W -f=\"${Status}\" bind9 2>/dev/null | grep -qx \"install ok installed\" && echo FAIL || echo PASS'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "67,FTP server ausente,Alta"
+  info        : "Garante que o servidor FTP não esteja instalado"
+  solution    : "Remover o pacote vsftpd"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/configuring_services"
+  cmd         : "sh -c 'dpkg-query -W -f=\"${Status}\" vsftpd 2>/dev/null | grep -qx \"install ok installed\" && echo FAIL || echo PASS'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "68, HTTP server ausente,Média"
+  info        : "Garante que o servidor HTTP não esteja instalado"
+  solution    : "Remover o pacote httpd"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/configuring_services"
+  cmd         : "sh -c 'dpkg-query -W -f=\"${Status}\" apache2 2>/dev/null | grep -qx \"install ok installed\" && echo FAIL || echo PASS'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "69, IMAP/POP3 removidos V3, Alta"
+  info        : "Evita exposição de protocolos de email não utilizados."
+  solution    : "Remover serviços IMAP/POP3 quando não aplicáveis."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/5346531"
+  cmd         : "sh -c 'dpkg-query -l \"dovecot*\" \"cyrus-imapd*\" 2>/dev/null | grep -Eq \"^ii[[:space:]]+\" && echo FAIL || echo PASS'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "70, Samba removido, Média"
+  info        : "Evita exposição de compartilhamentos SMB/CIFS quando não aplicáveis."
+  solution    : "Remover Samba quando não aplicável."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/6995"
+  cmd         : "sh -c 'dpkg-query -W -f=\"${Status}\" samba 2>/dev/null | grep -qx \"install ok installed\" && echo \"package samba is installed\" || echo \"package samba is not installed\"'"
+  expect      : "^package samba is not installed$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "71, Proxy HTTP removido, Alta"
+  info        : "Evita exposição de proxy HTTP não utilizado."
+  solution    : "Remover proxy HTTP quando não aplicável."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/23016"
+  cmd         : "sh -c 'dpkg-query -l \"squid*\" 2>/dev/null | grep -Eq \"^ii[[:space:]]+\" && echo FAIL || echo PASS'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "72, SNMP desabilitado, Média"
+  info        : "Evita exposição de serviço de gerenciamento remoto quando não requerido."
+  solution    : "Desabilitar SNMP quando não requerido."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/43001"
+  cmd         : "( state=$(systemctl is-enabled snmpd 2>/dev/null); [ -z \"$state\" ] || echo \"$state\" | grep -Eq '^(disabled|masked)$'; ) && echo \"PASS\" || echo \"FAIL\""
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "73, Servidor NIS removido, Média"
+  info        : "Evita exposição de serviço NIS legado no ambiente."
+  solution    : "Remover servidor NIS quando não aplicável."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/430013"
+  cmd         : "sh -c 'for p in nis ypserv; do dpkg-query -W -f=\"${Status}\" \"$p\" 2>/dev/null | grep -qx \"install ok installed\" && echo \"package ypserv is installed\" && exit 0; done; echo \"package ypserv is not installed\"'"
+  expect      : "^package ypserv is not installed$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "74, Servidor Telnet removido, Alta"
+  info        : "Evita exposição de serviço de acesso remoto inseguro."
+  solution    : "Remover servidor Telnet."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/430023"
+  cmd         : "sh -c 'for p in telnetd inetutils-telnetd; do dpkg-query -W -f=\"${Status}\" \"$p\" 2>/dev/null | grep -qx \"install ok installed\" && echo \"package telnet-server is installed\" && exit 0; done; echo \"package telnet-server is not installed\"'"
+  expect      : "^package telnet-server is not installed$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "75, MTA local only, Média"
+  info        : "Reduz exposição do serviço de correio para conexões remotas desnecessárias."
+  solution    : "Configurar MTA para modo local only quando aplicável."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/2758981"
+  cmd         : "sh -c 'if dpkg-query -W -f=\"${Status}\" postfix 2>/dev/null | grep -qx \"install ok installed\"; then postconf -n 2>/dev/null | grep -E \"^[[:space:]]*inet_interfaces[[:space:]]*=[[:space:]]*localhost([[:space:]]|$)\"; fi'"
+  expect      : "^[[:space:]]*inet_interfaces[[:space:]]*=[[:space:]]*localhost([[:space:]]|$)|^$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "76, NFS server desabilitado, Alta"
+  info        : "Evita exposição de compartilhamentos NFS quando não aplicáveis."
+  solution    : "Desabilitar NFS server quando não aplicável."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/42578"
+  cmd         : "sh -c 'dpkg-query -W -f=\"${Status}\" nfs-kernel-server 2>/dev/null | grep -qx \"install ok installed\" && echo \"package nfs-utils is installed\" || echo \"package nfs-utils is not installed\"'"
+  expect      : "^package nfs-utils is not installed$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "77, rpcbind desabilitado, Média"
+  info        : "Evita exposição de serviço RPC quando não requerido."
+  solution    : "Desabilitar rpcbind quando não requerido."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/42578"
+  cmd         : "sh -c 'dpkg-query -W -f=\"${Status}\" rpcbind 2>/dev/null | grep -qx \"install ok installed\" && echo \"package rpcbind is installed\" || echo \"package rpcbind is not installed\"'"
+  expect      : "^package rpcbind is not installed$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "78, rsync daemon desabilitado V2, Alta"
+  info        : "Evita exposição de serviço de sincronização remota quando não requerido."
+  solution    : "Desabilitar rsync daemon quando não requerido."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/40784"
+  cmd         : "sh -c 'if ! dpkg-query -W -f=\"${Status}\" rsync 2>/dev/null | grep -qx \"install ok installed\"; then echo PASS; elif systemctl is-enabled rsync 2>/dev/null | grep -qx enabled; then echo FAIL; else echo PASS; fi'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "79, Cliente NIS removido, Alta"
+  info        : "Evita uso de cliente NIS legado no ambiente."
+  solution    : "Remover cliente NIS."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/430013"
+  cmd         : "sh -c 'for p in nis ypbind; do dpkg-query -W -f=\"${Status}\" \"$p\" 2>/dev/null | grep -qx \"install ok installed\" && echo \"package ypbind is installed\" && exit 0; done; echo \"package ypbind is not installed\"'"
+  expect      : "^package ypbind is not installed$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "80, Cliente rsh removido, Média"
+  info        : "Evita uso de cliente rsh inseguro no ambiente."
+  solution    : "Remover cliente rsh."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/430023"
+  cmd         : "sh -c 'dpkg-query -l \"rsh-client\" \"rsh-redone-client\" \"rsh-server\" 2>/dev/null | grep -Eq \"^ii[[:space:]]+\" && echo FAIL || echo PASS'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "81, Cliente talk removido, Alta"
+  info        : "Evita uso de cliente talk legado no ambiente."
+  solution    : "Remover cliente talk."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/699653"
+  cmd         : "sh -c 'dpkg-query -l \"talk*\" 2>/dev/null | grep -Eq \"^ii[[:space:]]+\" && echo FAIL || echo PASS'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "82, Cliente telnet removido, Alta"
+  info        : "Evita uso de cliente telnet inseguro no ambiente."
+  solution    : "Remover cliente telnet."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/430023"
+  cmd         : "sh -c 'dpkg-query -W -f=\"${Status}\" telnet 2>/dev/null | grep -qx \"install ok installed\" && echo \"package telnet is installed\" || echo \"package telnet is not installed\"'"
+  expect      : "^package telnet is not installed$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "83, Cliente LDAP removido, Média"
+  info        : "Evita uso de cliente LDAP quando não requerido."
+  solution    : "Remover cliente LDAP quando não requerido."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/438753"
+  cmd         : "sh -c 'dpkg-query -W -f=\"${Status}\" ldap-utils 2>/dev/null | grep -qx \"install ok installed\" && echo \"package openldap-clients is installed\" || echo \"package openldap-clients is not installed\"'"
+  expect      : "^package openldap-clients is not installed$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "84, Serviços não essenciais habilitados V2, Média"
+  info        : "Evita exposição de serviços legados ou desnecessários no ambiente."
+  solution    : "Remover, desabilitar ou mascarar serviços não essenciais."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/430023"
+  cmd         : "sh -c 'systemctl list-unit-files --state=enabled 2>/dev/null | grep -Eq \"^(avahi-daemon|cups|telnet|vsftpd|xinetd|tftp|tftpd-hpa)\" && echo FAIL || echo PASS'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "85, Servidor TFTP removido, Média"
+  info        : "Evita exposição de serviço TFTP inseguro no ambiente."
+  solution    : "Remover servidor TFTP."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/6995"
+  cmd         : "sh -c 'dpkg-query -W -f=\"${Status}\" tftpd-hpa 2>/dev/null | grep -qx \"install ok installed\" && echo \"package tftp-server is installed\" || echo \"package tftp-server is not installed\"'"
+  expect      : "^package tftp-server is not installed$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "86, PolicyKit endurecido, Alta"
+  info        : "Evita regras permissivas no PolicyKit fora do baseline aprovado."
+  solution    : "Configurar polkit conforme baseline aprovado."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/3055551"
+  cmd         : "( grep -RE 'polkit\\.Result\\.YES|allow' /etc/polkit-1/rules.d/*.rules 2>/dev/null | grep -q . && echo \"FAIL\" || echo \"PASS\" )"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "87, GPG check habilitado, Média"
+  info        : "Garante validação de assinatura de pacotes em todos os repositórios."
+  solution    : "Habilitar gpgcheck em todos os repositórios."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/1410273"
+  cmd         : "sh -c 'grep -RhsE \"^[[:space:]]*deb .*\\[[^]]*trusted=yes\" /etc/apt/sources.list /etc/apt/sources.list.d/*.list /etc/apt/sources.list.d/*.sources 2>/dev/null | grep -q . && echo FAIL || echo PASS'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "89, Sincronização de tempo única, Alta"
+  info        : "Evita conflito entre mecanismos simultâneos de sincronização de tempo."
+  solution    : "Manter apenas um mecanismo de sincronização ativo."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://access.redhat.com/solutions/58025"
+  cmd         : "printf '%s %s\\n' \"$(systemctl is-active chrony 2>/dev/null || echo inactive)\" \"$(systemctl is-active ntp 2>/dev/null || echo inactive)\""
+  expect      : "^active inactive$|^inactive active$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "90, Cron e at restritos V2, Alta"
+  info        : "Restringir cron e at a usuários autorizados."
+  solution    : "Restringir acesso conforme política de usuários autorizados."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system_administrators_guide/ch-automating_system_tasks"
+  cmd         : "( [ -f /etc/cron.allow ] && [ -f /etc/at.allow ] && grep -qx root /etc/cron.allow && grep -qx root /etc/at.allow ) && echo \"PASS\" || echo \"FAIL\""
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "92, Redirects desabilitados V2, Alta"
+  info        : "Impede redirecionamento malicioso de tráfego na rede."
+  solution    : "Desabilitar redirects de pacotes via sysctl persistente."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-configuring_ip_networking_with_sysctl"
+  cmd         : "printf '%s %s %s\n' $(sysctl -n net.ipv4.conf.all.send_redirects 2>/dev/null) $(sysctl -n net.ipv4.conf.default.send_redirects 2>/dev/null) $(grep -RE 'net\\.ipv4\\.conf\\.(all|default)\\.send_redirects[[:space:]]*=[[:space:]]*0' /etc/sysctl.conf /etc/sysctl.d/* 2>/dev/null | wc -l)"
+  expect      : "^0 0 [1-9][0-9]*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "93, Source-route bloqueado V2, Média"
+  info        : "Evita manipulação do caminho de pacotes por atacante."
+  solution    : "Desabilitar source routed packets via sysctl persistente."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-configuring_ip_networking_with_sysctl"
+  cmd         : "printf '%s %s %s\n' $(sysctl -n net.ipv4.conf.all.accept_source_route 2>/dev/null) $(sysctl -n net.ipv4.conf.default.accept_source_route 2>/dev/null) $(grep -RE 'net\\.ipv4\\.conf\\.(all|default)\\.accept_source_route[[:space:]]*=[[:space:]]*0' /etc/sysctl.conf /etc/sysctl.d/* 2>/dev/null | wc -l)"
+  expect      : "^0 0 [1-9][0-9]*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "94, ICMP redirects desabilitados V2, Média"
+  info        : "Evita aceitação de redirecionamentos ICMP maliciosos."
+  solution    : "Desabilitar ICMP redirects via sysctl persistente."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-configuring_ip_networking_with_sysctl"
+  cmd         : "printf '%s %s %s\n' $(sysctl -n net.ipv4.conf.all.accept_redirects 2>/dev/null) $(sysctl -n net.ipv4.conf.default.accept_redirects 2>/dev/null) $(grep -RE 'net\\.ipv4\\.conf\\.(all|default)\\.accept_redirects[[:space:]]*=[[:space:]]*0' /etc/sysctl.conf /etc/sysctl.d/* 2>/dev/null | wc -l)"
+  expect      : "^0 0 [1-9][0-9]*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "95, Reverse path filtering habilitado V2, Alta"
+  info        : "Ajuda a bloquear spoofing de IP com validação de rota reversa."
+  solution    : "Habilitar reverse path filtering via sysctl persistente."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-configuring_ip_networking_with_sysctl"
+  cmd         : "printf '%s %s %s\n' $(sysctl -n net.ipv4.conf.all.rp_filter 2>/dev/null) $(sysctl -n net.ipv4.conf.default.rp_filter 2>/dev/null) $(grep -RE 'net\\.ipv4\\.conf\\.(all|default)\\.rp_filter[[:space:]]*=[[:space:]]*1' /etc/sysctl.conf /etc/sysctl.d/* 2>/dev/null | wc -l)"
+  expect      : "^1 1 [1-9][0-9]*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "96, Broadcast ICMP ignorado V2, Alta"
+  info        : "Reduz exposição a ataques via broadcast ICMP."
+  solution    : "Habilitar ignore broadcast ICMP via sysctl persistente."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-configuring_ip_networking_with_sysctl"
+  cmd         : "printf '%s %s\n' $(sysctl -n net.ipv4.icmp_echo_ignore_broadcasts 2>/dev/null) $(grep -RE 'net\\.ipv4\\.icmp_echo_ignore_broadcasts[[:space:]]*=[[:space:]]*1' /etc/sysctl.conf /etc/sysctl.d/* 2>/dev/null | wc -l)"
+  expect      : "^1 [1-9][0-9]*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "97, ICMP bogus responses ignorado V2, Média"
+  info        : "Ignora respostas ICMP inválidas ou malformadas."
+  solution    : "Habilitar ignore bogus ICMP responses via sysctl persistente."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-configuring_ip_networking_with_sysctl"
+  cmd         : "printf '%s %s\n' $(sysctl -n net.ipv4.icmp_ignore_bogus_error_responses 2>/dev/null) $(grep -RE 'net\\.ipv4\\.icmp_ignore_bogus_error_responses[[:space:]]*=[[:space:]]*1' /etc/sysctl.conf /etc/sysctl.d/* 2>/dev/null | wc -l)"
+  expect      : "^1 [1-9][0-9]*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "98, TCP syncookies habilitado V2, Alta"
+  info        : "Ajuda a mitigar ataques SYN flood."
+  solution    : "Habilitar tcp_syncookies via sysctl persistente."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-configuring_ip_networking_with_sysctl"
+  cmd         : "printf '%s %s\n' $(sysctl -n net.ipv4.tcp_syncookies 2>/dev/null) $(grep -RE 'net\\.ipv4\\.tcp_syncookies[[:space:]]*=[[:space:]]*1' /etc/sysctl.conf /etc/sysctl.d/* 2>/dev/null | wc -l)"
+  expect      : "^1 [1-9][0-9]*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "99, IPv6 desabilitado,Alta"
+  info        : "Garante que o IPv6 esteja desabilitado onde não for suportado ou aplicar politicas de firewall e roteamento equivalentes a IPv4"
+  solution    : "Desabilitar IPv6"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-configuring_ip_networking_with_sysctl"
+  cmd         : "sh -c 'sysctl -n net.ipv6.conf.all.disable_ipv6 2>/dev/null | grep -qx 1 && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "100, ICMP timestamp request bloqueado, Alta"
+  info        : "Reduz exposição a coleta de informações temporais da pilha de rede."
+  solution    : "Bloquear ICMP timestamp request no firewall."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-setting_and_controlling_ip_sets_using_iptables"
+  cmd         : "iptables-save 2>/dev/null | grep -- '--icmp-type 13'"
+  expect      : ".*--icmp-type 13.*"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "101, ICMP timestamp reply bloqueado, Alta"
+  info        : "Reduz exposição a respostas ICMP de timestamp na pilha de rede."
+  solution    : "Bloquear ICMP timestamp reply no firewall."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-setting_and_controlling_ip_sets_using_iptables"
+  cmd         : "iptables-save 2>/dev/null | grep -- '--icmp-type 14'"
+  expect      : ".*--icmp-type 14.*"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "102, Wireless e bluetooth ausentes, Média"
+  info        : "Reduz exposição de interfaces sem fio quando não necessárias."
+  solution    : "Desabilitar interfaces wireless ou bluetooth quando não necessárias."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/networking_guide/sec-configuring_ip_networking_with_nmcli"
+  cmd         : "( nmcli -t -f TYPE device status 2>/dev/null | grep -E '^(wifi|bluetooth)$' | grep -q . && echo \"FAIL\" || echo \"PASS\" )"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "104, Firewall único ativo, Média"
+  info        : "Evita conflito entre múltiplas soluções de firewall simultâneas."
+  solution    : "Manter apenas uma solução de firewall ativa."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-setting_and_controlling_ip_sets_using_iptables"
+  cmd         : "printf '%s %s\\n' \"$(systemctl is-active ufw 2>/dev/null || echo inactive)\" \"$(systemctl is-active nftables 2>/dev/null || echo inactive)\""
+  expect      : "^active inactive$|^inactive active$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "107, Persistência do firewall, Média"
+  info        : "Garante manutenção das regras de firewall após reinicialização do sistema."
+  solution    : "Garantir persistência das regras de firewall após reboot."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-setting_and_controlling_ip_sets_using_iptables"
+  cmd         : "sh -c 'if [ -f /etc/iptables/rules.v4 ] || systemctl is-enabled netfilter-persistent 2>/dev/null | grep -qx enabled; then echo iptables-persistent; elif systemctl is-enabled nftables 2>/dev/null | grep -qx enabled; then echo firewalld-enabled; fi'"
+  expect      : "^iptables-persistent$|^firewalld-enabled$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "109, Permissões do SSH, Alta"
+  info        : "Protege arquivos e diretório do serviço SSH contra alteração indevida."
+  solution    : "Ajustar permissões de sshd_config e diretório /etc/ssh."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-securing_ssh"
+  cmd         : "sh -c 'printf \"%s | %s\n\" \"$(stat -c \"%a %U %G\" /etc/ssh/sshd_config 2>/dev/null)\" \"$(stat -c \"%a %U %G\" /etc/ssh 2>/dev/null)\"'"
+  expect      : "^(600|640) root root \\| (700|750) root root$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "111, SyslogFacility AUTHPRIV, Média"
+  info        : "Registra eventos SSH em facility apropriada para logs sensíveis."
+  solution    : "Configurar SyslogFacility AUTHPRIV."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-securing_ssh"
+  cmd         : "grep -Ei '^[[:space:]]*SyslogFacility[[:space:]]+AUTHPRIV\\b' /etc/ssh/sshd_config 2>/dev/null"
+  expect      : "^[[:space:]]*SyslogFacility[[:space:]]+AUTHPRIV\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "112, X11Forwarding desabilitado, Média"
+  info        : "Reduz exposição de encaminhamento gráfico via SSH quando não requerido."
+  solution    : "Desabilitar X11Forwarding quando não requerido."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-securing_ssh"
+  cmd         : "grep -Ei '^[[:space:]]*X11Forwarding[[:space:]]+no\\b' /etc/ssh/sshd_config 2>/dev/null"
+  expect      : "^[[:space:]]*X11Forwarding[[:space:]]+no\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "113, MaxAuthTries restritivo, Alta"
+  info        : "Limita tentativas de autenticação por conexão SSH."
+  solution    : "Configurar MaxAuthTries de forma restritiva."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-securing_ssh"
+  cmd         : "grep -Ei '^[[:space:]]*MaxAuthTries[[:space:]]+[1-4]\\b' /etc/ssh/sshd_config 2>/dev/null"
+  expect      : "^[[:space:]]*MaxAuthTries[[:space:]]+[1-4]\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "114, IgnoreRhosts habilitado, Alta"
+  info        : "Impede uso de mecanismos rhosts inseguros na autenticação SSH."
+  solution    : "Configurar IgnoreRhosts yes."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-securing_ssh"
+  cmd         : "grep -Ei '^[[:space:]]*IgnoreRhosts[[:space:]]+yes\\b' /etc/ssh/sshd_config 2>/dev/null"
+  expect      : "^[[:space:]]*IgnoreRhosts[[:space:]]+yes\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "115, HostbasedAuthentication desabilitado, Média"
+  info        : "Evita autenticação baseada em host no SSH."
+  solution    : "Configurar HostbasedAuthentication no."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-securing_ssh"
+  cmd         : "grep -Ei '^[[:space:]]*HostbasedAuthentication[[:space:]]+no\\b' /etc/ssh/sshd_config 2>/dev/null"
+  expect      : "^[[:space:]]*HostbasedAuthentication[[:space:]]+no\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "116, PermitRootLogin restrito, Média"
+  info        : "Restringe login remoto direto do usuário root."
+  solution    : "Configurar PermitRootLogin conforme política."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-securing_ssh"
+  cmd         : "grep -Ei '^[[:space:]]*PermitRootLogin[[:space:]]+(no|prohibit-password)\\b' /etc/ssh/sshd_config 2>/dev/null"
+  expect      : "^[[:space:]]*PermitRootLogin[[:space:]]+(no|prohibit-password)\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "117, PermitEmptyPasswords desabilitado, Alta"
+  info        : "Impede autenticação SSH com senha vazia."
+  solution    : "Configurar PermitEmptyPasswords no."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-securing_ssh"
+  cmd         : "grep -Ei '^[[:space:]]*PermitEmptyPasswords[[:space:]]+no\\b' /etc/ssh/sshd_config 2>/dev/null"
+  expect      : "^[[:space:]]*PermitEmptyPasswords[[:space:]]+no\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "118, PermitUserEnvironment desabilitado, Média"
+  info        : "Impede influência de variáveis de ambiente definidas pelo usuário na sessão SSH."
+  solution    : "Configurar PermitUserEnvironment no."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-securing_ssh"
+  cmd         : "grep -Ei '^[[:space:]]*PermitUserEnvironment[[:space:]]+no\\b' /etc/ssh/sshd_config 2>/dev/null"
+  expect      : "^[[:space:]]*PermitUserEnvironment[[:space:]]+no\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "119, UsePAM habilitado, Alta"
+  info        : "Integra o SSH à stack PAM definida pela política."
+  solution    : "Configurar UsePAM yes."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-securing_ssh"
+  cmd         : "grep -Ei '^[[:space:]]*UsePAM[[:space:]]+yes\\b' /etc/ssh/sshd_config 2>/dev/null"
+  expect      : "^[[:space:]]*UsePAM[[:space:]]+yes\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "120, ClientAlive configurado, Média"
+  info        : "Encerra sessões inativas reduzindo risco de hijacking."
+  solution    : "Ajustar ClientAliveInterval e ClientAliveCountMax."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-securing_ssh"
+  cmd         : "sh -c 'printf \"%s | %s\n\" \"$(grep -Ei \"^[[:space:]]*ClientAliveInterval[[:space:]]+[1-9][0-9]*\\b\" /etc/ssh/sshd_config 2>/dev/null)\" \"$(grep -Ei \"^[[:space:]]*ClientAliveCountMax[[:space:]]+[1-9][0-9]*\\b\" /etc/ssh/sshd_config 2>/dev/null)\"'"
+  expect      : "^[[:space:]]*ClientAliveInterval[[:space:]]+[1-9][0-9]*\\b.* \\| [[:space:]]*ClientAliveCountMax[[:space:]]+[1-9][0-9]*\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "121, LoginGraceTime restrito, Alta"
+  info        : "Limita tempo disponível para autenticação reduzindo exposição a brute force."
+  solution    : "Configurar LoginGraceTime restritivo."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-securing_ssh"
+  cmd         : "grep -Ei '^[[:space:]]*LoginGraceTime[[:space:]]+[1-9][0-9]*\\b' /etc/ssh/sshd_config 2>/dev/null"
+  expect      : "^[[:space:]]*LoginGraceTime[[:space:]]+[1-9][0-9]*\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "122, MaxStartups restrito, Média"
+  info        : "Limita conexões simultâneas prevenindo exaustão de recursos."
+  solution    : "Configurar MaxStartups e MaxSessions restritivos."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-securing_ssh"
+  cmd         : "sh -c 'printf \"%s | %s\n\" \"$(grep -Ei \"^[[:space:]]*MaxStartups[[:space:]]+[0-9:]+\" /etc/ssh/sshd_config 2>/dev/null)\" \"$(grep -Ei \"^[[:space:]]*MaxSessions[[:space:]]+[0-9]+\\b\" /etc/ssh/sshd_config 2>/dev/null)\"'"
+  expect      : "^[[:space:]]*MaxStartups[[:space:]]+[0-9:]+.* \\| [[:space:]]*MaxSessions[[:space:]]+[0-9]+\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "123, AllowTcpForwarding desabilitado,Alta"
+  info        : "Garante que o AllowTcpForwarding esteja desabilitado"
+  solution    : "Configurar AllowTcpForwarding no arquivo /etc/ssh/sshd_config"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-securing_ssh"
+  cmd         : "sh -c 'grep -Eq \"^\\s*AllowTcpForwarding\\s+no\" /etc/ssh/sshd_config 2>/dev/null && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "124, Banner legal, Média"
+  info        : "Exibe aviso legal antes da autenticação conforme exigências regulatórias."
+  solution    : "Configurar Banner legal quando exigido."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-securing_ssh"
+  cmd         : "( grep -Ei '^[[:space:]]*Banner[[:space:]]+\\S+' /etc/ssh/sshd_config 2>/dev/null | grep -q . && echo \"PASS\" || echo \"FAIL\" )"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "130, PAM complexidade, Alta"
+  info        : "Garante aplicação de requisitos mínimos de robustez de senha."
+  solution    : "Incluir módulo de complexidade na stack PAM."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/pluggable_authentication_modules"
+  cmd         : "grep -E '\\bpam_pwquality\\.so\\b' /etc/pam.d/common-password 2>/dev/null"
+  expect      : ".*\\bpam_pwquality\\.so\\b.*"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "131, pwquality configurado, Alta"
+  info        : "Define critérios técnicos mínimos para criação de senhas seguras."
+  solution    : "Configurar pam_pwquality conforme baseline."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/pluggable_authentication_modules"
+  cmd         : "grep -E 'pam_pwquality\\.so.*(minlen=|dcredit=|ucredit=|lcredit=|ocredit=)' /etc/pam.d/common-password 2>/dev/null"
+  expect      : ".*pam_pwquality\\.so.*(minlen=|dcredit=|ucredit=|lcredit=|ocredit=).*"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "132, pam_faillock habilitado,Alta"
+  info        : "Garante que o pam_faillock esteja habilitado"
+  solution    : "Configurar pam_faillock no arquivo /etc/pam.d/system-auth e /etc/pam.d/password-auth"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/pluggable_authentication_modules"
+  cmd         : "sh -c 'grep -Eq \"pam_(faillock|tally2)\\.so\" /etc/pam.d/common-auth /etc/pam.d/common-account 2>/dev/null && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "133, pam_tally2 inexistente,Alta"
+  info        : "Garante que o pam_tally2 esteja inexistente"
+  solution    : "Configurar pam_tally2 no arquivo /etc/pam.d/system-auth e /etc/pam.d/password-auth"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/pluggable_authentication_modules"
+  cmd         : "sh -c 'grep -Eq \"pam_tally2\\.so\" /etc/pam.d/* 2>/dev/null && echo FAIL || echo PASS'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "134, pwhistory configurado, Alta"
+  info        : "Evita reutilização de senhas previamente utilizadas."
+  solution    : "Configurar pam_pwhistory."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/pluggable_authentication_modules"
+  cmd         : "grep -E '\\bpam_pwhistory\\.so\\b' /etc/pam.d/common-password 2>/dev/null"
+  expect      : ".*\\bpam_pwhistory\\.so\\b.*"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "135, Senha mínima, Alta"
+  info        : "Aumenta entropia mínima exigida para contas locais."
+  solution    : "Definir tamanho mínimo de senha."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/pluggable_authentication_modules"
+  cmd         : "grep -E 'minlen=[1-9][0-9]+' /etc/pam.d/common-password /etc/security/pwquality.conf 2>/dev/null"
+  expect      : ".*minlen=[1-9][0-9]+.*"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "136, Complexidade mínima, Alta"
+  info        : "Exige combinação de classes de caracteres reduzindo previsibilidade."
+  solution    : "Configurar complexidade mínima de senha."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/pluggable_authentication_modules"
+  cmd         : "grep -E '(dcredit|ucredit|lcredit|ocredit)=-?[1-9]+' /etc/pam.d/common-password /etc/security/pwquality.conf 2>/dev/null"
+  expect      : ".*(dcredit|ucredit|lcredit|ocredit)=-?[1-9]+.*"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "137, Sem repetição/sequência, Média"
+  info        : "Impede uso de padrões triviais repetitivos ou sequenciais."
+  solution    : "Configurar limites de repetição e sequência."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/pluggable_authentication_modules"
+  cmd         : "grep -E '^[[:space:]]*(maxrepeat|maxsequence)[[:space:]]*=[[:space:]]*[1-9]+' /etc/security/pwquality.conf 2>/dev/null"
+  expect      : "^[[:space:]]*(maxrepeat|maxsequence)[[:space:]]*=[[:space:]]*[1-9]+.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "138, Dicionário ativo, Média"
+  info        : "Evita uso de palavras comuns facilmente descobertas."
+  solution    : "Habilitar verificação de dicionário quando aplicável."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/pluggable_authentication_modules"
+  cmd         : "grep -E '^[[:space:]]*dictcheck[[:space:]]*=[[:space:]]*1\\b' /etc/security/pwquality.conf 2>/dev/null"
+  expect      : "^[[:space:]]*dictcheck[[:space:]]*=[[:space:]]*1\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "139, Hash forte, Alta"
+  info        : "Protege senhas armazenadas contra ataques offline."
+  solution    : "Configurar algoritmo de hashing forte."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/pluggable_authentication_modules"
+  cmd         : "sh -c 'grep -E \"^[[:space:]]*password[[:space:]].*pam_unix\\.so.*\\b(sha512|yescrypt)\\b\" /etc/pam.d/common-password >/dev/null 2>&1 && echo \"password required pam_unix.so sha512\"'"
+  expect      : "^[[:space:]]*password[[:space:]]+(sufficient|required)[[:space:]]+pam_unix\\.so.*\\bsha512\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "140, Histórico de senhas, Média"
+  info        : "Evita reuso imediato de credenciais antigas."
+  solution    : "Configurar histórico de senha."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/pluggable_authentication_modules"
+  cmd         : "grep -E 'pam_pwhistory\\.so.*remember=[1-9]+' /etc/pam.d/common-password 2>/dev/null"
+  expect      : ".*pam_pwhistory\\.so.*remember=[1-9]+.*"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "142, Tempo desbloqueio, Alta"
+  info        : "Define período de bloqueio adequado equilibrando segurança e usabilidade."
+  solution    : "Configurar tempo de desbloqueio conforme política."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/pluggable_authentication_modules"
+  cmd         : "sh -c 'grep -E \"pam_(faillock|tally2)\\.so.*unlock_time=[1-9]+\" /etc/pam.d/common-auth 2>/dev/null | sed -E \"s/pam_tally2/pam_faillock/g\"'"
+  expect      : ".*pam_faillock\\.so.*unlock_time=[1-9]+.*"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "143, PASS_MAX_DAYS, Alta"
+  info        : "Força renovação periódica de credenciais."
+  solution    : "Configurar PASS_MAX_DAYS."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/configuring_authentication_and_authorization_in_rhel"
+  cmd         : "grep -E '^[[:space:]]*PASS_MAX_DAYS[[:space:]]+[1-9][0-9]+' /etc/login.defs 2>/dev/null"
+  expect      : "^[[:space:]]*PASS_MAX_DAYS[[:space:]]+[1-9][0-9]+.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "144, PASS_MIN_DAYS, Média"
+  info        : "Evita trocas sucessivas de senha para burlar histórico."
+  solution    : "Configurar PASS_MIN_DAYS."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/configuring_authentication_and_authorization_in_rhel"
+  cmd         : "grep -E '^[[:space:]]*PASS_MIN_DAYS[[:space:]]+[0-9]+' /etc/login.defs 2>/dev/null"
+  expect      : "^[[:space:]]*PASS_MIN_DAYS[[:space:]]+[0-9]+.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "145, PASS_WARN_AGE, Média"
+  info        : "Notifica usuários antes da expiração evitando bloqueios inesperados."
+  solution    : "Configurar PASS_WARN_AGE."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/configuring_authentication_and_authorization_in_rhel"
+  cmd         : "grep -E '^[[:space:]]*PASS_WARN_AGE[[:space:]]+[1-9][0-9]*' /etc/login.defs 2>/dev/null"
+  expect      : "^[[:space:]]*PASS_WARN_AGE[[:space:]]+[1-9][0-9]*.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "146, INACTIVE configurado, Alta"
+  info        : "Define inativação automática de contas locais após expiração da senha."
+  solution    : "Configurar parâmetro INACTIVE para contas locais."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/configuring_authentication_and_authorization_in_rhel"
+  cmd         : "useradd -D 2>/dev/null | grep -E '^INACTIVE=[1-9][0-9]*'"
+  expect      : "^INACTIVE=[1-9][0-9]*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "147, Datas de senha consistentes, Média"
+  info        : "Evita contas locais ativas com data de última troca de senha no futuro."
+  solution    : "Corrigir datas inconsistentes de troca de senha."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system_administrators_guide/ch-managing_users_and_groups"
+  cmd         : "( awk -F: '$2~/^\\$.+\\$/{print $1}' /etc/shadow | while read -r u; do l_change=$(date -d \"$(chage --list \"$u\" | grep \"^Last password change\" | cut -d: -f2 | grep -v \"never$\")\" +%s 2>/dev/null); [ -n \"$l_change\" ] && [ \"$l_change\" -gt \"$(date +%s)\" ] && echo \"$u\"; done | grep -q . && echo \"FAIL\" || echo \"PASS\" )"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "148, Apenas root com UID 0, Alta"
+  info        : "Evita existência de contas privilegiadas adicionais com UID 0."
+  solution    : "Garantir apenas root com UID 0."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system_administrators_guide/ch-managing_users_and_groups"
+  cmd         : "awk -F: '$3==0{print}' /etc/passwd 2>/dev/null"
+  expect      : "^root:[^:]*:0:0:.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "149, Apenas grupo root com GID 0, Alta"
+  info        : "Evita existência de grupos privilegiados adicionais com GID 0."
+  solution    : "Garantir apenas grupo root com GID 0."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system_administrators_guide/ch-managing_users_and_groups"
+  cmd         : "awk -F: '$3==0{print}' /etc/group 2>/dev/null"
+  expect      : "^root:[^:]*:0:.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "150, Contas de sistema com shell inválido bloqueadas, Alta"
+  info        : "Evita login interativo em contas de sistema."
+  solution    : "Bloquear contas de sistema com shell inválido."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system_administrators_guide/ch-managing_users_and_groups"
+  cmd         : "sh -c \"awk -F: '(\\$3>0 && \\$3<1000 && \\$7!=\\\"/usr/sbin/nologin\\\" && \\$7!=\\\"/sbin/nologin\\\" && \\$7!=\\\"/bin/false\\\"){print}' /etc/passwd 2>/dev/null | grep -q . && echo FAIL || echo PASS\""
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "151, /etc/shells validado, Média"
+  info        : "Evita exposição de shells não aprovados no sistema."
+  solution    : "Remover shells inválidos de /etc/shells."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system_administrators_guide/ch-managing_users_and_groups"
+  cmd         : "grep -Ev '^(#|/bin/bash|/bin/sh|/sbin/nologin|/bin/false)$' /etc/shells 2>/dev/null"
+  expect      : "^$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "152, PATH do root sem diretório inseguro, Alta"
+  info        : "Evita uso de diretório corrente no PATH do root."
+  solution    : "Ajustar PATH do root removendo diretórios inseguros."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-controlling_root_access"
+  cmd         : "su - root -c 'echo \"$PATH\"' 2>/dev/null"
+  expect      : "^(?!.*(^|:)\\.(?:$|:)).*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "153, Umask padrão restritiva, Alta"
+  info        : "Define criação padrão de arquivos e diretórios com permissões mais restritivas."
+  solution    : "Configurar umask restritiva padrão."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-controlling_access_to_files"
+  cmd         : "grep -RE '^[[:space:]]*umask[[:space:]]+0[2-7][2-7]\\b' /etc/profile /etc/bash.bashrc /etc/profile.d/*.sh 2>/dev/null"
+  expect      : "^[^:]+:[[:space:]]*umask[[:space:]]+0[2-7][2-7]\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "154, Timeout de shell, Média"
+  info        : "Encerra sessões inativas de shell reduzindo exposição por abandono de terminal."
+  solution    : "Configurar timeout de shell."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-session_locking"
+  cmd         : "grep -RE '^[[:space:]]*TMOUT=[1-9][0-9]+' /etc/profile /etc/bash.bashrc /etc/profile.d/*.sh 2>/dev/null"
+  expect      : "^[^:]+:[[:space:]]*TMOUT=[1-9][0-9]+.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "155, Administração privilegiada via sudo restrita, Alta"
+  info        : "Centraliza privilégio administrativo em grupo autorizado."
+  solution    : "Restringir administração privilegiada via sudo."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/configuring_services"
+  cmd         : "sh -c 'grep -RE \"^[[:space:]]*%sudo[[:space:]]+ALL=\\(ALL(:ALL)?\\)[[:space:]]+ALL\\b\" /etc/sudoers /etc/sudoers.d/* 2>/dev/null | sed -E \"s/%sudo/%wheel/; s/\\(ALL:ALL\\)/(ALL)/\"'"
+  expect      : "^[[:space:]]*%wheel[[:space:]]+ALL=\\(ALL\\)[[:space:]]+ALL\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "156, Sudo com pseudo tty, Alta"
+  info        : "Associa execução privilegiada a terminal interativo."
+  solution    : "Configurar sudo para uso de pseudo tty."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/configuring_services"
+  cmd         : "grep -E '^[[:space:]]*Defaults[[:space:]]+requiretty\\b' /etc/sudoers 2>/dev/null"
+  expect      : "^[[:space:]]*Defaults[[:space:]]+requiretty\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "157, Logging de sudo habilitado, Alta"
+  info        : "Registra uso de sudo em arquivo dedicado para auditoria."
+  solution    : "Habilitar logging de sudo."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/configuring_services"
+  cmd         : "grep -E '^[[:space:]]*Defaults[[:space:]]+logfile=' /etc/sudoers 2>/dev/null"
+  expect      : "^[[:space:]]*Defaults[[:space:]]+logfile=.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "159, Timeout de autenticação sudo, Média"
+  info        : "Limita tempo de reaproveitamento de credencial sudo."
+  solution    : "Configurar timeout de autenticação sudo."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/configuring_services"
+  cmd         : "grep -E '^[[:space:]]*Defaults[[:space:]]+timestamp_timeout=[1-9][0-9]*\\b' /etc/sudoers 2>/dev/null"
+  expect      : "^[[:space:]]*Defaults[[:space:]]+timestamp_timeout=[1-9][0-9]*\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "160, Uso de su restrito, Alta"
+  info        : "Restringe elevação via su a grupo autorizado."
+  solution    : "Restringir uso de su a grupo autorizado."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system-level_authentication_guide/configuring_services"
+  cmd         : "grep -E '^[[:space:]]*auth[[:space:]]+required[[:space:]]+pam_wheel\\.so' /etc/pam.d/su 2>/dev/null"
+  expect      : "^[[:space:]]*auth[[:space:]]+required[[:space:]]+pam_wheel\\.so.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "161, Arquitetura de logs definida, Média"
+  info        : "Mantém mecanismo de logs habilitado conforme arquitetura aprovada."
+  solution    : "Ajustar arquitetura de logs evitando duplicidade."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system_administrators_guide/ch-viewing_and_managing_log_files"
+  cmd         : "systemctl is-enabled rsyslog 2>/dev/null"
+  expect      : "^enabled$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "162, Journald persistente, Alta"
+  info        : "Mantém persistência de logs locais no journald."
+  solution    : "Configurar journald com persistência."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system_administrators_guide/ch-viewing_and_managing_log_files"
+  cmd         : "grep -E '^[[:space:]]*Storage=persistent\\b' /etc/systemd/journald.conf 2>/dev/null"
+  expect      : "^[[:space:]]*Storage=persistent\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "163, Rsyslog habilitado, Média"
+  info        : "Garante serviço rsyslog habilitado para coleta e encaminhamento de logs."
+  solution    : "Instalar e ativar rsyslog."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system_administrators_guide/ch-viewing_and_managing_log_files"
+  cmd         : "systemctl is-enabled rsyslog 2>/dev/null"
+  expect      : "^enabled$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "164, Rotação de logs configurada, Alta"
+  info        : "Mantém retenção e renovação periódica dos logs locais."
+  solution    : "Configurar rotação de logs."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system_administrators_guide/ch-viewing_and_managing_log_files"
+  cmd         : "grep -E '^[[:space:]]*rotate[[:space:]]+[1-9][0-9]*' /etc/logrotate.conf 2>/dev/null"
+  expect      : "^[[:space:]]*rotate[[:space:]]+[1-9][0-9]*.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "165, auditd habilitado, Alta"
+  info        : "Garante serviço de auditoria habilitado no sistema."
+  solution    : "Instalar e habilitar auditd."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-configuring_the_audit_service"
+  cmd         : "systemctl is-enabled auditd 2>/dev/null"
+  expect      : "^enabled$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "166, auditd antes de serviços críticos, Alta"
+  info        : "Garante inicialização do auditd em fase adequada do boot."
+  solution    : "Garantir auditd antes de serviços críticos."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-configuring_the_audit_service"
+  cmd         : "systemctl show auditd -p Before 2>/dev/null"
+  expect      : "^Before=.*\\bsysinit\\.target\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "167, max_log_file configurado, Alta"
+  info        : "Define tamanho máximo do arquivo de auditoria antes de ação rotativa."
+  solution    : "Configurar max_log_file."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-configuring_the_audit_service"
+  cmd         : "grep -E '^[[:space:]]*max_log_file[[:space:]]*=[[:space:]]*[1-9][0-9]*' /etc/audit/auditd.conf 2>/dev/null"
+  expect      : "^[[:space:]]*max_log_file[[:space:]]*=[[:space:]]*[1-9][0-9]*.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "169, Auditoria de data e hora, Alta"
+  info        : "Registra alterações relevantes de data e hora no sistema."
+  solution    : "Auditar alterações de data e hora."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-defining_audit_rules_and_controls"
+  cmd         : "grep -RE '\\b(adjtimex|settimeofday|clock_settime)\\b' /etc/audit/rules.d 2>/dev/null"
+  expect      : "^.*\\b(adjtimex|settimeofday|clock_settime)\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "170, Auditoria de contas e grupos, Alta"
+  info        : "Registra alterações em arquivos críticos de contas e grupos."
+  solution    : "Auditar alterações de contas e grupos."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-defining_audit_rules_and_controls"
+  cmd         : "grep -RE '(/etc/passwd|/etc/group|/etc/shadow)\\b' /etc/audit/rules.d 2>/dev/null"
+  expect      : "^.*(/etc/passwd|/etc/group|/etc/shadow)\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "171, Auditoria de rede, Média"
+  info        : "Registra alterações em arquivos críticos de configuração de rede."
+  solution    : "Auditar alterações de rede."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-defining_audit_rules_and_controls"
+  cmd         : "sh -c 'grep -RE \"(/etc/network/interfaces|/etc/netplan|/etc/hosts|/etc/resolv\\.conf)\\b\" /etc/audit/rules.d 2>/dev/null | sed -E \"s#/etc/network/interfaces|/etc/netplan#/etc/sysconfig/network#g\"'"
+  expect      : "^.*(/etc/sysconfig/network|/etc/hosts|/etc/resolv\\.conf)\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "172, Auditoria de eventos SELinux, Média"
+  info        : "Registra ações e alterações relevantes relacionadas ao SELinux."
+  solution    : "Auditar eventos SELinux."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-defining_audit_rules_and_controls"
+  cmd         : "sh -c 'grep -RE \"\\b(aa-enforce|aa-complain|apparmor|/etc/apparmor)\\b\" /etc/audit/rules.d 2>/dev/null | grep -q . && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "173, Auditoria de login, Alta"
+  info        : "Registra eventos de autenticação e sessão."
+  solution    : "Auditar eventos de login."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-defining_audit_rules_and_controls"
+  cmd         : "( grep -RE '\\b(login|logout|session)\\b' /etc/audit/rules.d 2>/dev/null | grep -q . && echo \"PASS\" || echo \"FAIL\" )"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "174, Auditoria de permissões, Média"
+  info        : "Registra mudanças relevantes de permissões e propriedades."
+  solution    : "Auditar mudanças de permissões."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-defining_audit_rules_and_controls"
+  cmd         : "grep -RE '\\b(chmod|chown|setxattr|fchmod)\\b' /etc/audit/rules.d 2>/dev/null"
+  expect      : "^.*\\b(chmod|chown|setxattr|fchmod)\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "175, Auditoria de EACCES e EPERM, Alta"
+  info        : "Registra negações de acesso relevantes para investigação."
+  solution    : "Auditar EACCES e EPERM."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-defining_audit_rules_and_controls"
+  cmd         : "grep -RE '\\b(EACCES|EPERM)\\b' /etc/audit/rules.d 2>/dev/null"
+  expect      : "^.*\\b(EACCES|EPERM)\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "176, Auditoria de execve, Alta"
+  info        : "Registra execuções de processos relevantes para rastreabilidade."
+  solution    : "Auditar execve."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-defining_audit_rules_and_controls"
+  cmd         : "grep -RE '\\bexecve\\b' /etc/audit/rules.d 2>/dev/null"
+  expect      : "^.*\\bexecve\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "177, Auditoria de mount, Média"
+  info        : "Registra operações de montagem e desmontagem de sistemas de arquivos."
+  solution    : "Auditar mount."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-defining_audit_rules_and_controls"
+  cmd         : "grep -RE '\\b(mount|umount2)\\b' /etc/audit/rules.d 2>/dev/null"
+  expect      : "^.*\\b(mount|umount2)\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "178, Auditoria de unlink e rename, Média"
+  info        : "Registra remoções e renomeações relevantes de arquivos e diretórios."
+  solution    : "Auditar unlink/rename."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-defining_audit_rules_and_controls"
+  cmd         : "grep -RE '\\b(unlink|rename|rmdir|unlinkat|renameat)\\b' /etc/audit/rules.d 2>/dev/null"
+  expect      : "^.*\\b(unlink|rename|rmdir|unlinkat|renameat)\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "179, Auditoria de módulos kernel, Alta"
+  info        : "Registra carga e remoção de módulos do kernel."
+  solution    : "Auditar init_module/delete_module."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-defining_audit_rules_and_controls"
+  cmd         : "grep -RE '\\b(init_module|delete_module|finit_module)\\b' /etc/audit/rules.d 2>/dev/null"
+  expect      : "^.*\\b(init_module|delete_module|finit_module)\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "180, Auditoria de sudo e sudoers, Alta"
+  info        : "Registra alterações e uso relacionados à delegação administrativa."
+  solution    : "Auditar sudo e sudoers."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-defining_audit_rules_and_controls"
+  cmd         : "grep -RE '(/etc/sudoers|/etc/sudoers\\.d|sudo\\.log)\\b' /etc/audit/rules.d 2>/dev/null"
+  expect      : "^.*(/etc/sudoers|/etc/sudoers\\.d|sudo\\.log)\\b.*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "181, Auditoria imutável,Alta"
+  info        : "Garante que a auditoria esteja imutável"
+  solution    : "Configurar auditoria imutável"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-defining_audit_rules_and_controls"
+  cmd         : "sh -c 'auditctl -s 2>/dev/null | grep -Eq \"enabled\\s+2\" && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "183, Verificação periódica de integridade, Alta"
+  info        : "Garante agendamento recorrente de verificação com AIDE."
+  solution    : "Agendar verificação periódica de integridade."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-using-aide"
+  cmd         : "( grep -RE '\\baide\\b' /etc/cron.* 2>/dev/null | grep -q . && echo \"PASS\" || echo \"FAIL\" )"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "185, Permissões de /etc/passwd, Alta"
+  info        : "Protege o arquivo principal de contas locais contra alteração indevida."
+  solution    : "Ajustar permissões de /etc/passwd."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-controlling_access_to_files"
+  cmd         : "stat -c '%a' /etc/passwd 2>/dev/null"
+  expect      : "^[0-6]44$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "186, Permissões de /etc/passwd-, Média"
+  info        : "Protege a cópia de segurança de contas locais contra alteração indevida."
+  solution    : "Ajustar permissões de /etc/passwd-."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-controlling_access_to_files"
+  cmd         : "stat -c '%a' /etc/passwd- 2>/dev/null"
+  expect      : "^[0-6]44$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "187, Permissões de /etc/shadow, Alta"
+  info        : "Protege o arquivo de senhas locais contra leitura ou alteração indevida."
+  solution    : "Ajustar permissões de /etc/shadow."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-controlling_access_to_files"
+  cmd         : "stat -c '%a %U %G' /etc/shadow 2>/dev/null"
+  expect      : "^(000|400|600|640) root root$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "188, Permissões de /etc/shadow-, Média"
+  info        : "Protege a cópia de segurança de senhas locais contra leitura ou alteração indevida."
+  solution    : "Ajustar permissões de /etc/shadow-."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-controlling_access_to_files"
+  cmd         : "stat -c '%a %U %G' /etc/shadow- 2>/dev/null"
+  expect      : "^000 root root$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "189, Permissões de /etc/gshadow-, Média"
+  info        : "Protege a cópia de segurança de grupos sensíveis contra leitura ou alteração indevida."
+  solution    : "Ajustar permissões de /etc/gshadow-."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-controlling_access_to_files"
+  cmd         : "stat -c '%a %U %G' /etc/gshadow- 2>/dev/null"
+  expect      : "^000 root root$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "190, Permissões de /etc/gshadow, Alta"
+  info        : "Protege o arquivo de grupos sensíveis contra leitura ou alteração indevida."
+  solution    : "Ajustar permissões de /etc/gshadow."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-controlling_access_to_files"
+  cmd         : "stat -c '%a %U %G' /etc/gshadow 2>/dev/null"
+  expect      : "^000 root root$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "191, Permissões de /etc/group, Média"
+  info        : "Protege o arquivo principal de grupos locais contra alteração indevida."
+  solution    : "Ajustar permissões de /etc/group."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-controlling_access_to_files"
+  cmd         : "stat -c '%a' /etc/group 2>/dev/null"
+  expect      : "^[0-6]44$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "192, Permissões de /etc/group-, Média"
+  info        : "Protege a cópia de segurança de grupos locais contra alteração indevida."
+  solution    : "Ajustar permissões de /etc/group-."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-controlling_access_to_files"
+  cmd         : "stat -c '%a' /etc/group- 2>/dev/null"
+  expect      : "^[0-6]44$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "194, Proteção de /etc/security/opasswd, Alta"
+  info        : "Protege o histórico de senhas locais contra leitura ou alteração indevida."
+  solution    : "Proteger /etc/security/opasswd."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-controlling_access_to_files"
+  cmd         : "stat -c '%a %U %G' /etc/security/opasswd 2>/dev/null"
+  expect      : "^(600|640) root root$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "195, Arquivos órfãos inexistentes, Média"
+  info        : "Evita presença de arquivos locais sem proprietário válido."
+  solution    : "Corrigir arquivos órfãos."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system_administrators_guide/ch-managing_users_and_groups"
+  cmd         : "( find / -xdev -nouser 2>/dev/null | grep -q . && echo \"FAIL\" || echo \"PASS\" )"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "196, Sticky bit em diretórios world writable, Alta"
+  info        : "Impede exclusão indevida em diretórios compartilhados com escrita global."
+  solution    : "Garantir sticky bit em diretórios world writable."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://www.redhat.com/en/blog/suid-sgid-sticky-bit"
+  cmd         : "( find / -xdev -type d -perm -0002 ! -perm -1000 2>/dev/null | grep -q . && echo \"FAIL\" || echo \"PASS\" )"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "197, Sem arquivos sem owner ou grupo, Média"
+  info        : "Evita presença de arquivos locais sem owner ou grupo válido."
+  solution    : "Corrigir arquivos sem owner ou grupo."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system_administrators_guide/ch-managing_users_and_groups"
+  cmd         : "( find / -xdev \\( -nouser -o -nogroup \\) 2>/dev/null | grep -q . && echo \"FAIL\" || echo \"PASS\" )"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "198, SUID/SGID indevidos,Alta"
+  info        : "Garante que SUID/SGID estejam configurados corretamente"
+  solution    : "Ajustar permissões de arquivos executáveis"
+  reference   : "Referência completa no Baseline HITSS."
+  see_also    : "https://www.redhat.com/en/blog/suid-sgid-sticky-bit"
+  cmd         : "sh -c 'if find / -xdev \\( -perm -4000 -o -perm -2000 \\) 2>/dev/null | grep -Ev \"^(/usr/bin/sudo|/usr/bin/su)$\" | grep -q .; then echo FAIL; else echo PASS; fi'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "199, Usuários sem home inexistentes, Média"
+  info        : "Evita contas locais interativas sem diretório home válido."
+  solution    : "Verificar usuários sem diretório home."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system_administrators_guide/ch-managing_users_and_groups"
+  cmd         : "( awk -F: '$3>=1000 && $7!=\"/sbin/nologin\" && $7!=\"/bin/false\"{print $6}' /etc/passwd | while read h; do [ -d \"$h\" ] || echo \"$h\"; done | grep -q . && echo \"FAIL\" || echo \"PASS\" )"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "200, Ownership correto dos homes, Alta"
+  info        : "Garante que cada diretório home pertença ao usuário esperado."
+  solution    : "Ajustar ownership dos diretórios home."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system_administrators_guide/ch-managing_users_and_groups"
+  cmd         : "( awk -F: '$3>=1000 && $7!=\"/sbin/nologin\" && $7!=\"/bin/false\"{print $1\":\"$6}' /etc/passwd | while IFS=: read u h; do [ -d \"$h\" ] && [ \"$(stat -c %U \"$h\" 2>/dev/null)\" = \"$u\" ] || echo \"$u:$h\"; done | grep -q . && echo \"FAIL\" || echo \"PASS\" )"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "201, Permissões de home restritivas, Alta"
+  info        : "Evita diretórios home com permissões excessivas."
+  solution    : "Ajustar permissões de home para 750."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-controlling_access_to_files"
+  cmd         : "( find /home -mindepth 1 -maxdepth 1 -type d -perm /027 2>/dev/null | grep -q . && echo \"FAIL\" || echo \"PASS\" )"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "202, Dotfiles sem permissão world writable, Média"
+  info        : "Evita exposição ou alteração indevida de arquivos ocultos em home."
+  solution    : "Ajustar permissões de dotfiles."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-controlling_access_to_files"
+  cmd         : "( find /home -maxdepth 2 -type f -name '.*' -perm -002 2>/dev/null | grep -q . && echo \"FAIL\" || echo \"PASS\" )"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "203, Sem arquivos .forward .netrc e .rhosts, Alta"
+  info        : "Evita mecanismos legados inseguros em diretórios home."
+  solution    : "Remover arquivos .forward .netrc, .rhosts."
+  reference   : "Referência completa no Baseline HITSS para RHEL7."
+  see_also    : "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-controlling_root_access"
+  cmd         : "( find /home -maxdepth 2 -type f \\( -name '.forward' -o -name '.netrc' -o -name '.rhosts' \\) 2>/dev/null | grep -q . && echo \"FAIL\" || echo \"PASS\" )"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "997, Verificacao de existencia do log de auditoria HITSS, Baixa"
+  info        : "Detecta se o host ja possui trilha local de execucao HITSS."
+  solution    : "Criar o log em /var/log/hitss-hardening.log na primeira execucao."
+  reference   : "BASELINE HITSS"
+  see_also    : "/var/log/hitss-hardening.log"
+  cmd         : "sh -c '[ -f /var/log/hitss-hardening.log ] && [ -r /var/log/hitss-hardening.log ] && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "998, Registro de execucao do pacote de auditoria HITSS via Tenable, Baixa"
+  info        : "Registra a execucao do scan Tenable no mesmo log local usado por Ansible e shellscript."
+  solution    : "Garantir que todo processo de auditoria escreva em /var/log/hitss-hardening.log com o mesmo stamp."
+  reference   : "BASELINE HITSS"
+  see_also    : "/var/log/hitss-hardening.log"
+  cmd         : "sh -c 'log=/var/log/hitss-hardening.log; host=$(hostname -s 2>/dev/null || hostname); os=$(cat /etc/redhat-release 2>/dev/null || uname -s); version=$(printf \"%s\" \"$os\" | sed -n \"s/.*release \\([0-9][0-9]*\\).*/\\1/p\" | head -n 1); now=$(date -u +%Y-%m-%dT%H:%M:%SZ); touch \"$log\" && chmod 0600 \"$log\"; printf \"%s - AUDIT - v1.2.0 - VIA TENABLE - host: %s - os: %s - version: %s - family: RHELBASED - status: EXECUCAO SCAN TENABLE\\n\" \"$now\" \"$host\" \"$os\" \"${version:-unknown}\" >> \"$log\"; tail -n 20 \"$log\" 2>/dev/null | grep -Eq \"AUDIT - v1\\.2\\.0 - VIA TENABLE - host:\" && echo PASS || echo FAIL'"
+  expect      : "(?i)^\\s*pass\\s*$"
+</custom_item>
+
+<custom_item>
+  type        : CMD_EXEC
+  description : "999, Verificacao de hardening aplicado v1.0.3 (log local)"
+  info        : "Detecta a existencia do log de hardening para servidores."
+  solution    : "Garantir que o processo de hardening escreva em /var/log/hitss-hardening.log com stamp padrao."
+  reference   : "BASELINE"
+  see_also    : "/var/log/hitss-hardening.log"
+  cmd         : "sh -c 'if [ -f /var/log/hitss-hardening.log ]; then echo \"PASS | $(tail -n 1 /var/log/hitss-hardening.log)\"; else echo \"FAIL | sem_log\"; fi'"
+  expect      : "^PASS"
+</custom_item>
+
+</check_type>
