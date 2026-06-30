@@ -1,0 +1,24 @@
+priority_score;age_in_days;Host;FQDN;IP Address;OS;CVE;CVSS;CVSS3 Base Score;CVSS3 Temporal Score;Vulnerability Priority Rating (VPR);Exploit Available;Name;Risk;Solution;Severity;Vulnerability State
+18.25;379.2511272601157;sensor_eng_video_01;sensor_eng_video_01;172.16.6.113;;;0.0;0.0;0.0;null;false;Netstat Portscanner (SSH);None;N/A;0;Active
+18.25;396.2558644013426;sensor_eng_video_01;sensor_eng_video_01;172.16.6.113;;;0.0;0.0;0.0;null;false;Nessus Scan Information;None;N/A;0;Active
+18.25;379.25112726016204;sensor_eng_video_01;sensor_eng_video_01;172.16.6.113;;;0.0;0.0;0.0;null;false;Patch Report;None;Install the patches listed below.;0;Resurfaced
+1.75;34.949127607499996;sensor_eng_video_02;sensor_eng_video_02;172.16.6.114;;;0.0;0.0;0.0;null;false;Netstat Portscanner (SSH);None;N/A;0;Active
+1.75;34.949127607523145;sensor_eng_video_02;sensor_eng_video_02;172.16.6.114;;;0.0;0.0;0.0;null;false;Nessus Scan Information;None;N/A;0;Active
+1.75;34.949127607546295;sensor_eng_video_02;sensor_eng_video_02;172.16.6.114;;;0.0;0.0;0.0;null;false;Patch Report;None;Install the patches listed below.;0;Active
+1.75;34.9665686378125;sensor_eng_video_03;sensor_eng_video_03;172.16.6.27;;;0.0;0.0;0.0;null;false;Netstat Portscanner (SSH);None;N/A;0;Active
+1.75;34.96656863783565;sensor_eng_video_03;sensor_eng_video_03;172.16.6.27;;;0.0;0.0;0.0;null;false;Nessus Scan Information;None;N/A;0;Active
+1.75;34.96656863787037;sensor_eng_video_03;sensor_eng_video_03;172.16.6.27;;;0.0;0.0;0.0;null;false;Patch Report;None;Install the patches listed below.;0;Active
+0.19;3.753097247974537;debian11-generic-20260626;debian11-generic-20260626;10.0.2.15;;;0.0;0.0;0.0;null;false;Netstat Portscanner (SSH);None;N/A;0;New
+0.19;3.7530972483101857;debian11-generic-20260626;debian11-generic-20260626;10.0.2.15;;;0.0;0.0;0.0;null;false;Nessus Scan Information;None;N/A;0;New
+0.19;3.7670554199189814;debian12-podre-33-20260626;debian12-podre-33-20260626;10.0.2.15;;;0.0;0.0;0.0;null;false;Netstat Portscanner (SSH);None;N/A;0;New
+0.19;3.7670554199421296;debian12-podre-33-20260626;debian12-podre-33-20260626;10.0.2.15;;;0.0;0.0;0.0;null;false;Nessus Scan Information;None;N/A;0;New
+0.19;3.75687945943287;ubuntu1604-generic-xenial-20260626;ubuntu1604-generic-xenial-20260626;10.0.2.15;;;0.0;0.0;0.0;null;false;Netstat Portscanner (SSH);None;N/A;0;New
+0.19;3.7568794594560186;ubuntu1604-generic-xenial-20260626;ubuntu1604-generic-xenial-20260626;10.0.2.15;;;0.0;0.0;0.0;null;false;Nessus Scan Information;None;N/A;0;New
+0.18;3.6670428734837968;debian13-generic-20260626;debian13-generic-20260626;10.0.2.15;;;0.0;0.0;0.0;null;false;Netstat Portscanner (SSH);None;N/A;0;New
+0.18;3.6670428735069445;debian13-generic-20260626;debian13-generic-20260626;10.0.2.15;;;0.0;0.0;0.0;null;false;Nessus Scan Information;None;N/A;0;New
+0.04;0.8059800493634259;debian11-generic-20260626;debian11-generic-20260626;10.0.2.15;;;0.0;0.0;0.0;null;false;Patch Report;None;Install the patches listed below.;0;New
+0.04;0.807027318113426;debian12-podre-33-20260626;debian12-podre-33-20260626;10.0.2.15;;;0.0;0.0;0.0;null;false;Patch Report;None;Install the patches listed below.;0;New
+0.04;0.7944433367939815;ubuntu1604-generic-xenial-20260626;ubuntu1604-generic-xenial-20260626;10.0.2.15;;;0.0;0.0;0.0;null;false;Patch Report;None;Install the patches listed below.;0;New
+0.04;0.760427156261574;ubuntu1604-96-xenial-20260629;ubuntu1604-96-xenial-20260629;10.0.2.15;;;0.0;0.0;0.0;null;false;Netstat Portscanner (SSH);None;N/A;0;New
+0.04;0.7604271562962963;ubuntu1604-96-xenial-20260629;ubuntu1604-96-xenial-20260629;10.0.2.15;;;0.0;0.0;0.0;null;false;Nessus Scan Information;None;N/A;0;New
+0.04;0.7604271563194445;ubuntu1604-96-xenial-20260629;ubuntu1604-96-xenial-20260629;10.0.2.15;;;0.0;0.0;0.0;null;false;Patch Report;None;Install the patches listed below.;0;New

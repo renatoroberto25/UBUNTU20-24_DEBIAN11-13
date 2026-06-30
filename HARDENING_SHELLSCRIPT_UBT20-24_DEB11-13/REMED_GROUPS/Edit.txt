@@ -1,0 +1,24 @@
+/home/renato/.local/share/Steam/steamapps/compatdata/367520/pfx/drive_c/users/steamuser/AppData/LocalLow/Team Cherry/Hollow Knight/
+/home/renato/.config/unity3d/Team Cherry/Hollow Knight Silksong/399870897/
+/home/renato/.local/share/Steam/steamapps/common/Metro 2033 Redux/
+/home/renato/.config/unity3d/TheGameKitchen/Blasphemous/Savegames/76561198360136625/
+git commit -m "Teste novos custom itens com sucesso. Co-authored-by: renatoroberto3 <renato.roberto.3@globalhitss.com.br>"
+
+
+SALUBRA:
+Crossroads_04
+
+Whitepalace 1
+White_Palace_01
+whitepalace 2
+White_Palace_03_hub
+
+hidden station
+Abyss_22
+
+
+DELICATE FLOWEER 1
+RestingGrounds_12
+
+WATERWAYS BAIXA
+GG_Waterways

@@ -2100,3 +2100,6 @@
   cmd         : "sh -c 'if [ -f /var/log/hitss-hardening.log ]; then echo \"PASS | $(tail -n 1 /var/log/hitss-hardening.log)\"; else echo \"FAIL | sem_log\"; fi'"
   expect      : "^PASS"
 </custom_item>
+
+</check_type>
+
